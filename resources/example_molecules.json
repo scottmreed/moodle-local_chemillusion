@@ -1,0 +1,24 @@
+{
+  "molecules": [
+    {"name": "methane", "smiles": "C", "level": "organic_1"},
+    {"name": "ethane", "smiles": "CC", "level": "organic_1"},
+    {"name": "ethene", "smiles": "C=C", "level": "organic_1"},
+    {"name": "ethyne", "smiles": "C#C", "level": "organic_1"},
+    {"name": "benzene", "smiles": "c1ccccc1", "level": "organic_1"},
+    {"name": "toluene", "smiles": "Cc1ccccc1", "level": "organic_1"},
+    {"name": "phenol", "smiles": "Oc1ccccc1", "level": "organic_1"},
+    {"name": "ethanol", "smiles": "CCO", "level": "organic_1"},
+    {"name": "diethyl ether", "smiles": "CCOCC", "level": "organic_1"},
+    {"name": "acetone", "smiles": "CC(=O)C", "level": "organic_1"},
+    {"name": "acetaldehyde", "smiles": "CC=O", "level": "organic_1"},
+    {"name": "acetic acid", "smiles": "CC(=O)O", "level": "organic_1"},
+    {"name": "ethyl acetate", "smiles": "CC(=O)OCC", "level": "organic_1"},
+    {"name": "acetamide", "smiles": "CC(=O)N", "level": "organic_1"},
+    {"name": "aniline", "smiles": "Nc1ccccc1", "level": "organic_1"},
+    {"name": "aspirin", "smiles": "CC(=O)Oc1ccccc1C(=O)O", "level": "organic_2"},
+    {"name": "acetaminophen", "smiles": "CC(=O)Nc1ccc(O)cc1", "level": "organic_2"},
+    {"name": "caffeine", "smiles": "CN1C=NC2=C1C(=O)N(C(=O)N2C)C", "level": "organic_2"},
+    {"name": "lidocaine", "smiles": "CCN(CC)CC(=O)Nc1c(C)cccc1C", "level": "organic_2"},
+    {"name": "ibuprofen", "smiles": "CC(C)Cc1ccc(cc1)C(C)C(=O)O", "level": "organic_2"}
+  ]
+}

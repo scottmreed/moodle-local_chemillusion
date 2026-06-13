@@ -1,0 +1,16 @@
+{{!
+    @template local_chemillusion/molecule_lookup
+
+    Molecule lookup input region (progressive enhancement target).
+
+    Context variables required for this template:
+    * label string
+    * placeholder string
+    * buttonlabel string
+}}
+<form class="local-chemillusion-lookup form-inline" role="search">
+    <label class="sr-only" for="local-chemillusion-query">{{label}}</label>
+    <input type="text" class="form-control" id="local-chemillusion-query"
+           name="query" placeholder="{{placeholder}}" autocomplete="off">
+    <button type="submit" class="btn btn-primary ml-2">{{buttonlabel}}</button>
+</form>

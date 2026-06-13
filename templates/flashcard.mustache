@@ -1,0 +1,30 @@
+{{!
+    @template local_chemillusion/flashcard
+
+    A single accessible flashcard. The answer is hidden until the user acts;
+    cards never auto-flip.
+
+    Context variables required for this template:
+    * prompt string
+    * answer string
+    * index int
+    * total int
+}}
+<div class="card local-chemillusion-flashcard" data-region="flashcard">
+    <div class="card-body">
+        <p class="text-muted small">{{#str}}flashcard_progress, local_chemillusion, {"index": {{index}}, "total": {{total}} }{{/str}}</p>
+        <div class="local-chemillusion-front" data-region="front">{{prompt}}</div>
+        <div class="local-chemillusion-back" data-region="back" hidden>{{answer}}</div>
+    </div>
+    <div class="card-footer">
+        <button type="button" class="btn btn-primary" data-action="show-answer" aria-expanded="false">
+            {{#str}}flashcard_show_answer, local_chemillusion{{/str}}
+        </button>
+        <button type="button" class="btn btn-outline-secondary" data-action="prev">
+            {{#str}}flashcard_prev, local_chemillusion{{/str}}
+        </button>
+        <button type="button" class="btn btn-outline-secondary" data-action="next">
+            {{#str}}flashcard_next, local_chemillusion{{/str}}
+        </button>
+    </div>
+</div>

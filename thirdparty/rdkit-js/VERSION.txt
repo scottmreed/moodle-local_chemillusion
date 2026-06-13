@@ -1,0 +1,12 @@
+RDKit.js (npm package @rdkit/rdkit)
+version: 2024.09.6
+source: https://www.npmjs.com/package/@rdkit/rdkit
+cdn: https://unpkg.com/@rdkit/rdkit@2024.09.6/dist/
+license: BSD-3-Clause
+files:
+  - RDKit_minimal.js   (fetched; not committed)
+  - RDKit_minimal.wasm (fetched; not committed)
+obtained-by: scripts/update-rdkit-js.sh
+notes: |
+  Update this file together with thirdpartylibs.xml whenever the pinned version
+  changes. Do not hand-edit the fetched binaries.

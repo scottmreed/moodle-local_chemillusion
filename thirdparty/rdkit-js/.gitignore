@@ -1,0 +1,5 @@
+# The RDKit binaries are fetched by scripts/update-rdkit-js.sh and bundled into
+# the release ZIP; they are not tracked in git.
+RDKit_minimal.js
+RDKit_minimal.wasm
+*.wasm
