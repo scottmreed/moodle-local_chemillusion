@@ -1,0 +1,13 @@
+{{!
+    @template local_chemillusion/account_link_cta
+
+    Student account-link call to action.
+
+    Context variables required for this template:
+    * linkurl string
+    * blurb string
+}}
+<div class="local-chemillusion-cta alert alert-info" role="note">
+    <p class="mb-2">{{blurb}}</p>
+    <a class="btn btn-primary" href="{{linkurl}}">{{#str}}cta_save_deck, local_chemillusion{{/str}}</a>
+</div>

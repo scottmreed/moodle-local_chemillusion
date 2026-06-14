@@ -1,0 +1,26 @@
+{
+  "note": "Static, descriptive examples only. No image generation occurs in Moodle; a custom visual card requires a linked ChemIllusion account.",
+  "cards": [
+    {
+      "title": "Aspirin: spot the ester and carboxylic acid",
+      "molecule": "aspirin",
+      "smiles": "CC(=O)Oc1ccccc1C(=O)O",
+      "groups": ["ester", "carboxylic_acid", "aromatic_ring"],
+      "caption": "A ChemIllusion visual study card highlights the ester (OR) next to the carboxylic acid (OH) so students stop confusing them."
+    },
+    {
+      "title": "Acetaminophen: amide vs amine",
+      "molecule": "acetaminophen",
+      "smiles": "CC(=O)Nc1ccc(O)cc1",
+      "groups": ["amide", "phenol", "aromatic_ring"],
+      "caption": "Contrasts the amide nitrogen with the phenol OH on the same molecule."
+    },
+    {
+      "title": "Caffeine: rings and carbonyls",
+      "molecule": "caffeine",
+      "smiles": "CN1C=NC2=C1C(=O)N(C(=O)N2C)C",
+      "groups": ["amide", "aromatic_ring"],
+      "caption": "Shows fused nitrogen-containing rings and the two carbonyls students often miss."
+    }
+  ]
+}

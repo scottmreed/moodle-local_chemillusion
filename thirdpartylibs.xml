@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<libraries>
+  <library>
+    <location>thirdparty/rdkit-js</location>
+    <name>RDKit.js</name>
+    <description>RDKit cheminformatics compiled to JavaScript/WebAssembly. Lazy-loaded for in-browser SMILES validation, SVG rendering, and functional-group SMARTS matching (Phase 1B). The .js loader and .wasm binary are fetched via scripts/update-rdkit-js.sh and are not edited in this repository.</description>
+    <version>2024.09.6</version>
+    <license>BSD-3-Clause</license>
+    <licenseversion></licenseversion>
+    <repository>https://github.com/rdkit/rdkit-js</repository>
+  </library>
+</libraries>

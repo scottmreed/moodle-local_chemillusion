@@ -1,0 +1,45 @@
+{{!
+    @template local_chemillusion/dashboard
+
+    ChemIllusion landing/dashboard.
+
+    Context variables required for this template:
+    * heading string
+    * intro string
+    * toolsurl string
+    * cardsurl string
+    * privacyurl string
+    * linking_enabled bool
+    * linkurl string
+    * isteacher bool
+    * teacher_blurb string
+    * demo_url string
+    * metrics array of { label, value }
+}}
+<div class="local-chemillusion-dashboard">
+    <p class="lead">{{intro}}</p>
+
+    <div class="local-chemillusion-actions btn-group" role="group" aria-label="{{heading}}">
+        <a class="btn btn-primary" href="{{toolsurl}}">{{#str}}tools_heading, local_chemillusion{{/str}}</a>
+        <a class="btn btn-secondary" href="{{cardsurl}}">{{#str}}cards_heading, local_chemillusion{{/str}}</a>
+        {{#linking_enabled}}
+            <a class="btn btn-outline-primary" href="{{linkurl}}">{{#str}}link_start, local_chemillusion{{/str}}</a>
+        {{/linking_enabled}}
+        <a class="btn btn-link" href="{{privacyurl}}">{{#str}}privacy_page_heading, local_chemillusion{{/str}}</a>
+    </div>
+
+    {{#isteacher}}
+        <section class="local-chemillusion-teacher mt-4" aria-label="{{#str}}metric_lookups, local_chemillusion{{/str}}">
+            <p>{{teacher_blurb}}</p>
+            <dl class="row local-chemillusion-metrics">
+                {{#metrics}}
+                    <dt class="col-sm-3">{{label}}</dt>
+                    <dd class="col-sm-3">{{value}}</dd>
+                {{/metrics}}
+            </dl>
+            <a class="btn btn-outline-secondary" href="{{demo_url}}" target="_blank" rel="noopener noreferrer">
+                {{#str}}cta_teacher_demo, local_chemillusion{{/str}}
+            </a>
+        </section>
+    {{/isteacher}}
+</div>

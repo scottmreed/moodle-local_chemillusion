@@ -1,0 +1,22 @@
+{{!
+    @template local_chemillusion/privacy_summary
+
+    Human-readable data-flow summary.
+
+    Context variables required for this template:
+    * intro string
+    * mode string
+    * pubchem, linking, conversion, external_off, minimal bool
+}}
+<div class="local-chemillusion-privacy">
+    <p class="lead">{{intro}}</p>
+    <ul>
+        <li><strong>{{#str}}settings_mode, local_chemillusion{{/str}}:</strong> {{mode}}</li>
+        <li>{{#external_off}}<span class="badge badge-success">off</span>{{/external_off}}{{^external_off}}<span class="badge badge-secondary">on</span>{{/external_off}} {{#str}}settings_disable_external, local_chemillusion{{/str}}</li>
+        <li>{{#pubchem}}<span class="badge badge-info">enabled</span>{{/pubchem}}{{^pubchem}}<span class="badge badge-secondary">disabled</span>{{/pubchem}} {{#str}}settings_enable_pubchem, local_chemillusion{{/str}}</li>
+        <li>{{#linking}}<span class="badge badge-info">enabled</span>{{/linking}}{{^linking}}<span class="badge badge-secondary">disabled</span>{{/linking}} {{#str}}settings_enable_account_linking, local_chemillusion{{/str}}</li>
+        <li>{{#conversion}}<span class="badge badge-warning">enabled</span>{{/conversion}}{{^conversion}}<span class="badge badge-success">off</span>{{/conversion}} {{#str}}settings_enable_conversion_metadata, local_chemillusion{{/str}}</li>
+        <li>{{#minimal}}<span class="badge badge-success">on</span>{{/minimal}}{{^minimal}}<span class="badge badge-secondary">off</span>{{/minimal}} {{#str}}settings_minimal_mode, local_chemillusion{{/str}}</li>
+    </ul>
+    <p class="text-muted">{{#str}}plugindescription, local_chemillusion{{/str}}</p>
+</div>

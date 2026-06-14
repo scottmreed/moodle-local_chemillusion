@@ -1,0 +1,14 @@
+# Build / packaging artefacts
+/dist/
+*.zip
+
+# Node tooling (dev only; build outputs in amd/build are committed)
+/node_modules/
+npm-debug.log*
+package-lock.json
+
+# Editor / OS
+.DS_Store
+.idea/
+*.swp
+*.log

@@ -1,0 +1,138 @@
+{
+  "alkene": {
+    "label": "Alkene",
+    "smarts": "[CX3]=[CX3]",
+    "level": "organic_1",
+    "student_summary": "A carbon-carbon double bond.",
+    "common_mistake": "Aromatic rings also contain C=C but behave very differently; do not call benzene an alkene.",
+    "example_molecules": ["ethene", "C=C"]
+  },
+  "alkyne": {
+    "label": "Alkyne",
+    "smarts": "[CX2]#[CX2]",
+    "level": "organic_1",
+    "student_summary": "A carbon-carbon triple bond.",
+    "common_mistake": "Do not confuse the alkyne triple bond with a nitrile (C#N).",
+    "example_molecules": ["ethyne", "C#C"]
+  },
+  "aromatic_ring": {
+    "label": "Aromatic ring",
+    "smarts": "c1ccccc1",
+    "level": "organic_1",
+    "student_summary": "A benzene-like aromatic ring of delocalised pi electrons.",
+    "common_mistake": "Not every ring is aromatic; aromaticity needs a planar, fully conjugated cyclic system.",
+    "example_molecules": ["benzene", "toluene"]
+  },
+  "alkyl_halide": {
+    "label": "Alkyl halide",
+    "smarts": "[CX4][F,Cl,Br,I]",
+    "level": "organic_1",
+    "student_summary": "A halogen attached to an sp3 carbon.",
+    "common_mistake": "An aryl halide (halogen on an aromatic ring) is not an alkyl halide.",
+    "example_molecules": ["CCBr"]
+  },
+  "alcohol": {
+    "label": "Alcohol",
+    "smarts": "[OX2H][CX4]",
+    "level": "organic_1",
+    "student_summary": "An OH group attached to an sp3 carbon.",
+    "common_mistake": "An OH on an aromatic ring is a phenol, not an alcohol.",
+    "example_molecules": ["ethanol", "CCO"]
+  },
+  "phenol": {
+    "label": "Phenol",
+    "smarts": "[OX2H][c]",
+    "level": "organic_1",
+    "student_summary": "An OH group attached directly to an aromatic ring.",
+    "common_mistake": "Phenols are more acidic than typical alcohols; do not treat them identically.",
+    "example_molecules": ["phenol", "Oc1ccccc1"]
+  },
+  "ether": {
+    "label": "Ether",
+    "smarts": "[OD2]([#6])[#6]",
+    "level": "organic_1",
+    "student_summary": "An oxygen bonded to two carbon atoms.",
+    "common_mistake": "Esters also contain a C-O-C motif; check for the neighbouring carbonyl before calling it an ether.",
+    "example_molecules": ["diethyl ether", "CCOCC"]
+  },
+  "epoxide": {
+    "label": "Epoxide",
+    "smarts": "C1OC1",
+    "level": "organic_1",
+    "student_summary": "A strained three-membered ring containing one oxygen.",
+    "common_mistake": "Do not confuse an epoxide with a regular ether; ring strain drives its reactivity.",
+    "example_molecules": ["C1CO1"]
+  },
+  "aldehyde": {
+    "label": "Aldehyde",
+    "smarts": "[CX3H1](=O)[#6]",
+    "level": "organic_1",
+    "student_summary": "A carbonyl carbon bearing at least one hydrogen.",
+    "common_mistake": "A ketone has two carbon substituents on the carbonyl; an aldehyde has a hydrogen.",
+    "example_molecules": ["acetaldehyde", "CC=O"]
+  },
+  "ketone": {
+    "label": "Ketone",
+    "smarts": "[#6][CX3](=O)[#6]",
+    "level": "organic_1",
+    "student_summary": "A carbonyl carbon bonded to two other carbons.",
+    "common_mistake": "Do not confuse with aldehydes (which carry an H on the carbonyl).",
+    "example_molecules": ["acetone", "CC(=O)C"]
+  },
+  "carboxylic_acid": {
+    "label": "Carboxylic acid",
+    "smarts": "C(=O)[OX2H1]",
+    "level": "organic_1",
+    "student_summary": "A carbonyl carbon bonded to an OH group.",
+    "common_mistake": "Do not confuse esters with carboxylic acids; esters have OR instead of OH.",
+    "example_molecules": ["acetic acid", "CC(=O)O"]
+  },
+  "ester": {
+    "label": "Ester",
+    "smarts": "[CX3](=O)[OX2H0][#6]",
+    "level": "organic_1",
+    "student_summary": "A carbonyl carbon bonded to an oxygen that links to another carbon.",
+    "common_mistake": "The single-bonded oxygen connects to carbon (OR), not hydrogen (OH).",
+    "example_molecules": ["ethyl acetate", "CC(=O)OCC"]
+  },
+  "amide": {
+    "label": "Amide",
+    "smarts": "[CX3](=O)[NX3]",
+    "level": "organic_1",
+    "student_summary": "A carbonyl carbon bonded to a nitrogen.",
+    "common_mistake": "An amide nitrogen is far less basic than an amine nitrogen.",
+    "example_molecules": ["acetamide", "CC(=O)N"]
+  },
+  "amine": {
+    "label": "Amine",
+    "smarts": "[NX3;!$(NC=O);!$(N=O)]",
+    "level": "organic_1",
+    "student_summary": "A nitrogen bonded to carbons and/or hydrogens, not part of an amide.",
+    "common_mistake": "Nitrogen in an amide is not an amine even though both contain N.",
+    "example_molecules": ["aniline", "Nc1ccccc1"]
+  },
+  "nitrile": {
+    "label": "Nitrile",
+    "smarts": "[NX1]#[CX2]",
+    "level": "organic_2",
+    "student_summary": "A carbon-nitrogen triple bond.",
+    "common_mistake": "Do not confuse the nitrile triple bond with a carbon-carbon alkyne.",
+    "example_molecules": ["CC#N"]
+  },
+  "thiol": {
+    "label": "Thiol",
+    "smarts": "[SX2H]",
+    "level": "organic_2",
+    "student_summary": "A sulfur-hydrogen group, the sulfur analogue of an alcohol.",
+    "common_mistake": "Thiols are more acidic and more nucleophilic than alcohols.",
+    "example_molecules": ["CCS"]
+  },
+  "sulfide": {
+    "label": "Sulfide",
+    "smarts": "[#6][SX2][#6]",
+    "level": "organic_2",
+    "student_summary": "A sulfur bonded to two carbons, the sulfur analogue of an ether.",
+    "common_mistake": "Do not confuse a sulfide with a thiol; a sulfide has no S-H bond.",
+    "example_molecules": ["CSC"]
+  }
+}

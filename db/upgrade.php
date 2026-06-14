@@ -1,0 +1,37 @@
+<?php
+// This file is part of Moodle - https://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
+/**
+ * Upgrade steps for local_chemillusion.
+ *
+ * @package    local_chemillusion
+ * @copyright  2026 MolLogic / Scott Reed
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+defined('MOODLE_INTERNAL') || die();
+
+/**
+ * Execute local_chemillusion upgrade steps.
+ *
+ * @param int $oldversion The version we are upgrading from.
+ * @return bool
+ */
+function xmldb_local_chemillusion_upgrade($oldversion) {
+    // No upgrade steps yet; 0.1.0 is the initial install.
+    // Future schema changes use $dbman = $DB->get_manager(); and version guards.
+    return true;
+}

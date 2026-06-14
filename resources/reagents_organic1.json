@@ -1,0 +1,44 @@
+{
+  "PCC": {
+    "name": "pyridinium chlorochromate",
+    "role": "oxidant",
+    "common_use": "Oxidises primary alcohols to aldehydes and secondary alcohols to ketones under mild, anhydrous conditions.",
+    "level": "organic_1"
+  },
+  "NaBH4": {
+    "name": "sodium borohydride",
+    "role": "mild reducing agent",
+    "common_use": "Reduces aldehydes and ketones to alcohols; generally does not reduce esters or carboxylic acids.",
+    "level": "organic_1"
+  },
+  "LAH": {
+    "name": "lithium aluminium hydride (LiAlH4)",
+    "role": "strong reducing agent",
+    "common_use": "Reduces carboxylic acids, esters, aldehydes, ketones, and amides to alcohols or amines.",
+    "level": "organic_1"
+  },
+  "Br2": {
+    "name": "bromine",
+    "role": "electrophilic halogen source",
+    "common_use": "Adds across alkenes/alkynes; brominates aromatic rings with a Lewis acid catalyst.",
+    "level": "organic_1"
+  },
+  "HBr": {
+    "name": "hydrogen bromide",
+    "role": "acid / hydrohalogenation reagent",
+    "common_use": "Adds H and Br across alkenes following Markovnikov selectivity (anti-Markovnikov with peroxides).",
+    "level": "organic_1"
+  },
+  "mCPBA": {
+    "name": "meta-chloroperoxybenzoic acid",
+    "role": "epoxidising oxidant",
+    "common_use": "Converts alkenes to epoxides and is used in Baeyer-Villiger oxidations.",
+    "level": "organic_1"
+  },
+  "NBS": {
+    "name": "N-bromosuccinimide",
+    "role": "controlled bromine source",
+    "common_use": "Allylic/benzylic bromination and low-concentration bromination of alkenes to halohydrins.",
+    "level": "organic_1"
+  }
+}

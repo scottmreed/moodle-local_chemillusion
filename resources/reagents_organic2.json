@@ -1,0 +1,38 @@
+{
+  "DIBAL-H": {
+    "name": "diisobutylaluminium hydride",
+    "role": "partial reducing agent",
+    "common_use": "Reduces esters and nitriles to aldehydes when used at low temperature (one equivalent).",
+    "level": "organic_2"
+  },
+  "OsO4": {
+    "name": "osmium tetroxide",
+    "role": "syn-dihydroxylation oxidant",
+    "common_use": "Adds two OH groups syn across an alkene to give a cis-diol.",
+    "level": "organic_2"
+  },
+  "O3": {
+    "name": "ozone",
+    "role": "oxidative cleavage reagent",
+    "common_use": "Ozonolysis cleaves alkenes into carbonyl compounds (workup determines aldehyde vs acid).",
+    "level": "organic_2"
+  },
+  "TsCl": {
+    "name": "para-toluenesulfonyl chloride",
+    "role": "leaving-group activator",
+    "common_use": "Converts alcohols into tosylates, turning a poor leaving group into a good one.",
+    "level": "organic_2"
+  },
+  "SOCl2": {
+    "name": "thionyl chloride",
+    "role": "chlorinating agent",
+    "common_use": "Converts carboxylic acids to acyl chlorides and alcohols to alkyl chlorides.",
+    "level": "organic_2"
+  },
+  "PBr3": {
+    "name": "phosphorus tribromide",
+    "role": "brominating agent",
+    "common_use": "Converts primary and secondary alcohols to alkyl bromides with inversion.",
+    "level": "organic_2"
+  }
+}

@@ -1,0 +1,20 @@
+{{!
+    @template local_chemillusion/functional_group_badge
+
+    A detected functional group with non-colour-only label and actions.
+
+    Context variables required for this template:
+    * id string
+    * label string
+    * summary string
+}}
+<div class="local-chemillusion-fg-badge d-inline-flex align-items-center mr-2 mb-2"
+     data-region="fg-badge" data-group="{{id}}">
+    <span class="badge badge-info mr-1">{{label}}</span>
+    <button type="button" class="btn btn-sm btn-link" data-action="highlight-group" data-group="{{id}}">
+        {{#str}}functional_group_highlight, local_chemillusion{{/str}}
+    </button>
+    <button type="button" class="btn btn-sm btn-link" data-action="make-card" data-group="{{id}}">
+        {{#str}}functional_group_makecard, local_chemillusion{{/str}}
+    </button>
+</div>

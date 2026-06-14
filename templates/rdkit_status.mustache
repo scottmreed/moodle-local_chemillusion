@@ -1,0 +1,12 @@
+{{!
+    @template local_chemillusion/rdkit_status
+
+    Status indicator for the lazy-loaded RDKit WASM engine.
+
+    Context variables required for this template:
+    * state string  one of loading|ready|failed|disabled
+}}
+<div class="local-chemillusion-rdkit-status small text-muted" data-region="rdkit-status"
+     data-state="{{state}}" aria-live="polite">
+    {{#str}}rdkit_loading, local_chemillusion{{/str}}
+</div>

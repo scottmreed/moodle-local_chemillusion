@@ -1,0 +1,54 @@
+{{!
+    @template local_chemillusion/molecule_result_card
+
+    A resolved molecule result with study actions and ChemIllusion CTAs.
+
+    Context variables required for this template:
+    * name, formula, mw, cid, canonical_smiles, isomeric_smiles, inchikey string
+    * pubchem_url, open_url, visual_url string
+    * has_pubchem, has_smiles, rdkit_enabled, visual_enabled bool
+    * visual_blurb string
+}}
+<div class="card local-chemillusion-result" data-region="molecule-card"
+     data-smiles="{{canonical_smiles}}" data-name="{{name}}" data-cid="{{cid}}">
+    <div class="card-body">
+        <h3 class="card-title h5">{{name}}</h3>
+
+        {{#rdkit_enabled}}{{#has_smiles}}
+            <figure class="local-chemillusion-structure" data-region="structure">
+                <div data-region="structure-svg" role="img"
+                     aria-label="{{#str}}result_canonical_smiles, local_chemillusion{{/str}}: {{canonical_smiles}}"></div>
+                <figcaption class="sr-only" data-region="structure-textalt">
+                    {{name}} ({{formula}})
+                </figcaption>
+            </figure>
+            <div data-region="functional-groups" class="local-chemillusion-fg"></div>
+        {{/has_smiles}}{{/rdkit_enabled}}
+
+        <dl class="row mb-0">
+            {{#formula}}<dt class="col-4">{{#str}}result_formula, local_chemillusion{{/str}}</dt><dd class="col-8">{{formula}}</dd>{{/formula}}
+            {{#mw}}<dt class="col-4">{{#str}}result_mw, local_chemillusion{{/str}}</dt><dd class="col-8">{{mw}}</dd>{{/mw}}
+            {{#cid}}<dt class="col-4">{{#str}}result_cid, local_chemillusion{{/str}}</dt><dd class="col-8">{{cid}}</dd>{{/cid}}
+            {{#canonical_smiles}}<dt class="col-4">{{#str}}result_canonical_smiles, local_chemillusion{{/str}}</dt><dd class="col-8"><code>{{canonical_smiles}}</code></dd>{{/canonical_smiles}}
+            {{#inchikey}}<dt class="col-4">{{#str}}result_inchikey, local_chemillusion{{/str}}</dt><dd class="col-8"><code>{{inchikey}}</code></dd>{{/inchikey}}
+        </dl>
+    </div>
+    <div class="card-footer">
+        <div class="btn-group" role="group" aria-label="{{name}}">
+            {{#has_pubchem}}
+                <a class="btn btn-sm btn-outline-secondary" href="{{pubchem_url}}" target="_blank" rel="noopener noreferrer">
+                    {{#str}}result_pubchem_link, local_chemillusion{{/str}}
+                </a>
+            {{/has_pubchem}}
+            <a class="btn btn-sm btn-primary" href="{{open_url}}" target="_blank" rel="noopener noreferrer">
+                {{#str}}result_open_chemillusion, local_chemillusion{{/str}}
+            </a>
+            {{#visual_enabled}}
+                <a class="btn btn-sm btn-outline-primary" href="{{visual_url}}" target="_blank" rel="noopener noreferrer"
+                   title="{{visual_blurb}}">
+                    {{#str}}cta_visual_card, local_chemillusion{{/str}}
+                </a>
+            {{/visual_enabled}}
+        </div>
+    </div>
+</div>
