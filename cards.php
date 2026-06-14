@@ -45,6 +45,17 @@ if ($deckid) {
     if (!$deck) {
         throw new \moodle_exception('error_nomatch', 'local_chemillusion');
     }
+    if (!empty($deck->courseid)) {
+        $course = get_course((int) $deck->courseid);
+        require_login($course);
+        $context = context_course::instance((int) $deck->courseid);
+        $PAGE->set_context($context);
+    }
+    $canmanage = has_capability('local/chemillusion:managedecks', $context);
+    if (!\local_chemillusion\cards\deck_repository::can_view_deck($deck, $USER->id,
+            !empty($deck->courseid) ? (int) $deck->courseid : null, $canmanage)) {
+        throw new \required_capability_exception($context, 'local/chemillusion:view', 'nopermissions', '');
+    }
     $cards = [];
     foreach (\local_chemillusion\cards\deck_repository::get_cards($deckid) as $c) {
         $cards[] = [

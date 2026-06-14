@@ -67,4 +67,4 @@ scripts/run-local-ci.sh        # lint + unit checks via moodle-plugin-ci (if ins
 
 ---
 
-Maintained by MolLogic / Scott Reed. Built by Scott's Hyperagent.
+Maintained by MolLogic / Scott Reed.

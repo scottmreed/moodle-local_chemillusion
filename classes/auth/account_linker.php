@@ -105,6 +105,9 @@ class account_linker {
 
         $chemuserid = isset($payload['chemillusion_user_id'])
             ? clean_param($payload['chemillusion_user_id'], PARAM_ALPHANUMEXT) : null;
+        if ($chemuserid === null || $chemuserid === '') {
+            return false;
+        }
         $emailhash = isset($payload['email_hash'])
             ? clean_param($payload['email_hash'], PARAM_ALPHANUMEXT) : null;
 

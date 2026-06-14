@@ -5,10 +5,10 @@ The two YAML files in this folder are the intended GitHub Actions workflows:
 - `moodle-plugin-ci.yml` → move to `.github/workflows/moodle-plugin-ci.yml`
 - `package-release.yml` → move to `.github/workflows/package-release.yml`
 
-They live here temporarily because the automation token that bootstrapped this
-repository does not hold the GitHub `workflow` OAuth scope, so it could not write
-under `.github/workflows/`. Move them into `.github/workflows/` with an account
-that has the `workflow` scope (a normal `git mv` + push works):
+They live here temporarily because this branch could not write under
+`.github/workflows/`. Move them into `.github/workflows/` from an account that
+has permission to manage GitHub Actions workflows (a normal `git mv` + push
+works):
 
 ```bash
 mkdir -p .github/workflows

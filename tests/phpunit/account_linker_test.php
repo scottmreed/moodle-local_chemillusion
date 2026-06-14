@@ -70,6 +70,14 @@ final class account_linker_test extends \advanced_testcase {
         $this->assertFalse(account_linker::complete_link($user->id, $token));
     }
 
+    public function test_complete_link_requires_external_account_id(): void {
+        $this->resetAfterTest();
+        $user = $this->getDataGenerator()->create_user();
+        $token = signed_state::sign(['moodle_userid' => $user->id]);
+        $this->assertFalse(account_linker::complete_link($user->id, $token));
+        $this->assertFalse(account_linker::is_linked($user->id));
+    }
+
     public function test_tampered_token_is_rejected(): void {
         $this->resetAfterTest();
         $user = $this->getDataGenerator()->create_user();

@@ -19,8 +19,9 @@ namespace local_chemillusion\cards;
 /**
  * Persistence for study decks and their cards.
  *
- * Capability and ownership checks are enforced by callers (pages / external
- * functions); this class is the data layer only.
+ * Capability checks are enforced by callers (pages / external functions).
+ * Ownership and visibility helpers live here so pages and services apply the
+ * same data-access policy.
  *
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
@@ -45,7 +46,7 @@ class deck_repository {
             'courseid'   => $courseid ? (int) $courseid : null,
             'userid'     => (int) $userid,
             'name'       => clean_param($name, PARAM_TEXT),
-            'visibility' => clean_param($visibility, PARAM_ALPHA),
+            'visibility' => self::normalize_visibility($visibility),
             'source'     => clean_param($source, PARAM_ALPHANUMEXT),
             'created_at' => $now,
             'updated_at' => $now,
@@ -100,6 +101,31 @@ class deck_repository {
     }
 
     /**
+     * Whether a deck record is visible to the caller.
+     *
+     * @param \stdClass|null $deck Deck record from get_deck().
+     * @param int $userid Current Moodle user id.
+     * @param int|null $courseid Current course scope, if any.
+     * @param bool $canmanage Whether caller has manage capability in the current context.
+     * @return bool
+     */
+    public static function can_view_deck($deck, $userid, $courseid = null, $canmanage = false) {
+        if (!$deck) {
+            return false;
+        }
+        if ($canmanage || (int) $deck->userid === (int) $userid) {
+            return true;
+        }
+        if ($deck->visibility === 'site') {
+            return true;
+        }
+        if ($deck->visibility === 'course') {
+            return $courseid !== null && (int) $deck->courseid === (int) $courseid;
+        }
+        return false;
+    }
+
+    /**
      * List decks visible to a user, optionally scoped to a course.
      *
      * @param int $userid
@@ -109,13 +135,15 @@ class deck_repository {
     public static function list_decks($userid, $courseid = null) {
         global $DB;
         $params = [];
-        $where = '(userid = :userid OR visibility <> :private)';
+        $where = '(userid = :userid OR visibility = :site';
         $params['userid'] = (int) $userid;
-        $params['private'] = 'private';
+        $params['site'] = 'site';
         if ($courseid !== null) {
-            $where .= ' AND (courseid = :courseid OR courseid IS NULL)';
+            $where .= ' OR (visibility = :coursevis AND courseid = :courseid)';
+            $params['coursevis'] = 'course';
             $params['courseid'] = (int) $courseid;
         }
+        $where .= ')';
         return array_values($DB->get_records_select('local_chemillusion_decks', $where, $params, 'updated_at DESC'));
     }
 
@@ -140,5 +168,16 @@ class deck_repository {
     protected static function touch($deckid) {
         global $DB;
         $DB->set_field('local_chemillusion_decks', 'updated_at', time(), ['id' => $deckid]);
+    }
+
+    /**
+     * Normalize deck visibility to the supported values.
+     *
+     * @param string $visibility
+     * @return string
+     */
+    protected static function normalize_visibility($visibility) {
+        $visibility = clean_param($visibility, PARAM_ALPHA);
+        return in_array($visibility, ['private', 'course', 'site'], true) ? $visibility : 'private';
     }
 }

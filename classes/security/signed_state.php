@@ -60,13 +60,22 @@ class signed_state {
             return null;
         }
         list($body, $sig) = explode('.', $token, 2);
+        if ($body === '' || $sig === ''
+                || !preg_match('/^[A-Za-z0-9_-]+$/', $body)
+                || !preg_match('/^[A-Za-z0-9_-]+$/', $sig)) {
+            return null;
+        }
 
         $expected = self::b64url(self::hmac($body));
         if (!hash_equals($expected, $sig)) {
             return null;
         }
 
-        $payload = json_decode(self::b64url_decode($body), true);
+        $decoded = self::b64url_decode($body);
+        if ($decoded === false) {
+            return null;
+        }
+        $payload = json_decode($decoded, true);
         if (!is_array($payload) || !isset($payload['exp'])) {
             return null;
         }
@@ -108,6 +117,11 @@ class signed_state {
      * @return string
      */
     protected static function b64url_decode($data) {
-        return base64_decode(strtr($data, '-_', '+/'));
+        $data = strtr($data, '-_', '+/');
+        $padding = strlen($data) % 4;
+        if ($padding) {
+            $data .= str_repeat('=', 4 - $padding);
+        }
+        return base64_decode($data, true);
     }
 }
