@@ -34,8 +34,6 @@ class input_normalizer {
     const TYPE_SMILES = 'smiles';
     /** @var string Input looks like a full InChI. */
     const TYPE_INCHI = 'inchi';
-    /** @var string Input looks like an InChIKey. */
-    const TYPE_INCHIKEY = 'inchikey';
 
     /**
      * Trim and collapse whitespace.
@@ -50,6 +48,9 @@ class input_normalizer {
     /**
      * Best-effort detection of the identifier type.
      *
+     * Prioritizes SMILES detection: if input parses as SMILES, only SMILES lookup is attempted.
+     * Falls back to name search only if input is not SMILES.
+     *
      * @param string $input
      * @return string One of the TYPE_* constants.
      */
@@ -60,11 +61,6 @@ class input_normalizer {
             return self::TYPE_NAME;
         }
 
-        // InChIKey: 14 uppercase letters - 10 uppercase letters - 1 letter.
-        if (preg_match('/^[A-Z]{14}-[A-Z]{10}-[A-Z]$/', $value)) {
-            return self::TYPE_INCHIKEY;
-        }
-
         // Full InChI string.
         if (stripos($value, 'InChI=') === 0) {
             return self::TYPE_INCHI;
@@ -72,6 +68,7 @@ class input_normalizer {
 
         // SMILES heuristic: single token containing SMILES-specific characters
         // and no spaces. Names usually contain spaces or are plain words.
+        // If this matches, we treat it as SMILES-only (no fallback to text search).
         if (strpos($value, ' ') === false
                 && preg_match('/[=#\[\]()@+\-\\\\\/]/', $value)
                 && preg_match('/[A-Za-z]/', $value)) {

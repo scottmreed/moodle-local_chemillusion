@@ -19,14 +19,28 @@
 <div class="local-chemillusion-dashboard">
     <p class="lead">{{intro}}</p>
 
-    <div class="local-chemillusion-actions btn-group" role="group" aria-label="{{heading}}">
-        <a class="btn btn-primary" href="{{toolsurl}}">{{#str}}tools_heading, local_chemillusion{{/str}}</a>
-        <a class="btn btn-secondary" href="{{cardsurl}}">{{#str}}cards_heading, local_chemillusion{{/str}}</a>
-        {{#linking_enabled}}
-            <a class="btn btn-outline-primary" href="{{linkurl}}">{{#str}}link_start, local_chemillusion{{/str}}</a>
-        {{/linking_enabled}}
-        <a class="btn btn-link" href="{{privacyurl}}">{{#str}}privacy_page_heading, local_chemillusion{{/str}}</a>
-    </div>
+    <nav class="local-chemillusion-nav mb-4" aria-label="ChemIllusion">
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action" href="{{toolsurl}}">
+                <strong>{{#str}}tools_heading, local_chemillusion{{/str}}</strong>
+                <small class="d-block text-muted">Look up molecules by name, SMILES, or InChI</small>
+            </a>
+            <a class="list-group-item list-group-item-action" href="{{cardsurl}}">
+                <strong>{{#str}}cards_heading, local_chemillusion{{/str}}</strong>
+                <small class="d-block text-muted">Create and study flashcard decks</small>
+            </a>
+            {{#linking_enabled}}
+                <a class="list-group-item list-group-item-action" href="{{linkurl}}">
+                    <strong>{{#str}}link_start, local_chemillusion{{/str}}</strong>
+                    <small class="d-block text-muted">Connect your ChemIllusion account</small>
+                </a>
+            {{/linking_enabled}}
+            <a class="list-group-item list-group-item-action" href="{{privacyurl}}">
+                <strong>{{#str}}privacy_page_heading, local_chemillusion{{/str}}</strong>
+                <small class="d-block text-muted">View how your data is used</small>
+            </a>
+        </div>
+    </nav>
 
     {{#isteacher}}
         <section class="local-chemillusion-teacher mt-4" aria-label="{{#str}}metric_lookups, local_chemillusion{{/str}}">

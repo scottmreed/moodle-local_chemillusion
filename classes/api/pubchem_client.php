@@ -44,10 +44,15 @@ class pubchem_client {
     /**
      * Resolve an identifier into a normalised payload.
      *
+     * If input is detected as SMILES, only SMILES lookup is attempted (no fallback to text search).
+     * Otherwise, name search is used. Caller can override with force_type to retry.
+     * If PubChem fails, returns a fallback response with cached/parsed data if available.
+     *
      * @param string $rawinput User-supplied identifier.
-     * @return array{status:string, data?:array, error?:string}
+     * @param string|null $force_type Override detected type (e.g., to retry as 'name' after SMILES fails).
+     * @return array{status:string, data?:array, error?:string, fallback?:bool, alt_types?:array}
      */
-    public static function resolve($rawinput) {
+    public static function resolve($rawinput, $force_type = null) {
         $value = input_normalizer::normalize($rawinput);
         if (!input_normalizer::is_nonempty($value)) {
             return ['status' => 'error', 'error' => 'invalidinput'];
@@ -58,7 +63,8 @@ class pubchem_client {
             return ['status' => 'error', 'error' => 'external_disabled'];
         }
 
-        $type = input_normalizer::detect_type($value);
+        $detected_type = input_normalizer::detect_type($value);
+        $type = $force_type ?: $detected_type;
         $cachekey = molecule_cache::make_key($type, $value);
 
         $cached = molecule_cache::get($cachekey);
@@ -66,10 +72,22 @@ class pubchem_client {
             return ['status' => 'ok', 'data' => $cached, 'cached' => true];
         }
 
+        // Try the lookup; if it fails and we detected SMILES, offer name search as alternative.
         $result = self::fetch_properties($type, $value);
         if ($result['status'] === 'ok') {
             $ttl = (int) get_config('local_chemillusion', 'cache_ttl');
             molecule_cache::set($cachekey, $result['data'], $ttl);
+        } else if ($result['status'] === 'error' && $type === input_normalizer::TYPE_SMILES && !$force_type) {
+            // SMILES lookup failed and user didn't force an override.
+            // Suggest text search as alternative.
+            $result['alt_types'] = [input_normalizer::TYPE_NAME];
+            $result['error_note'] = 'SMILES lookup failed. You can try searching by name instead.';
+        } else if (in_array($result['error'], ['ratelimited', 'network'])) {
+            // PubChem is down/slow. Return fallback with parsed data from input.
+            $fallback = self::make_fallback_from_input($value, $type);
+            $fallback['fallback'] = true;
+            $fallback['error_note'] = 'PubChem is temporarily unavailable. Showing parsed data. Try again later for full metadata.';
+            return $fallback;
         }
         return $result;
     }
@@ -151,13 +169,42 @@ class pubchem_client {
         switch ($type) {
             case input_normalizer::TYPE_SMILES:
                 return 'smiles';
-            case input_normalizer::TYPE_INCHIKEY:
-                return 'inchikey';
             case input_normalizer::TYPE_INCHI:
                 return 'inchi';
             case input_normalizer::TYPE_NAME:
             default:
                 return 'name';
         }
+    }
+
+    /**
+     * Create a minimal fallback response when PubChem is down.
+     *
+     * Uses input value and type to construct what data we can without the remote service.
+     * User is shown a note to try again later for complete data.
+     *
+     * @param string $value
+     * @param string $type
+     * @return array{status:string, data:array}
+     */
+    protected static function make_fallback_from_input($value, $type) {
+        $data = [
+            'name'             => $value,
+            'cid'              => 0,
+            'formula'          => '',
+            'mw'               => '',
+            'canonical_smiles' => $type === input_normalizer::TYPE_SMILES ? $value : '',
+            'isomeric_smiles'  => '',
+            'inchikey'         => '',
+            'pubchem_url'      => '',
+        ];
+
+        // If the input is SMILES, we can at least show what was entered.
+        if ($type === input_normalizer::TYPE_SMILES) {
+            $data['name'] = '(SMILES: ' . $value . ')';
+            $data['canonical_smiles'] = $value;
+        }
+
+        return ['status' => 'ok', 'data' => $data];
     }
 }

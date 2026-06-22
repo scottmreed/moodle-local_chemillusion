@@ -62,7 +62,7 @@ class study_deck_page implements renderable, templatable {
      * @return array
      */
     public function export_for_template(renderer_base $output) {
-        global $DB;
+        global $DB, $PAGE;
         $decks = [];
         foreach (deck_repository::list_decks($this->userid, $this->courseid) as $deck) {
             $decks[] = [
@@ -71,6 +71,10 @@ class study_deck_page implements renderable, templatable {
                 'cardcount' => (int) $DB->count_records('local_chemillusion_cards', ['deckid' => $deck->id]),
                 'viewurl'   => (new moodle_url('/local/chemillusion/cards.php', ['deckid' => $deck->id]))->out(false),
             ];
+        }
+
+        if ($this->cancreate) {
+            $PAGE->requires->js_call_amd('local_chemillusion/study_deck', 'init');
         }
 
         return [

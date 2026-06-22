@@ -158,23 +158,66 @@ define([
     };
 
     /**
-     * Submit handler for the lookup form.
+     * Submit handler for the lookup form (with optional force_type override).
      * @param {Event} e
+     * @param {String|null} force_type Optional type override for retry.
      */
-    var onSubmit = function(e) {
-        e.preventDefault();
+    var onSubmit = function(e, force_type) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
         var input = document.getElementById('id_query');
         var query = input ? input.value.trim() : '';
         if (!query) {
             return;
         }
-        resolve(query).then(function(data) {
+
+        // Call resolve with optional force_type for retry.
+        var ajax_args = {query: query};
+        if (force_type) {
+            ajax_args.force_type = force_type;
+        }
+
+        Ajax.call([{
+            methodname: 'local_chemillusion_lookup_molecule',
+            args: ajax_args
+        }])[0].then(function(data) {
             if (data.status === 'ok') {
                 return renderResult(data);
             }
+
+            // Handle error with fallback/alternative types.
             return Str.get_string('error_' + data.error, 'local_chemillusion').then(function(msg) {
-                document.getElementById('local-chemillusion-results').innerHTML =
-                    '<div class="alert alert-warning" role="alert">' + msg + '</div>';
+                var html = '<div class="alert alert-warning" role="alert">' + msg;
+
+                // Add error note if provided (e.g., fallback message).
+                if (data.error_note) {
+                    html += '<br/><em>' + data.error_note + '</em>';
+                }
+
+                // If there are alternative types to try, add retry buttons.
+                if (data.alt_types && data.alt_types.length > 0) {
+                    html += '<div class="mt-2">';
+                    data.alt_types.forEach(function(altType) {
+                        html += '<button type="button" class="btn btn-sm btn-outline-secondary" ' +
+                                'data-action="retry-lookup" data-type="' + altType + '">' +
+                                'Try searching by ' + altType + '</button> ';
+                    });
+                    html += '</div>';
+                }
+
+                html += '</div>';
+                var region = document.getElementById('local-chemillusion-results');
+                region.innerHTML = html;
+
+                // Wire up retry buttons.
+                region.querySelectorAll('[data-action="retry-lookup"]').forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var retryType = btn.getAttribute('data-type');
+                        onSubmit(null, retryType);
+                    });
+                });
+
                 return null;
             });
         }).catch(Notification.exception);

@@ -33,6 +33,8 @@ $string['dashboard_heading'] = 'ChemIllusion Study Cards';
 $string['dashboard_intro'] = 'Free chemistry study tools inside Moodle. Look up molecules, build study decks, and learn functional groups and reagents.';
 $string['tools_heading'] = 'Molecule lookup & study tools';
 $string['cards_heading'] = 'Study decks';
+$string['back_to_dashboard'] = '← Back to ChemIllusion';
+$string['back_to_decks'] = '← Back to study decks';
 
 // Settings: mode.
 $string['settings_mode_heading'] = 'Operating mode';

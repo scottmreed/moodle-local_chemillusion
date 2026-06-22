@@ -26,7 +26,9 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require(__DIR__ . '/../../config.php');
+// Load Moodle config - works with symlinks
+$moodleroot = $_SERVER['DOCUMENT_ROOT'] ?? dirname(__DIR__, 2);
+require($moodleroot . '/config.php');
 
 $cta = optional_param('cta', 'continue', PARAM_ALPHANUMEXT);
 $surface = optional_param('surface', 'study_card', PARAM_ALPHANUMEXT);

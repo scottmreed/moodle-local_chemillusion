@@ -42,32 +42,35 @@ class lookup_molecule extends external_api {
      */
     public static function execute_parameters() {
         return new external_function_parameters([
-            'query' => new external_value(PARAM_TEXT, 'Name, SMILES, InChI, or InChIKey'),
+            'query'      => new external_value(PARAM_TEXT, 'Name, SMILES, or InChI'),
+            'force_type' => new external_value(PARAM_ALPHA, 'Override detected type (name|smiles|inchi)', VALUE_DEFAULT, ''),
         ]);
     }
 
     /**
-     * Resolve the molecule.
+     * Resolve the molecule, with optional type override for retry.
      *
      * @param string $query
+     * @param string $force_type Optional type override for retry.
      * @return array
      */
-    public static function execute($query) {
-        $params = self::validate_parameters(self::execute_parameters(), ['query' => $query]);
+    public static function execute($query, $force_type = '') {
+        $params = self::validate_parameters(self::execute_parameters(),
+            ['query' => $query, 'force_type' => $force_type]);
 
         $context = \context_system::instance();
         self::validate_context($context);
         require_capability('local/chemillusion:view', $context);
 
-        $type = input_normalizer::detect_type($params['query']);
-        $result = pubchem_client::resolve($params['query']);
+        $detected_type = input_normalizer::detect_type($params['query']);
+        $result = pubchem_client::resolve($params['query'], $params['force_type'] ?: null);
 
         if ($result['status'] === 'ok') {
             local_event_logger::log(local_event_logger::EVENT_LOOKUP, 'molecule_lookup');
             $data = $result['data'];
-            return [
+            $response = [
                 'status'           => 'ok',
-                'inputtype'        => $type,
+                'inputtype'        => $params['force_type'] ?: $detected_type,
                 'name'             => $data['name'],
                 'cid'              => (int) $data['cid'],
                 'formula'          => $data['formula'],
@@ -77,13 +80,29 @@ class lookup_molecule extends external_api {
                 'inchikey'         => $data['inchikey'],
                 'pubchem_url'      => $data['pubchem_url'],
             ];
+
+            if (!empty($result['fallback'])) {
+                $response['fallback'] = true;
+                $response['error_note'] = $result['error_note'] ?? '';
+            }
+
+            return $response;
         }
 
-        return [
+        $response = [
             'status'    => 'error',
-            'inputtype' => $type,
+            'inputtype' => $params['force_type'] ?: $detected_type,
             'error'     => $result['error'],
         ];
+
+        if (!empty($result['error_note'])) {
+            $response['error_note'] = $result['error_note'];
+        }
+        if (!empty($result['alt_types'])) {
+            $response['alt_types'] = $result['alt_types'];
+        }
+
+        return $response;
     }
 
     /**
@@ -94,8 +113,11 @@ class lookup_molecule extends external_api {
     public static function execute_returns() {
         return new external_single_structure([
             'status'           => new external_value(PARAM_ALPHA, 'ok or error'),
-            'inputtype'        => new external_value(PARAM_ALPHA, 'Detected input type'),
+            'inputtype'        => new external_value(PARAM_ALPHA, 'Detected or forced input type'),
             'error'            => new external_value(PARAM_ALPHANUMEXT, 'Error code', VALUE_OPTIONAL),
+            'error_note'       => new external_value(PARAM_TEXT, 'Human-readable error note (e.g., fallback message)', VALUE_OPTIONAL),
+            'alt_types'        => new external_value(PARAM_ALPHA, 'Comma-separated alternative types to suggest retrying', VALUE_OPTIONAL),
+            'fallback'         => new external_value(PARAM_BOOL, 'True if PubChem was down and we returned parsed data', VALUE_OPTIONAL),
             'name'             => new external_value(PARAM_TEXT, 'Preferred name', VALUE_OPTIONAL),
             'cid'              => new external_value(PARAM_INT, 'PubChem CID', VALUE_OPTIONAL),
             'formula'          => new external_value(PARAM_TEXT, 'Molecular formula', VALUE_OPTIONAL),

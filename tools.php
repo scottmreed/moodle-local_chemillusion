@@ -22,7 +22,9 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require(__DIR__ . '/../../config.php');
+// Load Moodle config - works with symlinks
+$moodleroot = $_SERVER['DOCUMENT_ROOT'] ?? dirname(__DIR__, 2);
+require($moodleroot . '/config.php');
 
 require_login();
 $context = context_system::instance();
@@ -39,6 +41,12 @@ $output = $PAGE->get_renderer('local_chemillusion');
 $form = new \local_chemillusion\form\molecule_lookup_form($PAGE->url->out(false));
 
 echo $output->header();
+
+// Navigation breadcrumb.
+echo \html_writer::tag('nav',
+    \html_writer::tag('a', get_string('back_to_dashboard', 'local_chemillusion'),
+        ['href' => (new moodle_url('/local/chemillusion/'))->out(false), 'class' => 'btn btn-sm btn-outline-secondary mb-3']),
+    ['class' => 'local-chemillusion-breadcrumb']);
 
 // Progressive enhancement: server-side lookup when JS is unavailable.
 $rendered = '';
