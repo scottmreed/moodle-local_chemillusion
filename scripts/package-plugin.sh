@@ -67,6 +67,10 @@ rsync -a \
   --exclude '.github' \
   --exclude 'scripts' \
   --exclude '*.zip' \
+  --exclude '.env' \
+  --exclude '*.env' \
+  --exclude 'testing' \
+  --exclude '.superpowers' \
   "${here}/" "${root}/"
 
 # Build JS into amd/build if needed.

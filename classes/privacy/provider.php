@@ -213,7 +213,7 @@ class provider implements
     }
 
     /**
-     * Helper: remove links/decks/cards for the given user ids.
+     * Helper: remove links/decks/cards/events for the given user ids.
      *
      * @param array $userids
      * @return void

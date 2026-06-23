@@ -164,4 +164,33 @@ final class privacy_provider_test extends \advanced_testcase {
         $this->assertEquals(0, $DB->count_records('local_chemillusion_events'),
             'delete_data_for_all_users_in_context must clear event rows');
     }
+
+    public function test_delete_data_for_users_bulk_removes_event_rows(): void {
+        global $DB;
+        $this->resetAfterTest();
+        $user1 = $this->getDataGenerator()->create_user();
+        $user2 = $this->getDataGenerator()->create_user();
+        $system = \context_system::instance();
+
+        foreach ([$user1->id, $user2->id] as $uid) {
+            $DB->insert_record('local_chemillusion_events', (object) [
+                'userid'    => $uid,
+                'courseid'  => 0,
+                'eventname' => 'molecule_lookup',
+                'surface'   => 'tools',
+                'cta'       => null,
+                'payload'   => null,
+                'created_at' => time(),
+            ]);
+        }
+
+        $approveduserlist = new \core_privacy\local\request\approved_userlist(
+            $system, 'local_chemillusion', [$user1->id]);
+        provider::delete_data_for_users($approveduserlist);
+
+        $this->assertFalse($DB->record_exists('local_chemillusion_events', ['userid' => $user1->id]),
+            'delete_data_for_users must remove event rows for the listed user');
+        $this->assertTrue($DB->record_exists('local_chemillusion_events', ['userid' => $user2->id]),
+            'delete_data_for_users must not remove event rows for unlisted users');
+    }
 }
