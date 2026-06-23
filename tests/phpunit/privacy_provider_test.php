@@ -37,6 +37,45 @@ final class privacy_provider_test extends \advanced_testcase {
         $this->assertNotEmpty($collection->get_collection());
     }
 
+    public function test_metadata_includes_events_table(): void {
+        $this->resetAfterTest();
+        $collection = provider::get_metadata(new collection('local_chemillusion'));
+        $items = $collection->get_collection();
+        $names = array_map(fn($item) => $item->get_name(), $items);
+        $this->assertContains('local_chemillusion_events', $names,
+            'Privacy metadata must declare local_chemillusion_events');
+    }
+
+    public function test_metadata_includes_pubchem_external_location(): void {
+        $this->resetAfterTest();
+        $collection = provider::get_metadata(new collection('local_chemillusion'));
+        $items = $collection->get_collection();
+        $names = array_map(fn($item) => $item->get_name(), $items);
+        $this->assertContains('pubchem_pug_rest', $names,
+            'Privacy metadata must declare pubchem_pug_rest external location');
+    }
+
+    public function test_events_create_context_for_userid(): void {
+        global $DB;
+        $this->resetAfterTest();
+        $user = $this->getDataGenerator()->create_user();
+        $system = \context_system::instance();
+
+        $DB->insert_record('local_chemillusion_events', (object) [
+            'userid'    => $user->id,
+            'courseid'  => 0,
+            'eventname' => 'molecule_lookup',
+            'surface'   => 'tools',
+            'cta'       => null,
+            'payload'   => null,
+            'created_at' => time(),
+        ]);
+
+        $contexts = provider::get_contexts_for_userid($user->id);
+        $this->assertContains($system->id, $contexts->get_contextids(),
+            'An event row with a userid must create a system context entry');
+    }
+
     public function test_contexts_export_and_delete(): void {
         global $DB;
         $this->resetAfterTest();
@@ -53,6 +92,15 @@ final class privacy_provider_test extends \advanced_testcase {
             'deckid' => $deckid, 'cardtype' => 'molecule_identity', 'prompt' => 'p',
             'answer' => 'a', 'sortorder' => 0, 'created_at' => time(),
         ]);
+        $DB->insert_record('local_chemillusion_events', (object) [
+            'userid'    => $user->id,
+            'courseid'  => 0,
+            'eventname' => 'molecule_lookup',
+            'surface'   => 'tools',
+            'cta'       => null,
+            'payload'   => null,
+            'created_at' => time(),
+        ]);
 
         $contexts = provider::get_contexts_for_userid($user->id);
         $this->assertContains($system->id, $contexts->get_contextids());
@@ -65,5 +113,55 @@ final class privacy_provider_test extends \advanced_testcase {
         $this->assertFalse($DB->record_exists('local_chemillusion_links', ['userid' => $user->id]));
         $this->assertFalse($DB->record_exists('local_chemillusion_decks', ['userid' => $user->id]));
         $this->assertFalse($DB->record_exists('local_chemillusion_cards', ['deckid' => $deckid]));
+        $this->assertFalse($DB->record_exists('local_chemillusion_events', ['userid' => $user->id]),
+            'Deleting user data must remove their event rows');
+    }
+
+    public function test_delete_user_does_not_affect_other_users_events(): void {
+        global $DB;
+        $this->resetAfterTest();
+        $user1 = $this->getDataGenerator()->create_user();
+        $user2 = $this->getDataGenerator()->create_user();
+        $system = \context_system::instance();
+
+        foreach ([$user1->id, $user2->id] as $uid) {
+            $DB->insert_record('local_chemillusion_events', (object) [
+                'userid'    => $uid,
+                'courseid'  => 0,
+                'eventname' => 'molecule_lookup',
+                'surface'   => 'tools',
+                'cta'       => null,
+                'payload'   => null,
+                'created_at' => time(),
+            ]);
+        }
+
+        $approved = new approved_contextlist($user1, 'local_chemillusion', [$system->id]);
+        provider::delete_data_for_user($approved);
+
+        $this->assertFalse($DB->record_exists('local_chemillusion_events', ['userid' => $user1->id]));
+        $this->assertTrue($DB->record_exists('local_chemillusion_events', ['userid' => $user2->id]),
+            'Deleting user1 must not remove user2 event rows');
+    }
+
+    public function test_delete_all_users_clears_events(): void {
+        global $DB;
+        $this->resetAfterTest();
+        $user = $this->getDataGenerator()->create_user();
+        $system = \context_system::instance();
+
+        $DB->insert_record('local_chemillusion_events', (object) [
+            'userid'    => $user->id,
+            'courseid'  => 0,
+            'eventname' => 'deck_created',
+            'surface'   => 'cards',
+            'cta'       => null,
+            'payload'   => null,
+            'created_at' => time(),
+        ]);
+
+        provider::delete_data_for_all_users_in_context($system);
+        $this->assertEquals(0, $DB->count_records('local_chemillusion_events'),
+            'delete_data_for_all_users_in_context must clear event rows');
     }
 }

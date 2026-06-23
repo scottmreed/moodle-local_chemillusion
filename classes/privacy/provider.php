@@ -74,6 +74,20 @@ class provider implements
             'surface' => 'privacy:metadata:chemillusion_saas:surface',
         ], 'privacy:metadata:chemillusion_saas');
 
+        $collection->add_database_table('local_chemillusion_events', [
+            'userid'     => 'privacy:metadata:local_chemillusion_events:userid',
+            'courseid'   => 'privacy:metadata:local_chemillusion_events:courseid',
+            'eventname'  => 'privacy:metadata:local_chemillusion_events:eventname',
+            'surface'    => 'privacy:metadata:local_chemillusion_events:surface',
+            'cta'        => 'privacy:metadata:local_chemillusion_events:cta',
+            'payload'    => 'privacy:metadata:local_chemillusion_events:payload',
+            'created_at' => 'privacy:metadata:local_chemillusion_events:created_at',
+        ], 'privacy:metadata:local_chemillusion_events');
+
+        $collection->add_external_location_link('pubchem_pug_rest', [
+            'identifier' => 'privacy:metadata:pubchem_pug_rest:identifier',
+        ], 'privacy:metadata:pubchem_pug_rest');
+
         return $collection;
     }
 
@@ -87,7 +101,8 @@ class provider implements
         global $DB;
         $contextlist = new contextlist();
         $has = $DB->record_exists('local_chemillusion_links', ['userid' => $userid])
-            || $DB->record_exists('local_chemillusion_decks', ['userid' => $userid]);
+            || $DB->record_exists('local_chemillusion_decks', ['userid' => $userid])
+            || $DB->record_exists('local_chemillusion_events', ['userid' => $userid]);
         if ($has) {
             $contextlist->add_system_context();
         }
@@ -107,6 +122,8 @@ class provider implements
         }
         $userlist->add_from_sql('userid', 'SELECT userid FROM {local_chemillusion_links}', []);
         $userlist->add_from_sql('userid', 'SELECT userid FROM {local_chemillusion_decks}', []);
+        $userlist->add_from_sql('userid',
+            'SELECT userid FROM {local_chemillusion_events} WHERE userid IS NOT NULL', []);
     }
 
     /**
@@ -135,6 +152,13 @@ class provider implements
                 writer::with_context($context)->export_data(
                     [get_string('pluginname', 'local_chemillusion'), 'decks', $deck->id], $deck);
             }
+            $events = $DB->get_records('local_chemillusion_events', ['userid' => $userid], 'created_at ASC');
+            if ($events) {
+                writer::with_context($context)->export_data(
+                    [get_string('pluginname', 'local_chemillusion'), 'events'],
+                    (object) ['events' => array_values($events)]
+                );
+            }
         }
     }
 
@@ -155,6 +179,7 @@ class provider implements
         }
         $DB->delete_records('local_chemillusion_decks', []);
         $DB->delete_records('local_chemillusion_links', []);
+        $DB->delete_records('local_chemillusion_events', []);
     }
 
     /**
@@ -205,5 +230,6 @@ class provider implements
         }
         $DB->delete_records_select('local_chemillusion_decks', "userid $insql", $params);
         $DB->delete_records_select('local_chemillusion_links', "userid $insql", $params);
+        $DB->delete_records_select('local_chemillusion_events', "userid $insql", $params);
     }
 }
