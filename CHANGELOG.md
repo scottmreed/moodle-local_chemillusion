@@ -6,6 +6,19 @@ versioning convention (`version.php`).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-06-23
+
+### Changed
+- Renamed plugin display name from "ChemIllusion Study Cards" to **ChemIllusion Study Tools** throughout user-facing text and documentation.
+- Aligned Moodle support documentation: range 4.3 through 5.0.x, automated CI on 4.3/4.5, local dev/testing on 5.0.8.
+
+### Fixed
+- Privacy API now fully covers `local_chemillusion_events` (metadata, context discovery, user listing, export, deletion).
+- Privacy API now declares `pubchem_pug_rest` as an external location.
+- `lookup_molecule` AJAX endpoint: `alt_types` return schema corrected from scalar to array.
+- All top-level page scripts now use plugin-relative `require_once(__DIR__ . '/../../config.php')` instead of fragile `$_SERVER['DOCUMENT_ROOT']` bootstrap.
+- Release packaging (`scripts/package-plugin.sh`) now fails hard when RDKit assets are missing; added `--without-rdkit` flag for local-only builds.
+
 ## [0.1.0] - 2026-06-13
 
 Initial Phase 1A + Phase 1B scaffold.
@@ -29,5 +42,6 @@ Initial Phase 1A + Phase 1B scaffold.
 - Accessible, keyboard-operable flashcard player (no auto-flip).
 - PHPUnit and Behat test scaffolding, Moodle Plugin CI, and packaging scripts.
 
-[Unreleased]: https://github.com/scottmreed/moodle-local-chemillusion/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/scottmreed/moodle-local-chemillusion/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/scottmreed/moodle-local-chemillusion/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/scottmreed/moodle-local-chemillusion/releases/tag/v0.1.0

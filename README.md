@@ -12,7 +12,8 @@ workflows.
 
 - **Component:** `local_chemillusion`
 - **License:** GPL-3.0-or-later (see `LICENSE`)
-- **Status:** Alpha (0.1.0) — Phase 1A + Phase 1B scaffolding
+- **Status:** Alpha (0.2.0) — Phase 1A + Phase 1B scaffolding
+- **Moodle support:** 4.3 through 5.0.x; automated CI on 4.3 and 4.5; local dev/testing on 5.0.8
 - **Bundled chemistry:** RDKit.js / RDKit WASM (BSD-3-Clause), lazy-loaded; see `THIRD_PARTY.md`
 
 ## Phases
@@ -43,6 +44,13 @@ No Composer, shell access, Conda, Python, or native packages are required.
 - No grades, rosters, raw prompts, or student responses are sent to ChemIllusion.
 - Admins can disable **every** external call with one switch.
 - See `docs/privacy-and-data-flow.md` and the in-product `privacy.php` summary.
+
+## ChemIllusion subscription
+
+**ChemIllusion Study Tools works locally without a ChemIllusion subscription.**
+Optional account linking / SaaS escalation requires a ChemIllusion account and
+may require a paid ChemIllusion plan. Review/demo credentials are available on
+request.
 
 ## Development
 

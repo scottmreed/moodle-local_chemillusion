@@ -4,6 +4,9 @@ This plugin is developed against a local Moodle. The recommended harness is the
 separate **`scottmreed/Moodle-plugin-dev`** repository, which runs Moodle in
 Docker and mounts this repo at `/var/www/html/local/chemillusion`.
 
+> **Tested Moodle versions:** Automated CI runs against Moodle 4.3 and 4.5.
+> Local development and testing uses Moodle 5.0.8.
+
 ## Option A — Moodle-plugin-dev harness (recommended)
 
 1. Clone both repos as siblings:
