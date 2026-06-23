@@ -103,4 +103,41 @@ if ($hassiteconfig) {
         get_string('settings_cache_ttl', 'local_chemillusion'),
         get_string('settings_cache_ttl_help', 'local_chemillusion'),
         '604800', PARAM_INT));
+
+    // --- Graphical cards ---------------------------------------------------.
+    $settings->add(new admin_setting_heading('local_chemillusion/graphicheading',
+        get_string('settings_graphical_heading', 'local_chemillusion'),
+        get_string('settings_graphical_desc', 'local_chemillusion')));
+
+    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_graphical_cards',
+        get_string('settings_enable_graphical_cards', 'local_chemillusion'),
+        get_string('settings_enable_graphical_cards_help', 'local_chemillusion'), 1));
+
+    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_newman_cards',
+        get_string('settings_enable_newman_cards', 'local_chemillusion'),
+        get_string('settings_enable_newman_cards_help', 'local_chemillusion'), 1));
+
+    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_orbital_cards',
+        get_string('settings_enable_orbital_cards', 'local_chemillusion'),
+        get_string('settings_enable_orbital_cards_help', 'local_chemillusion'), 1));
+
+    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_reaction_coordinate_cards',
+        get_string('settings_enable_reaction_coordinate_cards', 'local_chemillusion'),
+        get_string('settings_enable_reaction_coordinate_cards_help', 'local_chemillusion'), 1));
+
+    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_card_exports',
+        get_string('settings_enable_card_exports', 'local_chemillusion'),
+        get_string('settings_enable_card_exports_help', 'local_chemillusion'), 1));
+
+    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_png_export',
+        get_string('settings_enable_png_export', 'local_chemillusion'),
+        get_string('settings_enable_png_export_help', 'local_chemillusion'), 1));
+
+    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_chemillusion_visual_card_cta',
+        get_string('settings_enable_chemillusion_visual_card_cta', 'local_chemillusion'),
+        get_string('settings_enable_chemillusion_visual_card_cta_help', 'local_chemillusion'), 0));
+
+    $settings->add(new admin_setting_configcheckbox('local_chemillusion/default_accessible_summary_visible',
+        get_string('settings_default_accessible_summary_visible', 'local_chemillusion'),
+        get_string('settings_default_accessible_summary_visible_help', 'local_chemillusion'), 1));
 }

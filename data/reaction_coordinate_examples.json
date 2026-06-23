@@ -1,0 +1,20 @@
+[
+  {
+    "id": "generic_exergonic_one_step",
+    "label": "Generic exergonic one-step reaction",
+    "template": "one_step_exergonic",
+    "delta_g_kj_mol": -25,
+    "activation_energy_kj_mol": 60,
+    "source": "teaching_template_not_experimental",
+    "note": "Qualitative only. Do not cite as experimental values."
+  },
+  {
+    "id": "generic_endergonic_one_step",
+    "label": "Generic endergonic one-step reaction",
+    "template": "one_step_endergonic",
+    "delta_g_kj_mol": 20,
+    "activation_energy_kj_mol": 75,
+    "source": "teaching_template_not_experimental",
+    "note": "Qualitative only."
+  }
+]

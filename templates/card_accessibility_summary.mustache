@@ -1,0 +1,15 @@
+{{!
+    @template local_chemillusion/card_accessibility_summary
+
+    Standalone accessible text summary block rendered below a graphical card.
+    Can be included in other templates or rendered independently.
+
+    Context variables required for this template:
+    * summary string  Plain-text description of the card content.
+    * visible bool    Whether the summary starts visible.
+}}
+<div class="local-chemillusion-accessible-summary"
+     aria-live="polite"
+     {{^visible}}hidden{{/visible}}>
+    <span class="visually-hidden">{{#str}}accessible_summary_heading, local_chemillusion{{/str}}: </span>{{summary}}
+</div>

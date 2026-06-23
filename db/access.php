@@ -67,4 +67,43 @@ $capabilities = [
             'user' => CAP_ALLOW,
         ],
     ],
+
+    // Create new graphical cards.
+    'local/chemillusion:createcards' => [
+        'captype'      => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes'   => [
+            'editingteacher' => CAP_ALLOW,
+            'manager'        => CAP_ALLOW,
+        ],
+    ],
+
+    // Edit cards the user owns.
+    'local/chemillusion:editowncards' => [
+        'captype'      => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes'   => [
+            'editingteacher' => CAP_ALLOW,
+            'manager'        => CAP_ALLOW,
+        ],
+    ],
+
+    // Edit any card in the system.
+    'local/chemillusion:editallcards' => [
+        'captype'      => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes'   => [
+            'manager' => CAP_ALLOW,
+        ],
+    ],
+
+    // Export cards as SVG, PNG, or Moodle HTML snippet.
+    'local/chemillusion:exportcards' => [
+        'captype'      => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes'   => [
+            'editingteacher' => CAP_ALLOW,
+            'manager'        => CAP_ALLOW,
+        ],
+    ],
 ];

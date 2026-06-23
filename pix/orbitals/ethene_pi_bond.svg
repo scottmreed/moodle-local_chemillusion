@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 240" width="300" height="240"
+     font-family="sans-serif" role="img" aria-labelledby="ethene-title">
+  <title id="ethene-title">Ethene π bond: two sp² carbons with p-orbital overlap</title>
+  <!-- σ framework -->
+  <line x1="90" y1="120" x2="210" y2="120" stroke="#333" stroke-width="2.5"/>
+  <!-- H atoms on left C -->
+  <line x1="90" y1="120" x2="50" y2="90"  stroke="#333" stroke-width="2"/>
+  <line x1="90" y1="120" x2="50" y2="150" stroke="#333" stroke-width="2"/>
+  <!-- H atoms on right C -->
+  <line x1="210" y1="120" x2="250" y2="90"  stroke="#333" stroke-width="2"/>
+  <line x1="210" y1="120" x2="250" y2="150" stroke="#333" stroke-width="2"/>
+  <!-- Carbon atoms -->
+  <circle cx="90" cy="120" r="6" fill="#333"/>
+  <circle cx="210" cy="120" r="6" fill="#333"/>
+  <!-- p-orbital lobes: upper (blue) -->
+  <ellipse cx="90"  cy="86"  rx="14" ry="28" fill="#4dabf7" fill-opacity="0.55" stroke="#1c7ed6" stroke-width="1.2"/>
+  <ellipse cx="210" cy="86"  rx="14" ry="28" fill="#4dabf7" fill-opacity="0.55" stroke="#1c7ed6" stroke-width="1.2"/>
+  <!-- p-orbital lobes: lower (orange) -->
+  <ellipse cx="90"  cy="154" rx="14" ry="28" fill="#ff922b" fill-opacity="0.55" stroke="#e8590c" stroke-width="1.2"/>
+  <ellipse cx="210" cy="154" rx="14" ry="28" fill="#ff922b" fill-opacity="0.55" stroke="#e8590c" stroke-width="1.2"/>
+  <!-- π overlap shading between carbons (upper) -->
+  <ellipse cx="150" cy="86"  rx="52" ry="18" fill="#74c0fc" fill-opacity="0.30"/>
+  <!-- π overlap shading between carbons (lower) -->
+  <ellipse cx="150" cy="154" rx="52" ry="18" fill="#ffa94d" fill-opacity="0.30"/>
+  <!-- Labels -->
+  <text x="90"  y="178" text-anchor="middle" font-size="11" fill="#555">C (sp²)</text>
+  <text x="210" y="178" text-anchor="middle" font-size="11" fill="#555">C (sp²)</text>
+  <text x="38"  y="88"  text-anchor="end"    font-size="11" fill="#555">H</text>
+  <text x="38"  y="154" text-anchor="end"    font-size="11" fill="#555">H</text>
+  <text x="262" y="88"  text-anchor="start"  font-size="11" fill="#555">H</text>
+  <text x="262" y="154" text-anchor="start"  font-size="11" fill="#555">H</text>
+  <text x="150" y="225" text-anchor="middle" font-size="10" fill="#666" font-style="italic">p orbitals overlap to form π bond</text>
+</svg>

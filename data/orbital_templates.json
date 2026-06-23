@@ -1,0 +1,101 @@
+[
+  {
+    "id": "ethene_pi_bond",
+    "label": "Ethene π bond (sp² C=C)",
+    "smiles_pattern": "C=C",
+    "topics": ["sp2_hybridization", "pi_bond", "alkene"],
+    "hybridization": "sp²",
+    "asset": "pix/orbitals/ethene_pi_bond.svg",
+    "confidence": "curated",
+    "description": "Each carbon is sp²; one unhybridised p orbital on each C overlaps sideways to form the π bond.",
+    "teacher_note": "The σ framework lies in a plane; the π bond is perpendicular."
+  },
+  {
+    "id": "acetylene_sp",
+    "label": "Acetylene sp (C≡C)",
+    "smiles_pattern": "C#C",
+    "topics": ["sp_hybridization", "alkyne", "triple_bond"],
+    "hybridization": "sp",
+    "asset": "pix/orbitals/acetylene_sp.svg",
+    "confidence": "curated",
+    "description": "Each carbon in acetylene is sp hybridised; two π bonds are formed by two pairs of perpendicular p orbitals.",
+    "teacher_note": "Linear geometry; 180° bond angle."
+  },
+  {
+    "id": "formaldehyde_carbonyl",
+    "label": "Formaldehyde carbonyl π bond",
+    "smiles_pattern": "C=O",
+    "topics": ["sp2_hybridization", "carbonyl", "pi_bond"],
+    "hybridization": "sp²",
+    "asset": "pix/orbitals/formaldehyde_carbonyl.svg",
+    "confidence": "curated",
+    "description": "Both C and O in the C=O are sp² hybridised; the p orbitals overlap to form the π bond.",
+    "teacher_note": "Oxygen is more electronegative so the π bond is polarised toward O."
+  },
+  {
+    "id": "benzene_pi_cloud",
+    "label": "Benzene aromatic π cloud",
+    "smiles_pattern": "c1ccccc1",
+    "topics": ["aromaticity", "pi_system", "delocalization"],
+    "hybridization": "sp²",
+    "asset": "pix/orbitals/benzene_pi_cloud.svg",
+    "confidence": "curated",
+    "description": "All six carbons are sp²; the six p orbitals combine to form the delocalised π cloud above and below the ring.",
+    "teacher_note": "Hückel 4n+2 rule: benzene has 6 π electrons (n=1)."
+  },
+  {
+    "id": "butadiene_conjugation",
+    "label": "1,3-Butadiene conjugated π system",
+    "smiles_pattern": "C=CC=C",
+    "topics": ["conjugation", "pi_system", "homo_lumo_intro"],
+    "hybridization": "sp²",
+    "asset": "pix/orbitals/butadiene_conjugation.svg",
+    "confidence": "curated",
+    "description": "Four adjacent sp² carbons; the four p orbitals form a conjugated π system spanning all four carbons.",
+    "teacher_note": "Conjugation lowers energy and extends UV absorption wavelength."
+  },
+  {
+    "id": "allyl_cation",
+    "label": "Allyl cation (allylic stabilisation)",
+    "smiles_pattern": "[CH2+]C=C",
+    "topics": ["resonance", "allylic_cation", "p_orbital"],
+    "hybridization": "sp²",
+    "asset": "pix/orbitals/allyl_cation.svg",
+    "confidence": "curated",
+    "description": "The empty p orbital on the allylic cation delocalises with the adjacent π bond, spreading the positive charge over three carbons.",
+    "teacher_note": "Allylic stabilisation ~ 15 kcal/mol more stable than a simple 2° carbocation."
+  },
+  {
+    "id": "pyridine_pi_system",
+    "label": "Pyridine aromatic π system",
+    "smiles_pattern": "c1ccncc1",
+    "topics": ["aromaticity", "heteroaromatic", "pi_system"],
+    "hybridization": "sp²",
+    "asset": "pix/orbitals/pyridine_pi_system.svg",
+    "confidence": "curated",
+    "description": "Pyridine is isoelectronic with benzene; nitrogen is sp² and contributes its p orbital to the 6-π-electron aromatic system.",
+    "teacher_note": "The nitrogen lone pair is in an sp² orbital in the ring plane, NOT in the π system."
+  },
+  {
+    "id": "furan_pi_system",
+    "label": "Furan aromatic π system",
+    "smiles_pattern": "c1ccoc1",
+    "topics": ["aromaticity", "heteroaromatic", "pi_system"],
+    "hybridization": "sp²",
+    "asset": "pix/orbitals/furan_pi_system.svg",
+    "confidence": "curated",
+    "description": "Furan has 6 π electrons: 4 from the two double bonds and 2 from the oxygen lone pair in the p orbital.",
+    "teacher_note": "Oxygen lone pair IS part of the π system here (contrast with pyridine)."
+  },
+  {
+    "id": "allene_orthogonal_pi",
+    "label": "Allene orthogonal π systems",
+    "smiles_pattern": "C=C=C",
+    "topics": ["sp_hybridization", "allene", "orthogonal_pi"],
+    "hybridization": "sp",
+    "asset": "pix/orbitals/allene_orthogonal_pi.svg",
+    "confidence": "curated",
+    "description": "The central carbon of allene is sp hybridised; the two π bonds are perpendicular to each other.",
+    "teacher_note": "Allene is chiral if the two ends bear different substituents."
+  }
+]

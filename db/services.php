@@ -41,4 +41,31 @@ $functions = [
         'ajax'         => true,
         'capabilities' => 'local/chemillusion:managedecks',
     ],
+
+    'local_chemillusion_save_graphical_card' => [
+        'classname'    => 'local_chemillusion\\external\\save_graphical_card',
+        'methodname'   => 'execute',
+        'description'  => 'Create or update a graphical chemistry card (Newman, orbital, reaction coordinate, etc.).',
+        'type'         => 'write',
+        'ajax'         => true,
+        'capabilities' => 'local/chemillusion:createcards',
+    ],
+
+    'local_chemillusion_export_graphical_card' => [
+        'classname'    => 'local_chemillusion\\external\\export_graphical_card',
+        'methodname'   => 'execute',
+        'description'  => 'Export a graphical card as SVG or HTML snippet.',
+        'type'         => 'read',
+        'ajax'         => true,
+        'capabilities' => 'local/chemillusion:exportcards',
+    ],
+
+    'local_chemillusion_get_graphical_card_preview' => [
+        'classname'    => 'local_chemillusion\\external\\get_graphical_card_preview',
+        'methodname'   => 'execute',
+        'description'  => 'Fetch card JSON for client-side rendering preview.',
+        'type'         => 'read',
+        'ajax'         => true,
+        'capabilities' => 'local/chemillusion:view',
+    ],
 ];

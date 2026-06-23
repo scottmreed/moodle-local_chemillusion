@@ -1,0 +1,18 @@
+{{!
+    @template local_chemillusion/graphical_card_picker
+
+    Card type selection picker used inside the editor form.
+
+    Context variables required for this template:
+    * typeoptions array of { id, label }
+    * createurl string (base URL for creating a card of a given type)
+}}
+<div class="local-chemillusion-type-picker" role="list" aria-label="{{#str}}card_type_label, local_chemillusion{{/str}}">
+    {{#typeoptions}}
+    <a class="local-chemillusion-type-picker-option" role="listitem"
+       href="{{createurl}}?cardtype={{id}}"
+       aria-label="{{label}}">
+        <div class="fw-semibold">{{label}}</div>
+    </a>
+    {{/typeoptions}}
+</div>

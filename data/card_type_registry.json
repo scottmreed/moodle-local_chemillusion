@@ -1,0 +1,85 @@
+[
+  {
+    "id": "molecule_identity",
+    "label": "Molecule identity card",
+    "icon": "molecule",
+    "schema_version": 1,
+    "requires_rdkit": true,
+    "group": "molecule"
+  },
+  {
+    "id": "functional_group_highlight",
+    "label": "Functional group highlight card",
+    "icon": "highlight",
+    "schema_version": 1,
+    "requires_rdkit": true,
+    "group": "molecule"
+  },
+  {
+    "id": "functional_group_list",
+    "label": "Functional group list card",
+    "icon": "list",
+    "schema_version": 1,
+    "requires_rdkit": true,
+    "group": "molecule"
+  },
+  {
+    "id": "smiles_to_structure",
+    "label": "SMILES to structure card",
+    "icon": "smiles",
+    "schema_version": 1,
+    "requires_rdkit": true,
+    "group": "molecule"
+  },
+  {
+    "id": "structure_to_smiles",
+    "label": "Structure to SMILES/name card",
+    "icon": "structure",
+    "schema_version": 1,
+    "requires_rdkit": true,
+    "group": "molecule"
+  },
+  {
+    "id": "reagent_card",
+    "label": "Reagent mini-card",
+    "icon": "reagent",
+    "schema_version": 1,
+    "requires_rdkit": false,
+    "group": "reagent"
+  },
+  {
+    "id": "accessibility_card",
+    "label": "Accessibility card",
+    "icon": "accessibility",
+    "schema_version": 1,
+    "requires_rdkit": true,
+    "group": "molecule"
+  },
+  {
+    "id": "newman_projection",
+    "label": "Newman projection card",
+    "icon": "newman",
+    "schema_version": 1,
+    "requires_rdkit": false,
+    "group": "graphical",
+    "setting_gate": "enable_newman_cards"
+  },
+  {
+    "id": "orbital_hybridization",
+    "label": "Orbital and hybridization card",
+    "icon": "orbital",
+    "schema_version": 1,
+    "requires_rdkit": true,
+    "group": "graphical",
+    "setting_gate": "enable_orbital_cards"
+  },
+  {
+    "id": "reaction_coordinate",
+    "label": "Reaction coordinate diagram card",
+    "icon": "reaction",
+    "schema_version": 1,
+    "requires_rdkit": false,
+    "group": "graphical",
+    "setting_gate": "enable_reaction_coordinate_cards"
+  }
+]

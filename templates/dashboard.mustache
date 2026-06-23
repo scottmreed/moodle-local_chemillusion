@@ -8,6 +8,8 @@
     * intro string
     * toolsurl string
     * cardsurl string
+    * graphicalurl string
+    * graphical_enabled bool
     * privacyurl string
     * linking_enabled bool
     * linkurl string
@@ -29,6 +31,12 @@
                 <strong>{{#str}}cards_heading, local_chemillusion{{/str}}</strong>
                 <small class="d-block text-muted">Create and study flashcard decks</small>
             </a>
+            {{#graphical_enabled}}
+            <a class="list-group-item list-group-item-action" href="{{graphicalurl}}">
+                <strong>{{#str}}graphical_cards_heading, local_chemillusion{{/str}}</strong>
+                <small class="d-block text-muted">Newman projections, orbital diagrams, reaction coordinate cards</small>
+            </a>
+            {{/graphical_enabled}}
             {{#linking_enabled}}
                 <a class="list-group-item list-group-item-action" href="{{linkurl}}">
                     <strong>{{#str}}link_start, local_chemillusion{{/str}}</strong>

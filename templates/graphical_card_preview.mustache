@@ -1,0 +1,113 @@
+{{!
+    @template local_chemillusion/graphical_card_preview
+
+    Single graphical card view (student/teacher preview).
+
+    Context variables required for this template:
+    * id int
+    * cardtype string
+    * name string
+    * frontjson string
+    * backjson string
+    * renderjson string
+    * summary string
+    * summaryvisible bool
+    * canexport bool
+    * canedit bool
+    * editurl string
+    * exportsvgurl string
+    * is_newman bool
+    * is_orbital bool
+    * is_reaction bool
+    * is_molecule bool
+    * exportenabled bool
+    * pngexportenabled bool
+}}
+<div class="local-chemillusion-card-preview"
+     data-region="graphical-card-preview"
+     data-cardid="{{id}}"
+     data-cardtype="{{cardtype}}">
+
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3 class="h5 mb-0">{{name}}</h3>
+        {{#canedit}}
+        <a class="btn btn-sm btn-outline-secondary" href="{{editurl}}">
+            {{#str}}card_edit_heading, local_chemillusion{{/str}}
+        </a>
+        {{/canedit}}
+    </div>
+
+    {{! Front face }}
+    <div class="local-chemillusion-card-face"
+         data-region="card-front"
+         role="img"
+         aria-label="{{summary}}">
+        {{! JS renders SVG here based on cardtype + frontjson }}
+        <div class="text-muted small">{{#str}}rdkit_loading, local_chemillusion{{/str}}</div>
+    </div>
+
+    <div class="mt-2 text-center">
+        <button class="btn btn-primary"
+                type="button"
+                data-action="flip-card"
+                aria-expanded="false">
+            {{#str}}card_show_answer, local_chemillusion{{/str}}
+        </button>
+    </div>
+
+    {{! Back face }}
+    <div class="local-chemillusion-card-face mt-2"
+         data-region="card-back"
+         hidden
+         aria-live="polite">
+        <div class="text-muted small">{{#str}}rdkit_loading, local_chemillusion{{/str}}</div>
+    </div>
+
+    {{! Newman rotation controls }}
+    {{#is_newman}}
+    <div class="local-chemillusion-newman-controls mt-2">
+        <button class="btn btn-outline-secondary btn-sm" type="button" data-action="rotate-ccw">
+            {{#str}}newman_rotate_ccw, local_chemillusion{{/str}}
+        </button>
+        <button class="btn btn-outline-secondary btn-sm" type="button" data-action="rotate-cw">
+            {{#str}}newman_rotate_cw, local_chemillusion{{/str}}
+        </button>
+    </div>
+    {{/is_newman}}
+
+    {{! Accessible summary }}
+    <div class="local-chemillusion-accessible-summary mt-2"
+         aria-live="polite"
+         {{^summaryvisible}}hidden{{/summaryvisible}}>
+        {{summary}}
+    </div>
+
+    <div class="mt-1">
+        <button class="btn btn-link btn-sm p-0" type="button" data-action="toggle-summary">
+            {{#str}}accessible_summary_toggle, local_chemillusion{{/str}}
+        </button>
+    </div>
+
+    {{! Export toolbar }}
+    {{#exportenabled}}
+    {{#canexport}}
+    <div class="local-chemillusion-svg-toolbar mt-3">
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="copy-svg">
+            {{#str}}export_copy_svg, local_chemillusion{{/str}}
+        </button>
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="export-svg">
+            {{#str}}export_svg, local_chemillusion{{/str}}
+        </button>
+        {{#pngexportenabled}}
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="export-png">
+            {{#str}}export_png, local_chemillusion{{/str}}
+        </button>
+        {{/pngexportenabled}}
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="copy-snippet">
+            {{#str}}export_copy_snippet, local_chemillusion{{/str}}
+        </button>
+    </div>
+    {{/canexport}}
+    {{/exportenabled}}
+
+</div>

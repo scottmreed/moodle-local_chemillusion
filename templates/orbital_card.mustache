@@ -1,0 +1,64 @@
+{{!
+    @template local_chemillusion/orbital_card
+
+    Orbital and hybridization card shell. JS renders the SVG overlay
+    via orbital_overlay_renderer.js.
+
+    Context variables required for this template:
+    * name string
+    * frontjson string (JSON: { smiles, atom_idx, template_id, hybridization, label, description, teacher_note })
+    * summary string
+    * summaryvisible bool
+    * canexport bool
+    * exportenabled bool
+    * pngexportenabled bool
+}}
+<div class="local-chemillusion-orbital-card"
+     data-region="orbital-card"
+     data-frontjson="{{frontjson}}">
+
+    <div class="local-chemillusion-card-face"
+         data-region="card-front"
+         role="img"
+         aria-label="{{summary}}">
+        {{! orbital_overlay_renderer.js renders SVG + overlay here }}
+        <noscript>
+            <p class="text-muted">{{#str}}rdkit_failed, local_chemillusion{{/str}}</p>
+        </noscript>
+    </div>
+
+    <div class="mt-2 text-center">
+        <button class="btn btn-primary" type="button"
+                data-action="flip-card" aria-expanded="false">
+            {{#str}}card_show_answer, local_chemillusion{{/str}}
+        </button>
+    </div>
+
+    <div class="local-chemillusion-card-face mt-2" data-region="card-back" hidden aria-live="polite">
+        {{! Back: hybridization label + explanation rendered by JS }}
+    </div>
+
+    <div class="local-chemillusion-accessible-summary mt-2"
+         {{^summaryvisible}}hidden{{/summaryvisible}}>
+        {{summary}}
+    </div>
+
+    {{#exportenabled}}
+    {{#canexport}}
+    <div class="local-chemillusion-svg-toolbar mt-3">
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="export-svg">
+            {{#str}}export_svg, local_chemillusion{{/str}}
+        </button>
+        {{#pngexportenabled}}
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="export-png">
+            {{#str}}export_png, local_chemillusion{{/str}}
+        </button>
+        {{/pngexportenabled}}
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="copy-snippet">
+            {{#str}}export_copy_snippet, local_chemillusion{{/str}}
+        </button>
+    </div>
+    {{/canexport}}
+    {{/exportenabled}}
+
+</div>

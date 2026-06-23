@@ -1,0 +1,162 @@
+[
+  {
+    "id": "one_step_exergonic",
+    "label": "One-step exergonic reaction",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants", "x": 0.05, "y": 0.60, "label": "Reactants"},
+      {"id": "ts1",       "x": 0.50, "y": 0.15, "label": "TS"},
+      {"id": "products",  "x": 0.95, "y": 0.75, "label": "Products"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea",  "from": "reactants", "to": "ts1"},
+      {"type": "bracket", "label": "ΔG", "from": "reactants", "to": "products"}
+    ]
+  },
+  {
+    "id": "one_step_endergonic",
+    "label": "One-step endergonic reaction",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants", "x": 0.05, "y": 0.75, "label": "Reactants"},
+      {"id": "ts1",       "x": 0.50, "y": 0.10, "label": "TS"},
+      {"id": "products",  "x": 0.95, "y": 0.55, "label": "Products"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea",  "from": "reactants", "to": "ts1"},
+      {"type": "bracket", "label": "ΔG", "from": "reactants", "to": "products"}
+    ]
+  },
+  {
+    "id": "two_step_intermediate",
+    "label": "Two-step reaction with intermediate",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants",    "x": 0.05, "y": 0.60, "label": "Reactants"},
+      {"id": "ts1",          "x": 0.25, "y": 0.15, "label": "TS1"},
+      {"id": "intermediate", "x": 0.50, "y": 0.45, "label": "Intermediate"},
+      {"id": "ts2",          "x": 0.72, "y": 0.25, "label": "TS2"},
+      {"id": "products",     "x": 0.95, "y": 0.65, "label": "Products"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea1", "from": "reactants", "to": "ts1"},
+      {"type": "arrow", "label": "Ea2", "from": "intermediate", "to": "ts2"},
+      {"type": "bracket", "label": "ΔG", "from": "reactants", "to": "products"}
+    ]
+  },
+  {
+    "id": "fast_first_slow_second",
+    "label": "Fast first step / slow second step",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants",    "x": 0.05, "y": 0.60, "label": "Reactants"},
+      {"id": "ts1",          "x": 0.20, "y": 0.35, "label": "TS1 (fast)"},
+      {"id": "intermediate", "x": 0.45, "y": 0.50, "label": "Intermediate"},
+      {"id": "ts2",          "x": 0.70, "y": 0.12, "label": "TS2 (RDS)"},
+      {"id": "products",     "x": 0.95, "y": 0.65, "label": "Products"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea1",  "from": "reactants", "to": "ts1"},
+      {"type": "arrow", "label": "Ea2 (RDS)", "from": "intermediate", "to": "ts2"}
+    ]
+  },
+  {
+    "id": "slow_first_fast_second",
+    "label": "Slow first step / fast second step",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants",    "x": 0.05, "y": 0.65, "label": "Reactants"},
+      {"id": "ts1",          "x": 0.25, "y": 0.10, "label": "TS1 (RDS)"},
+      {"id": "intermediate", "x": 0.50, "y": 0.40, "label": "Intermediate"},
+      {"id": "ts2",          "x": 0.70, "y": 0.30, "label": "TS2 (fast)"},
+      {"id": "products",     "x": 0.95, "y": 0.60, "label": "Products"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea1 (RDS)", "from": "reactants", "to": "ts1"},
+      {"type": "arrow", "label": "Ea2",       "from": "intermediate", "to": "ts2"}
+    ]
+  },
+  {
+    "id": "sn1_profile",
+    "label": "SN1 qualitative energy profile",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants",    "x": 0.05, "y": 0.55, "label": "R–X"},
+      {"id": "ts1",          "x": 0.25, "y": 0.12, "label": "TS1 (ionisation)"},
+      {"id": "intermediate", "x": 0.50, "y": 0.42, "label": "R⁺ + X⁻"},
+      {"id": "ts2",          "x": 0.72, "y": 0.28, "label": "TS2 (attack)"},
+      {"id": "products",     "x": 0.95, "y": 0.68, "label": "R–Nu"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea1 (RDS)", "from": "reactants", "to": "ts1"},
+      {"type": "arrow", "label": "Ea2", "from": "intermediate", "to": "ts2"}
+    ]
+  },
+  {
+    "id": "sn2_profile",
+    "label": "SN2 qualitative energy profile",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants", "x": 0.05, "y": 0.60, "label": "Nu + R–X"},
+      {"id": "ts1",       "x": 0.50, "y": 0.12, "label": "TS [Nu···C···X]"},
+      {"id": "products",  "x": 0.95, "y": 0.72, "label": "Nu–R + X⁻"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea (single TS)", "from": "reactants", "to": "ts1"},
+      {"type": "bracket", "label": "ΔG", "from": "reactants", "to": "products"}
+    ]
+  },
+  {
+    "id": "e1_profile",
+    "label": "E1 qualitative energy profile",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants",    "x": 0.05, "y": 0.55, "label": "R–X"},
+      {"id": "ts1",          "x": 0.25, "y": 0.12, "label": "TS1 (ionisation)"},
+      {"id": "intermediate", "x": 0.50, "y": 0.40, "label": "Carbocation"},
+      {"id": "ts2",          "x": 0.72, "y": 0.25, "label": "TS2 (deprotonation)"},
+      {"id": "products",     "x": 0.95, "y": 0.65, "label": "Alkene + HX"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea1 (RDS)", "from": "reactants", "to": "ts1"}
+    ]
+  },
+  {
+    "id": "e2_profile",
+    "label": "E2 qualitative energy profile",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants", "x": 0.05, "y": 0.60, "label": "Base + R–X"},
+      {"id": "ts1",       "x": 0.50, "y": 0.12, "label": "TS (concerted)"},
+      {"id": "products",  "x": 0.95, "y": 0.72, "label": "Alkene + B–H + X⁻"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea (concerted)", "from": "reactants", "to": "ts1"}
+    ]
+  },
+  {
+    "id": "catalyzed_vs_uncatalyzed",
+    "label": "Catalysed vs uncatalysed comparison",
+    "x_axis_label": "Reaction coordinate",
+    "y_axis_label": "Free energy",
+    "points": [
+      {"id": "reactants",      "x": 0.05, "y": 0.55, "label": "Reactants"},
+      {"id": "ts_uncat",       "x": 0.38, "y": 0.08, "label": "TS (uncatalysed)"},
+      {"id": "ts_cat",         "x": 0.62, "y": 0.28, "label": "TS (catalysed)"},
+      {"id": "products",       "x": 0.95, "y": 0.65, "label": "Products"}
+    ],
+    "annotations": [
+      {"type": "arrow", "label": "Ea (uncat)",  "from": "reactants", "to": "ts_uncat"},
+      {"type": "arrow", "label": "Ea (cat)",    "from": "reactants", "to": "ts_cat"}
+    ]
+  }
+]

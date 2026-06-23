@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/chemillusion/db" VERSION="20260613" COMMENT="Database tables for local_chemillusion (Phase 1A/1B)."
+<XMLDB PATH="local/chemillusion/db" VERSION="20260622" COMMENT="Database tables for local_chemillusion (Phase 1A/1B + Graphical Cards)."
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
   <TABLES>
@@ -76,16 +76,25 @@
         <INDEX NAME="courseid" UNIQUE="false" FIELDS="courseid"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="local_chemillusion_cards" COMMENT="Cards belonging to a study deck.">
+    <TABLE NAME="local_chemillusion_cards" COMMENT="Cards belonging to a study deck, including graphical card types.">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="deckid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="owneruserid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="deckid" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="cardtype" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="prompt" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="answer" TYPE="text" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="prompt" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="answer" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
         <FIELD NAME="molecule_payload" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="frontjson" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="backjson" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="renderjson" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="accessibilityjson" TYPE="text" NOTNULL="false" SEQUENCE="false"/>
+        <FIELD NAME="source" TYPE="char" LENGTH="64" NOTNULL="true" DEFAULT="local" SEQUENCE="false"/>
         <FIELD NAME="sortorder" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
         <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="updated_at" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -93,6 +102,27 @@
       </KEYS>
       <INDEXES>
         <INDEX NAME="deckid_sortorder" UNIQUE="false" FIELDS="deckid, sortorder"/>
+        <INDEX NAME="cardtype" UNIQUE="false" FIELDS="cardtype"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="local_chemillusion_card_exports" COMMENT="Optional cache of exported graphical card assets.">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="cardid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="exporttype" TYPE="char" LENGTH="16" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="contenthash" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="filearea" TYPE="char" LENGTH="64" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="itemid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="created_at" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="cardid" TYPE="foreign" FIELDS="cardid" REFTABLE="local_chemillusion_cards" REFFIELDS="id"/>
+        <KEY NAME="userid" TYPE="foreign" FIELDS="userid" REFTABLE="user" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="exporttype" UNIQUE="false" FIELDS="exporttype"/>
       </INDEXES>
     </TABLE>
   </TABLES>

@@ -172,6 +172,120 @@ $string['error_invalidsesskey'] = 'Your session has expired. Please reload the p
 // Tasks.
 $string['purgeexpiredcachetask'] = 'Purge expired ChemIllusion lookup cache';
 
+// Graphical cards — settings.
+$string['settings_graphical_heading'] = 'Graphical chemistry cards';
+$string['settings_graphical_desc'] = 'Enable or disable graphical card types. All render locally without AI tokens.';
+$string['settings_enable_graphical_cards'] = 'Enable graphical chemistry cards';
+$string['settings_enable_graphical_cards_help'] = 'Show the graphical card section in the dashboard and enable card creation/study pages.';
+$string['settings_enable_newman_cards'] = 'Enable Newman projection cards';
+$string['settings_enable_newman_cards_help'] = 'Allow teachers to create and students to study Newman projection cards.';
+$string['settings_enable_orbital_cards'] = 'Enable orbital and hybridization cards';
+$string['settings_enable_orbital_cards_help'] = 'Allow curated orbital and hybridization teaching overlays for simple organic chemistry cases.';
+$string['settings_enable_reaction_coordinate_cards'] = 'Enable reaction coordinate diagram cards';
+$string['settings_enable_reaction_coordinate_cards_help'] = 'Allow teachers to create editable reaction coordinate energy-profile diagrams.';
+$string['settings_enable_card_exports'] = 'Enable card export (SVG and HTML snippet)';
+$string['settings_enable_card_exports_help'] = 'Allow teachers to download cards as SVG and copy Moodle HTML snippets.';
+$string['settings_enable_png_export'] = 'Enable PNG export (browser-side)';
+$string['settings_enable_png_export_help'] = 'Allow browser-side PNG rasterisation of SVG cards using Canvas. No server processing.';
+$string['settings_enable_chemillusion_visual_card_cta'] = 'Enable "Generate visual card in ChemIllusion" CTA';
+$string['settings_enable_chemillusion_visual_card_cta_help'] = 'Show an optional button that lets teachers continue into ChemIllusion for richer visual card generation. Requires account linking enabled.';
+$string['settings_default_accessible_summary_visible'] = 'Show accessible text summary by default';
+$string['settings_default_accessible_summary_visible_help'] = 'Display a visible text description below every graphical card by default.';
+
+// Graphical cards — navigation / page headings.
+$string['graphical_cards_heading'] = 'Graphical chemistry cards';
+$string['graphical_cards_intro'] = 'Create, study, and export graphical chemistry cards: molecule structures, Newman projections, orbital diagrams, and reaction coordinate diagrams.';
+$string['nav_graphical_cards'] = 'Graphical cards';
+$string['nav_create_card'] = 'Create a card';
+$string['nav_study_decks'] = 'Study decks';
+
+// Card type labels.
+$string['cardtype_molecule_identity'] = 'Molecule identity card';
+$string['cardtype_functional_group_highlight'] = 'Functional group highlight card';
+$string['cardtype_functional_group_list'] = 'Functional group list card';
+$string['cardtype_smiles_to_structure'] = 'SMILES to structure card';
+$string['cardtype_structure_to_smiles'] = 'Structure to SMILES/name card';
+$string['cardtype_reagent_card'] = 'Reagent mini-card';
+$string['cardtype_accessibility_card'] = 'Accessibility card';
+$string['cardtype_newman_projection'] = 'Newman projection card';
+$string['cardtype_orbital_hybridization'] = 'Orbital and hybridization card';
+$string['cardtype_reaction_coordinate'] = 'Reaction coordinate diagram card';
+
+// Card editor.
+$string['card_edit_heading'] = 'Create / edit graphical card';
+$string['card_type_label'] = 'Card type';
+$string['card_name_label'] = 'Card name';
+$string['card_deck_label'] = 'Deck (optional)';
+$string['card_teacher_note'] = 'Teacher note (editable)';
+$string['card_save'] = 'Save card';
+$string['card_preview'] = 'Preview';
+$string['card_saved'] = 'Card saved successfully.';
+$string['card_nocard'] = 'Card not found.';
+$string['card_nopermission'] = 'You do not have permission to edit this card.';
+
+// Card view / study.
+$string['card_view_heading'] = 'View card';
+$string['card_flip'] = 'Flip card';
+$string['card_show_answer'] = 'Show answer';
+$string['card_hide_answer'] = 'Hide answer';
+$string['card_next'] = 'Next card';
+$string['card_prev'] = 'Previous card';
+
+// Export.
+$string['export_svg'] = 'Download SVG';
+$string['export_png'] = 'Download PNG';
+$string['export_copy_svg'] = 'Copy SVG';
+$string['export_copy_snippet'] = 'Copy Moodle HTML snippet';
+$string['export_success'] = 'Exported successfully.';
+
+// Newman projection.
+$string['newman_rotate_cw'] = 'Rotate clockwise 60°';
+$string['newman_rotate_ccw'] = 'Rotate counter-clockwise 60°';
+$string['newman_front'] = 'Front carbon substituents';
+$string['newman_back'] = 'Back carbon substituents';
+$string['newman_conformation'] = 'Conformation';
+$string['newman_staggered'] = 'Staggered';
+$string['newman_eclipsed'] = 'Eclipsed';
+$string['newman_anti'] = 'Anti';
+$string['newman_gauche'] = 'Gauche';
+$string['newman_accessibility_summary'] = 'Newman projection looking down the {$a->bond} bond. Front substituents: {$a->front}. Back substituents: {$a->back}. Back carbon rotated {$a->rotation}°.';
+
+// Orbital / hybridization.
+$string['orbital_no_overlay'] = 'No local orbital overlay available for this structure.';
+$string['orbital_cta'] = 'Open in ChemIllusion for a guided orbital explanation.';
+$string['orbital_hybridization_label'] = 'Hybridization';
+$string['orbital_sp'] = 'sp (linear)';
+$string['orbital_sp2'] = 'sp² (trigonal planar)';
+$string['orbital_sp3'] = 'sp³ (tetrahedral)';
+$string['orbital_confidence_curated'] = 'Curated teaching diagram';
+$string['orbital_confidence_rule'] = 'Rule-based overlay';
+
+// Reaction coordinate.
+$string['rcd_heading'] = 'Reaction coordinate diagram';
+$string['rcd_xaxis'] = 'Reaction coordinate';
+$string['rcd_yaxis'] = 'Free energy (qualitative)';
+$string['rcd_template_label'] = 'Diagram template';
+$string['rcd_ts_label'] = 'Transition state';
+$string['rcd_intermediate_label'] = 'Intermediate';
+$string['rcd_reactants_label'] = 'Reactants';
+$string['rcd_products_label'] = 'Products';
+$string['rcd_ea_label'] = 'Activation energy (Ea)';
+$string['rcd_deltag_label'] = 'ΔG';
+$string['rcd_rds_label'] = 'Rate-determining step';
+$string['rcd_qualitative_disclaimer'] = 'This is a qualitative teaching diagram. Values are not experimental.';
+$string['rcd_accessibility_summary'] = 'Reaction coordinate diagram: {$a->title}. {$a->ts_count} transition state(s) and {$a->int_count} intermediate(s). {$a->direction}.';
+
+// Accessibility.
+$string['accessible_summary_heading'] = 'Text description';
+$string['accessible_summary_toggle'] = 'Toggle text description';
+$string['accessible_alt_default'] = 'Chemical structure diagram';
+
+// Capabilities (display names).
+$string['chemillusion:createcards'] = 'Create graphical chemistry cards';
+$string['chemillusion:editowncards'] = 'Edit own graphical chemistry cards';
+$string['chemillusion:editallcards'] = 'Edit all graphical chemistry cards';
+$string['chemillusion:exportcards'] = 'Export graphical chemistry cards';
+
 // Privacy API metadata.
 $string['privacy:metadata:local_chemillusion_links'] = 'Minimal mapping between a Moodle user and a linked ChemIllusion account.';
 $string['privacy:metadata:local_chemillusion_links:userid'] = 'The Moodle user who linked an account.';

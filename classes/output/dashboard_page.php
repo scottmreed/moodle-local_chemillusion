@@ -58,15 +58,18 @@ class dashboard_page implements renderable, templatable {
      * @return array
      */
     public function export_for_template(renderer_base $output) {
+        $graphicalenabled = (bool) get_config('local_chemillusion', 'enable_graphical_cards');
         $data = [
-            'heading'         => get_string('dashboard_heading', 'local_chemillusion'),
-            'intro'           => get_string('dashboard_intro', 'local_chemillusion'),
-            'toolsurl'        => (new moodle_url('/local/chemillusion/tools.php'))->out(false),
-            'cardsurl'        => (new moodle_url('/local/chemillusion/cards.php'))->out(false),
-            'privacyurl'      => (new moodle_url('/local/chemillusion/privacy.php'))->out(false),
-            'linking_enabled' => chemillusion_client::linking_enabled(),
-            'linkurl'         => (new moodle_url('/local/chemillusion/link.php'))->out(false),
-            'isteacher'       => $this->isteacher,
+            'heading'           => get_string('dashboard_heading', 'local_chemillusion'),
+            'intro'             => get_string('dashboard_intro', 'local_chemillusion'),
+            'toolsurl'          => (new moodle_url('/local/chemillusion/tools.php'))->out(false),
+            'cardsurl'          => (new moodle_url('/local/chemillusion/cards.php'))->out(false),
+            'graphicalurl'      => (new moodle_url('/local/chemillusion/graphical.php'))->out(false),
+            'graphical_enabled' => $graphicalenabled,
+            'privacyurl'        => (new moodle_url('/local/chemillusion/privacy.php'))->out(false),
+            'linking_enabled'   => chemillusion_client::linking_enabled(),
+            'linkurl'           => (new moodle_url('/local/chemillusion/link.php'))->out(false),
+            'isteacher'         => $this->isteacher,
         ];
 
         if ($this->isteacher) {

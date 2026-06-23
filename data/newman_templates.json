@@ -1,0 +1,82 @@
+[
+  {
+    "id": "ethane_staggered",
+    "label": "Ethane staggered",
+    "front": ["H", "H", "H"],
+    "back": ["H", "H", "H"],
+    "rotation_degrees": 60,
+    "conformation": "staggered",
+    "show_energy_hint": true,
+    "teacher_note": "Staggered ethane is lower in energy; dihedral angles between front and back H atoms are 60°."
+  },
+  {
+    "id": "ethane_eclipsed",
+    "label": "Ethane eclipsed",
+    "front": ["H", "H", "H"],
+    "back": ["H", "H", "H"],
+    "rotation_degrees": 0,
+    "conformation": "eclipsed",
+    "show_energy_hint": true,
+    "teacher_note": "Eclipsed ethane is highest in energy for this molecule; H–H torsional strain (~1 kcal/mol per eclipsed pair)."
+  },
+  {
+    "id": "butane_anti",
+    "label": "Butane anti",
+    "front": ["CH3", "H", "H"],
+    "back": ["CH3", "H", "H"],
+    "rotation_degrees": 180,
+    "conformation": "anti",
+    "show_energy_hint": true,
+    "teacher_note": "Anti conformation of butane is lowest in energy; the two methyl groups are farthest apart (180° dihedral)."
+  },
+  {
+    "id": "butane_gauche",
+    "label": "Butane gauche",
+    "front": ["CH3", "H", "H"],
+    "back": ["CH3", "H", "H"],
+    "rotation_degrees": 60,
+    "conformation": "gauche",
+    "show_energy_hint": true,
+    "teacher_note": "Gauche conformation; methyl groups are 60° apart. ~0.9 kcal/mol above anti."
+  },
+  {
+    "id": "butane_eclipsed_ch3_h",
+    "label": "Butane eclipsed CH3/H",
+    "front": ["CH3", "H", "H"],
+    "back": ["CH3", "H", "H"],
+    "rotation_degrees": 120,
+    "conformation": "eclipsed (CH3/H)",
+    "show_energy_hint": true,
+    "teacher_note": "Partially eclipsed; CH3 eclipses H. ~3.8 kcal/mol above anti."
+  },
+  {
+    "id": "butane_fully_eclipsed",
+    "label": "Butane fully eclipsed CH3/CH3",
+    "front": ["CH3", "H", "H"],
+    "back": ["CH3", "H", "H"],
+    "rotation_degrees": 0,
+    "conformation": "fully eclipsed",
+    "show_energy_hint": true,
+    "teacher_note": "Highest-energy conformation; methyl groups eclipse each other (~5.5 kcal/mol above anti)."
+  },
+  {
+    "id": "haloalkane",
+    "label": "Haloalkane (front H/H/X, back H/H/R)",
+    "front": ["H", "H", "X"],
+    "back": ["H", "H", "R"],
+    "rotation_degrees": 180,
+    "conformation": "anti",
+    "show_energy_hint": false,
+    "teacher_note": "Generic haloalkane template. Replace X with halogen and R with substituent."
+  },
+  {
+    "id": "generic_substituted_ethane",
+    "label": "Generic substituted ethane",
+    "front": ["A", "B", "C"],
+    "back": ["D", "E", "F"],
+    "rotation_degrees": 60,
+    "conformation": "staggered",
+    "show_energy_hint": false,
+    "teacher_note": "Replace A–F with your substituents."
+  }
+]

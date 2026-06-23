@@ -1,0 +1,68 @@
+{{!
+    @template local_chemillusion/newman_card
+
+    Newman projection card shell. Rendered inside graphical_card_preview.mustache
+    or standalone. JS replaces the SVG region with a live Newman SVG.
+
+    Context variables required for this template:
+    * name string
+    * frontjson string (JSON: { front, back, rotation_degrees, conformation, teacher_note })
+    * summary string
+    * summaryvisible bool
+    * canexport bool
+    * exportenabled bool
+    * pngexportenabled bool
+    * rotate_enabled bool  Whether student can rotate the back carbon.
+}}
+<div class="local-chemillusion-newman-editor" data-region="newman-card" data-frontjson="{{frontjson}}">
+
+    <div class="local-chemillusion-card-face"
+         data-region="card-front"
+         role="img"
+         aria-label="{{summary}}">
+        {{! newman_projection.js renders SVG here }}
+        <noscript>
+            <p class="text-muted">{{#str}}rdkit_failed, local_chemillusion{{/str}}</p>
+        </noscript>
+    </div>
+
+    {{#rotate_enabled}}
+    <div class="local-chemillusion-newman-controls" role="group"
+         aria-label="{{#str}}newman_conformation, local_chemillusion{{/str}}">
+        <button class="btn btn-outline-secondary btn-sm" type="button"
+                data-action="rotate-ccw"
+                aria-label="{{#str}}newman_rotate_ccw, local_chemillusion{{/str}}">
+            ↺
+        </button>
+        <button class="btn btn-outline-secondary btn-sm" type="button"
+                data-action="rotate-cw"
+                aria-label="{{#str}}newman_rotate_cw, local_chemillusion{{/str}}">
+            ↻
+        </button>
+    </div>
+    {{/rotate_enabled}}
+
+    <div class="local-chemillusion-accessible-summary mt-2"
+         {{^summaryvisible}}hidden{{/summaryvisible}}>
+        {{summary}}
+    </div>
+
+    {{#exportenabled}}
+    {{#canexport}}
+    <div class="local-chemillusion-svg-toolbar mt-3">
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="export-svg">
+            {{#str}}export_svg, local_chemillusion{{/str}}
+        </button>
+        {{#pngexportenabled}}
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="export-png">
+            {{#str}}export_png, local_chemillusion{{/str}}
+        </button>
+        {{/pngexportenabled}}
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-action="copy-snippet">
+            {{#str}}export_copy_snippet, local_chemillusion{{/str}}
+        </button>
+    </div>
+    {{/canexport}}
+    {{/exportenabled}}
+
+</div>

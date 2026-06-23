@@ -1,0 +1,58 @@
+{{!
+    @template local_chemillusion/graphical_card_page
+
+    Graphical chemistry cards browse/create page.
+
+    Context variables required for this template:
+    * heading string
+    * intro string
+    * cancreate bool
+    * createurl string
+    * typeoptions array of { id, label }
+    * cards array of { id, name, cardtype, viewurl, editurl }
+    * nocards bool
+    * dashboardurl string
+}}
+<div class="local-chemillusion-graphical-page">
+    <a class="local-chemillusion-back-link" href="{{dashboardurl}}">
+        {{#str}}back_to_dashboard, local_chemillusion{{/str}}
+    </a>
+
+    <h2>{{heading}}</h2>
+    <p class="lead">{{intro}}</p>
+
+    {{#cancreate}}
+    <div class="mb-3">
+        <a class="btn btn-primary" href="{{createurl}}">
+            {{#str}}nav_create_card, local_chemillusion{{/str}}
+        </a>
+    </div>
+    {{/cancreate}}
+
+    {{#nocards}}
+    <div class="alert alert-info" role="alert">
+        {{#str}}deck_empty, local_chemillusion{{/str}}
+    </div>
+    {{/nocards}}
+
+    {{^nocards}}
+    <div class="local-chemillusion-card-grid" role="list">
+        {{#cards}}
+        <div class="local-chemillusion-card-stub" role="listitem">
+            <div class="d-flex justify-content-between align-items-start">
+                <strong>{{name}}</strong>
+                <span class="badge bg-secondary ms-2">{{cardtype}}</span>
+            </div>
+            <div class="mt-2">
+                <a class="btn btn-sm btn-outline-primary me-1" href="{{viewurl}}">
+                    {{#str}}card_view_heading, local_chemillusion{{/str}}
+                </a>
+                <a class="btn btn-sm btn-outline-secondary" href="{{editurl}}">
+                    {{#str}}card_edit_heading, local_chemillusion{{/str}}
+                </a>
+            </div>
+        </div>
+        {{/cards}}
+    </div>
+    {{/nocards}}
+</div>
