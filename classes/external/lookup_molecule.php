@@ -20,6 +20,7 @@ use core_external\external_api;
 use core_external\external_function_parameters;
 use core_external\external_value;
 use core_external\external_single_structure;
+use core_external\external_multiple_structure;
 use local_chemillusion\api\pubchem_client;
 use local_chemillusion\util\input_normalizer;
 use local_chemillusion\telemetry\local_event_logger;
@@ -116,7 +117,11 @@ class lookup_molecule extends external_api {
             'inputtype'        => new external_value(PARAM_ALPHA, 'Detected or forced input type'),
             'error'            => new external_value(PARAM_ALPHANUMEXT, 'Error code', VALUE_OPTIONAL),
             'error_note'       => new external_value(PARAM_TEXT, 'Human-readable error note (e.g., fallback message)', VALUE_OPTIONAL),
-            'alt_types'        => new external_value(PARAM_ALPHA, 'Comma-separated alternative types to suggest retrying', VALUE_OPTIONAL),
+            'alt_types'        => new external_multiple_structure(
+                new external_value(PARAM_ALPHA, 'Alternative input type'),
+                'Alternative types to suggest retrying',
+                VALUE_OPTIONAL
+            ),
             'fallback'         => new external_value(PARAM_BOOL, 'True if PubChem was down and we returned parsed data', VALUE_OPTIONAL),
             'name'             => new external_value(PARAM_TEXT, 'Preferred name', VALUE_OPTIONAL),
             'cid'              => new external_value(PARAM_INT, 'PubChem CID', VALUE_OPTIONAL),
