@@ -32,6 +32,11 @@ if ($hassiteconfig) {
         get_string('pluginname', 'local_chemillusion'));
     $ADMIN->add('localplugins', $settings);
 
+    // --- Info / support ----------------------------------------------------.
+    $settings->add(new admin_setting_heading('local_chemillusion/infoheading',
+        get_string('settings_info_heading', 'local_chemillusion'),
+        get_string('settings_info_desc', 'local_chemillusion')));
+
     // --- Mode ---------------------------------------------------------------.
     $settings->add(new admin_setting_heading('local_chemillusion/modeheading',
         get_string('settings_mode_heading', 'local_chemillusion'),
