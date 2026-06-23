@@ -24,12 +24,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'ChemIllusion Chemistry Study Tools';
-$string['plugindescription'] = 'Privacy-aware chemistry study tools for Moodle: molecule lookup, RDKit.js structure rendering, functional-group highlighting, study flashcards, graphical cards, Newman projections, orbital diagrams, reaction coordinate charts, and optional ChemIllusion account linking. More tools and premium features available at <a href="https://chemillusion.com">chemillusion.com</a>. Support: <a href="mailto:support@chemillusion.com">support@chemillusion.com</a>.';
+$string['pluginname'] = 'ChemIllusion Study Tools';
+$string['plugindescription'] = 'Privacy-aware chemistry study tools for Moodle: molecule lookup, RDKit.js structure rendering, functional-group highlighting, study flashcards, and optional ChemIllusion account linking. More tools and premium features available at <a href="https://chemillusion.com">chemillusion.com</a>. Support: <a href="mailto:support@chemillusion.com">support@chemillusion.com</a>.';
 
 // Navigation / pages.
 $string['nav_studytools'] = 'ChemIllusion study tools';
-$string['dashboard_heading'] = 'ChemIllusion Chemistry Study Tools';
+$string['dashboard_heading'] = 'ChemIllusion Study Tools';
 $string['dashboard_intro'] = 'Free chemistry study tools inside Moodle. Look up molecules, build study decks, create graphical cards, and learn functional groups and reagents. More tools available at <a href="https://chemillusion.com">chemillusion.com</a>.';
 $string['tools_heading'] = 'Molecule lookup & study tools';
 $string['cards_heading'] = 'Study decks';
@@ -37,7 +37,7 @@ $string['back_to_dashboard'] = '← Back to ChemIllusion';
 $string['back_to_decks'] = '← Back to study decks';
 
 // Settings: plugin info.
-$string['settings_info_heading'] = 'ChemIllusion Chemistry Study Tools';
+$string['settings_info_heading'] = 'ChemIllusion Study Tools';
 $string['settings_info_desc'] = 'Molecule lookup, graphical cards, Newman projections, orbital diagrams, reaction coordinate charts, and more — all running locally inside Moodle, no account required. More tools and premium features are available at <a href="https://chemillusion.com">chemillusion.com</a>. For support, contact <a href="mailto:support@chemillusion.com">support@chemillusion.com</a>.';
 
 // Settings: mode.

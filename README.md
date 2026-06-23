@@ -1,4 +1,4 @@
-# ChemIllusion Study Cards for Moodle (`local_chemillusion`)
+# ChemIllusion Study Tools for Moodle (`local_chemillusion`)
 
 A privacy-aware, open-source Moodle chemistry **study** plugin: molecule lookup,
 RDKit.js-powered browser-side structure rendering, functional-group
@@ -33,7 +33,7 @@ public** ChemIllusion contracts and links.
 
 1. Download a release ZIP (`dist/local_chemillusion-<version>-moodleXX.zip`).
 2. In Moodle: **Site administration → Plugins → Install plugins** and upload the ZIP.
-3. Complete the upgrade, then visit **Site administration → Plugins → Local plugins → ChemIllusion Study Cards** to configure mode, external services, and privacy.
+3. Complete the upgrade, then visit **Site administration → Plugins → Local plugins → ChemIllusion Study Tools** to configure mode, external services, and privacy.
 
 No Composer, shell access, Conda, Python, or native packages are required.
 

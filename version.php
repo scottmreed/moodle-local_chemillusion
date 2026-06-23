@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Version metadata for the ChemIllusion Study Cards local plugin.
+ * Version metadata for the ChemIllusion Study Tools local plugin.
  *
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed

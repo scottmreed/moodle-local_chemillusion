@@ -1,6 +1,6 @@
 # Contributing to `local_chemillusion`
 
-Thanks for your interest in improving ChemIllusion Study Cards for Moodle. This
+Thanks for your interest in improving ChemIllusion Study Tools for Moodle. This
 repository is intended to remain suitable for a public GitHub project and a
 Moodle Plugins Directory submission.
 
