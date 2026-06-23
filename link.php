@@ -22,9 +22,7 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// Load Moodle config - works with symlinks
-$moodleroot = $_SERVER['DOCUMENT_ROOT'] ?? dirname(__DIR__, 2);
-require($moodleroot . '/config.php');
+require_once(__DIR__ . '/../../config.php');
 
 $action = optional_param('action', 'view', PARAM_ALPHA);
 $token = optional_param('token', '', PARAM_RAW);

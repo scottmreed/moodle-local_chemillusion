@@ -25,8 +25,7 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$moodleroot = $_SERVER['DOCUMENT_ROOT'] ?? dirname(__DIR__, 2);
-require($moodleroot . '/config.php');
+require_once(__DIR__ . '/../../config.php');
 
 $cardid = required_param('id', PARAM_INT);
 $type   = optional_param('type', 'svg', PARAM_ALPHA);
