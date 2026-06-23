@@ -21,6 +21,7 @@ use templatable;
 use renderable;
 use moodle_url;
 use local_chemillusion\api\chemillusion_client;
+use local_chemillusion\cards\diagram_tool_catalog;
 use local_chemillusion\telemetry\local_event_logger;
 
 defined('MOODLE_INTERNAL') || die();
@@ -59,6 +60,30 @@ class dashboard_page implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
         $graphicalenabled = (bool) get_config('local_chemillusion', 'enable_graphical_cards');
+        $cancreate = has_capability('local/chemillusion:createcards', \context_system::instance());
+        $diagramtools = [];
+        if ($graphicalenabled && $cancreate) {
+            foreach (diagram_tool_catalog::get_all() as $tool) {
+                $tool['title'] = get_string($tool['titlekey'], 'local_chemillusion');
+                $tool['description'] = get_string($tool['descriptionkey'], 'local_chemillusion');
+                $tool['imagealt'] = get_string($tool['imagealtkey'], 'local_chemillusion');
+                $tool['url'] = (new moodle_url(
+                    '/local/chemillusion/card_edit.php',
+                    $tool['editorparams']
+                ))->out(false);
+                $tool['is_molecule'] = $tool['illustration'] === 'molecule';
+                $tool['is_newman'] = $tool['illustration'] === 'newman';
+                $tool['is_reaction'] = $tool['illustration'] === 'reaction';
+                $tool['is_orbital'] = $tool['illustration'] === 'orbital';
+                if ($tool['is_newman'] || $tool['is_reaction']) {
+                    $tool['imageurl'] = $output->image_url(
+                        'tools/' . ($tool['is_newman'] ? 'newman-projection' : 'reaction-coordinate'),
+                        'local_chemillusion'
+                    )->out(false);
+                }
+                $diagramtools[] = $tool;
+            }
+        }
         $data = [
             'heading'           => get_string('dashboard_heading', 'local_chemillusion'),
             'intro'             => get_string('dashboard_intro', 'local_chemillusion'),
@@ -66,6 +91,8 @@ class dashboard_page implements renderable, templatable {
             'cardsurl'          => (new moodle_url('/local/chemillusion/cards.php'))->out(false),
             'graphicalurl'      => (new moodle_url('/local/chemillusion/graphical.php'))->out(false),
             'graphical_enabled' => $graphicalenabled,
+            'diagram_tools'     => $diagramtools,
+            'has_diagram_tools' => !empty($diagramtools),
             'privacyurl'        => (new moodle_url('/local/chemillusion/privacy.php'))->out(false),
             'linking_enabled'   => chemillusion_client::linking_enabled(),
             'linkurl'           => (new moodle_url('/local/chemillusion/link.php'))->out(false),

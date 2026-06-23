@@ -10,6 +10,8 @@
     * cardsurl string
     * graphicalurl string
     * graphical_enabled bool
+    * diagram_tools array
+    * has_diagram_tools bool
     * privacyurl string
     * linking_enabled bool
     * linkurl string
@@ -20,6 +22,51 @@
 }}
 <div class="local-chemillusion-dashboard">
     <p class="lead">{{{intro}}}</p>
+
+    {{#has_diagram_tools}}
+        <section class="local-chemillusion-diagram-tools mb-4" aria-labelledby="local-chemillusion-diagram-tools-heading">
+            <div class="local-chemillusion-section-heading">
+                <div>
+                    <h2 id="local-chemillusion-diagram-tools-heading">
+                        {{#str}}diagram_tools_heading, local_chemillusion{{/str}}
+                    </h2>
+                    <p class="text-muted mb-0">{{#str}}diagram_tools_intro, local_chemillusion{{/str}}</p>
+                </div>
+                <a class="btn btn-outline-secondary btn-sm" href="{{graphicalurl}}">
+                    {{#str}}diagram_tools_saved, local_chemillusion{{/str}}
+                </a>
+            </div>
+            <div class="local-chemillusion-diagram-tool-grid">
+                {{#diagram_tools}}
+                    <a class="local-chemillusion-diagram-tool" href="{{url}}">
+                        <span class="local-chemillusion-diagram-tool-visual" role="img" aria-label="{{imagealt}}">
+                            {{#is_molecule}}
+                                <span class="local-chemillusion-smiles-sample">ClCCCCBr</span>
+                            {{/is_molecule}}
+                            {{#is_newman}}
+                                <img src="{{imageurl}}" alt="">
+                            {{/is_newman}}
+                            {{#is_reaction}}
+                                <img src="{{imageurl}}" alt="">
+                            {{/is_reaction}}
+                            {{#is_orbital}}
+                                <span class="local-chemillusion-bond-comparison">
+                                    <strong>&pi;</strong>
+                                    <span>{{#str}}diagram_tool_versus, local_chemillusion{{/str}}</span>
+                                    <b>&sigma;</b>
+                                </span>
+                            {{/is_orbital}}
+                        </span>
+                        <span class="local-chemillusion-diagram-tool-copy">
+                            <strong>{{title}}</strong>
+                            <small>{{description}}</small>
+                        </span>
+                        <span class="local-chemillusion-diagram-tool-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                {{/diagram_tools}}
+            </div>
+        </section>
+    {{/has_diagram_tools}}
 
     <nav class="local-chemillusion-nav mb-4" aria-label="ChemIllusion">
         <div class="list-group">

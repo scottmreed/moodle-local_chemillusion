@@ -5,6 +5,184 @@
  * conflicts with Moodle themes. Bootstrap utility classes are used for layout.
  */
 
+/* --- Root diagram tools -------------------------------------------------- */
+.local-chemillusion-section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.local-chemillusion-section-heading h2 {
+    margin: 0 0 .25rem;
+    font-size: 1.35rem;
+}
+
+.local-chemillusion-diagram-tool-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .75rem;
+}
+
+.local-chemillusion-diagram-tool {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr) 1.25rem;
+    align-items: center;
+    gap: .875rem;
+    min-height: 6rem;
+    padding: .875rem;
+    color: #1f2937;
+    background: #fff;
+    border: 1px solid #d9dee5;
+    border-radius: .375rem;
+    text-decoration: none;
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+}
+
+.local-chemillusion-diagram-tool:hover {
+    color: #111827;
+    border-color: #b17a16;
+    box-shadow: 0 .25rem .75rem rgba(31, 41, 55, .1);
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.local-chemillusion-diagram-tool:focus-visible {
+    outline: 3px solid rgba(13, 110, 253, .35);
+    outline-offset: 2px;
+}
+
+.local-chemillusion-diagram-tool-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    background: #f8fafc;
+    border-radius: .25rem;
+}
+
+.local-chemillusion-diagram-tool-visual img {
+    display: block;
+    width: 3.25rem;
+    height: 3.25rem;
+    object-fit: contain;
+}
+
+.local-chemillusion-smiles-sample {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: .72rem;
+    font-weight: 700;
+}
+
+.local-chemillusion-bond-comparison {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    color: #64748b;
+    font-size: .78rem;
+}
+
+.local-chemillusion-bond-comparison strong,
+.local-chemillusion-bond-comparison b {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: .25rem;
+    font-size: 1rem;
+}
+
+.local-chemillusion-bond-comparison strong {
+    color: #fff;
+    background: #1f2937;
+}
+
+.local-chemillusion-bond-comparison b {
+    color: #475569;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+}
+
+.local-chemillusion-diagram-tool-copy {
+    min-width: 0;
+}
+
+.local-chemillusion-diagram-tool-copy strong,
+.local-chemillusion-diagram-tool-copy small {
+    display: block;
+}
+
+.local-chemillusion-diagram-tool-copy small {
+    margin-top: .2rem;
+    color: #667085;
+    line-height: 1.35;
+}
+
+.local-chemillusion-diagram-tool-arrow {
+    color: #b17a16;
+    font-size: 1.25rem;
+}
+
+@media (max-width: 767.98px) {
+    .local-chemillusion-section-heading {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .local-chemillusion-diagram-tool-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* --- Focused diagram editor --------------------------------------------- */
+.local-chemillusion-editor-preview {
+    max-width: 42rem;
+    margin: 1.5rem auto;
+}
+
+.local-chemillusion-editor-preview h3 {
+    margin: 0 0 .5rem;
+    font-size: 1rem;
+}
+
+.local-chemillusion-editor-preview-canvas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 18rem;
+    padding: 1rem;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #d9dee5;
+    border-radius: .375rem;
+}
+
+.local-chemillusion-editor-preview-canvas svg {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 24rem;
+}
+
+.local-chemillusion-editor-preview-canvas .local-chemillusion-orbital-card {
+    width: 100%;
+}
+
+.local-chemillusion-editor-preview-canvas .local-chemillusion-orbital-card svg {
+    margin: 0 auto;
+}
+
+@media (max-width: 575.98px) {
+    .local-chemillusion-editor-preview-canvas {
+        min-height: 14rem;
+        padding: .5rem;
+    }
+}
+
 /* --- Card grid ----------------------------------------------------------- */
 .local-chemillusion-card-grid {
     display: grid;
