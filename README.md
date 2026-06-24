@@ -23,6 +23,26 @@ workflows.
 | **1A — Directory-safe baseline** | PHP-first plugin: admin settings, PubChem lookup with server cache, study decks/cards, reagent + functional-group dictionaries, account-link funnel, privacy provider. No RDKit dependency required. |
 | **1B — RDKit WASM local mode** | Bundles RDKit.js/WASM in the plugin ZIP, lazy-loaded only on ChemIllusion tool pages: SMILES validation, SVG rendering, functional-group SMARTS matching, static atom/bond highlighting, richer cards. |
 
+## Screenshots
+
+### Dashboard
+
+![ChemIllusion Study Tools dashboard with four diagram types](docs/screenshots/tools-overview.png)
+
+*Dashboard — choose a chemistry diagram to create: molecule structure, Newman projection, reaction coordinate, or orbital diagram.*
+
+### Reaction coordinate
+
+![Reaction coordinate diagram editor with two-step energy profile](docs/screenshots/reaction-coordinate.png)
+
+*Reaction coordinate card editor with template presets, transition-state labels, activation energies, intermediate, and ΔG.*
+
+### Orbital diagram
+
+![Orbital diagram editor showing ethene π bond overlap](docs/screenshots/orbital.png)
+
+*Orbital/hybridization card with SMILES-based p-orbital overlap overlay for ethene (sp² C=C).*
+
 ## What stays private
 
 The full ChemIllusion Ketcher overlay, agent harness, MCP private inventory,
