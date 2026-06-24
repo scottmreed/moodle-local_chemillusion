@@ -12,7 +12,31 @@
     * cards array of { id, name, cardtype, viewurl, editurl }
     * nocards bool
     * dashboardurl string
-}}
+
+    Example context (json):
+    {
+        "heading": "Graphical cards",
+        "intro": "Browse Newman, orbital, and reaction coordinate cards.",
+        "cancreate": true,
+        "createurl": "/local/chemillusion/card_edit.php",
+        "typeoptions": [
+            {
+                "id": "newman",
+                "label": "Newman projection"
+            }
+        ],
+        "cards": [
+            {
+                "id": 1,
+                "name": "Butane staggered",
+                "cardtype": "newman",
+                "viewurl": "#",
+                "editurl": "#"
+            }
+        ],
+        "nocards": false,
+        "dashboardurl": "/local/chemillusion/index.php"
+    }}
 <div class="local-chemillusion-graphical-page">
     <a class="local-chemillusion-back-link" href="{{dashboardurl}}">
         {{#str}}back_to_dashboard, local_chemillusion{{/str}}

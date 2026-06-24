@@ -25,7 +25,6 @@ namespace local_chemillusion\cards;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class functional_group_dictionary {
-
     /** @var array|null In-memory cache. */
     protected static $cache = null;
 
@@ -89,8 +88,10 @@ class functional_group_dictionary {
         $results = [];
         foreach (self::all() as $id => $data) {
             $label = isset($data['label']) ? $data['label'] : '';
-            if (strpos(\core_text::strtolower($id), $query) !== false
-                    || strpos(\core_text::strtolower($label), $query) !== false) {
+            if (
+                strpos(\core_text::strtolower($id), $query) !== false
+                || strpos(\core_text::strtolower($label), $query) !== false
+            ) {
                 $results[$id] = $data;
             }
         }

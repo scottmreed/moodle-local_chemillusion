@@ -28,7 +28,6 @@ namespace local_chemillusion\cards;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class deck_repository {
-
     /**
      * Create a new deck and return its id.
      *

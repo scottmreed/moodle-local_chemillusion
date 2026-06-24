@@ -28,7 +28,6 @@ namespace local_chemillusion\security;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class signed_state {
-
     /** @var int Default token lifetime in seconds. */
     const DEFAULT_TTL = 600;
 
@@ -59,10 +58,12 @@ class signed_state {
         if (!is_string($token) || strpos($token, '.') === false) {
             return null;
         }
-        list($body, $sig) = explode('.', $token, 2);
-        if ($body === '' || $sig === ''
-                || !preg_match('/^[A-Za-z0-9_-]+$/', $body)
-                || !preg_match('/^[A-Za-z0-9_-]+$/', $sig)) {
+        [$body, $sig] = explode('.', $token, 2);
+        if (
+            $body === '' || $sig === ''
+            || !preg_match('/^[A-Za-z0-9_-]+$/', $body)
+            || !preg_match('/^[A-Za-z0-9_-]+$/', $sig)
+        ) {
             return null;
         }
 

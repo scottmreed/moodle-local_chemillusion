@@ -24,7 +24,6 @@ namespace local_chemillusion\cards;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class reagent_dictionary {
-
     /** @var array|null In-memory cache of the merged dictionary. */
     protected static $cache = null;
 
@@ -86,8 +85,10 @@ class reagent_dictionary {
         $results = [];
         foreach (self::all() as $acr => $data) {
             $name = isset($data['name']) ? $data['name'] : '';
-            if (strpos(\core_text::strtolower($acr), $query) !== false
-                    || strpos(\core_text::strtolower($name), $query) !== false) {
+            if (
+                strpos(\core_text::strtolower($acr), $query) !== false
+                || strpos(\core_text::strtolower($name), $query) !== false
+            ) {
                 $results[$acr] = $data;
             }
         }

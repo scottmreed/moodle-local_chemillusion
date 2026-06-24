@@ -27,7 +27,6 @@ use local_chemillusion\api\pubchem_client;
  * @covers     \local_chemillusion\api\pubchem_client
  */
 final class pubchem_client_test extends \advanced_testcase {
-
     public function test_external_disabled_blocks_resolve(): void {
         $this->resetAfterTest();
         set_config('disable_external', 1, 'local_chemillusion');

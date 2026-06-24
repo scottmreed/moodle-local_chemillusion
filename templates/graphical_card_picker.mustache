@@ -6,7 +6,14 @@
     Context variables required for this template:
     * typeoptions array of { id, label }
     * createurl string (base URL for creating a card of a given type)
-}}
+
+    Example context (json):
+    {
+        "typeoptions": [
+            {"id": "newman", "label": "Newman projection"}
+        ],
+        "createurl": "/local/chemillusion/card_edit.php"
+    }}
 <div class="local-chemillusion-type-picker" role="list" aria-label="{{#str}}card_type_label, local_chemillusion{{/str}}">
     {{#typeoptions}}
     <a class="local-chemillusion-type-picker-option" role="listitem"

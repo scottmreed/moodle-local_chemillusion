@@ -27,7 +27,6 @@ use local_chemillusion\cards\card_generator;
  * @covers     \local_chemillusion\cards\card_generator
  */
 final class card_generator_test extends \advanced_testcase {
-
     public function test_from_molecule(): void {
         $card = card_generator::from_molecule([
             'name' => 'Aspirin', 'formula' => 'C9H8O4', 'mw' => '180.16',

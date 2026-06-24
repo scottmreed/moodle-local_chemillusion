@@ -16,18 +16,16 @@
 
 namespace local_chemillusion\external;
 
-use external_api;
-use external_function_parameters;
-use external_single_structure;
-use external_value;
-use context_system;
+use core_external\external_api;
+use core_external\external_function_parameters;
+use core_external\external_single_structure;
+use core_external\external_value;
 use local_chemillusion\output\card_accessibility_summary;
 
 defined('MOODLE_INTERNAL') || die();
-require_once($CFG->libdir . '/externallib.php');
 
 /**
- * External function: export a graphical card as SVG or HTML snippet.
+ * AJAX endpoint: export a graphical card as SVG or HTML snippet.
  *
  * PNG export is handled entirely client-side; this endpoint returns a flag.
  *
@@ -36,20 +34,34 @@ require_once($CFG->libdir . '/externallib.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class export_graphical_card extends external_api {
-
-    public static function execute_parameters(): external_function_parameters {
+    /**
+     * Parameters.
+     *
+     * @return external_function_parameters
+     */
+    public static function execute_parameters() {
         return new external_function_parameters([
-            'cardid'     => new external_value(PARAM_INT,         'Card id'),
-            'exporttype' => new external_value(PARAM_ALPHA,       'Export type: svg | html_snippet | png'),
+            'cardid'     => new external_value(PARAM_INT, 'Card id'),
+            'exporttype' => new external_value(PARAM_ALPHA, 'Export type: svg | html_snippet | png'),
         ]);
     }
 
-    public static function execute(int $cardid, string $exporttype): array {
+    /**
+     * Export the card.
+     *
+     * @param int $cardid
+     * @param string $exporttype
+     * @return array
+     */
+    public static function execute($cardid, $exporttype) {
         global $DB;
 
-        $params = self::validate_parameters(self::execute_parameters(), compact('cardid', 'exporttype'));
+        $params = self::validate_parameters(self::execute_parameters(), [
+            'cardid' => $cardid,
+            'exporttype' => $exporttype,
+        ]);
 
-        $context = context_system::instance();
+        $context = \context_system::instance();
         self::validate_context($context);
         require_capability('local/chemillusion:exportcards', $context);
 
@@ -60,12 +72,11 @@ class export_graphical_card extends external_api {
         $card = $DB->get_record('local_chemillusion_cards', ['id' => $params['cardid']], '*', MUST_EXIST);
 
         if ($params['exporttype'] === 'png') {
-            // PNG export is client-side only.
             return ['content' => '', 'mimetype' => 'image/png', 'client_side_png' => true];
         }
 
         $front = json_decode($card->frontjson ?? '{}', true) ?? [];
-        $back  = json_decode($card->backjson ?? '{}', true) ?? [];
+        $back = json_decode($card->backjson ?? '{}', true) ?? [];
         $summary = card_accessibility_summary::generate($card->cardtype, $front, $back);
 
         if ($params['exporttype'] === 'html_snippet') {
@@ -80,7 +91,6 @@ class export_graphical_card extends external_api {
             return ['content' => $content, 'mimetype' => 'text/html', 'client_side_png' => false];
         }
 
-        // SVG: return raw SVG from renderjson if pre-computed, else placeholder.
         $renderjson = json_decode($card->renderjson ?? '{}', true) ?? [];
         $svg = $renderjson['svg'] ?? '';
         if (!$svg) {
@@ -92,9 +102,14 @@ class export_graphical_card extends external_api {
         return ['content' => $svg, 'mimetype' => 'image/svg+xml', 'client_side_png' => false];
     }
 
-    public static function execute_returns(): external_single_structure {
+    /**
+     * Return description.
+     *
+     * @return external_single_structure
+     */
+    public static function execute_returns() {
         return new external_single_structure([
-            'content'         => new external_value(PARAM_RAW,  'SVG string or HTML snippet'),
+            'content'         => new external_value(PARAM_RAW, 'SVG string or HTML snippet'),
             'mimetype'        => new external_value(PARAM_TEXT, 'MIME type'),
             'client_side_png' => new external_value(PARAM_BOOL, 'PNG export must happen in browser'),
         ]);

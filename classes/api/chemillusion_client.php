@@ -28,7 +28,6 @@ use local_chemillusion\security\signed_state;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class chemillusion_client {
-
     /**
      * Configured ChemIllusion base URL, without trailing slash.
      *
@@ -145,8 +144,10 @@ class chemillusion_client {
      */
     public static function send_conversion_metadata($eventname, array $meta) {
         global $CFG;
-        if (get_config('local_chemillusion', 'disable_external')
-                || !get_config('local_chemillusion', 'enable_conversion_metadata')) {
+        if (
+            get_config('local_chemillusion', 'disable_external')
+            || !get_config('local_chemillusion', 'enable_conversion_metadata')
+        ) {
             return false;
         }
         require_once($CFG->libdir . '/filelib.php');
@@ -156,8 +157,11 @@ class chemillusion_client {
 
         $curl = new \curl();
         $curl->setHeader('Content-Type: application/json');
-        $response = $curl->post($url, json_encode($meta),
-            ['CURLOPT_TIMEOUT' => 6, 'CURLOPT_CONNECTTIMEOUT' => 4]);
+        $response = $curl->post(
+            $url,
+            json_encode($meta),
+            ['CURLOPT_TIMEOUT' => 6, 'CURLOPT_CONNECTTIMEOUT' => 4]
+        );
         $info = $curl->get_info();
         return isset($info['http_code']) && (int) $info['http_code'] >= 200 && (int) $info['http_code'] < 300;
     }

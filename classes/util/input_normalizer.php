@@ -27,7 +27,6 @@ namespace local_chemillusion\util;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class input_normalizer {
-
     /** @var string Input looks like a plain name. */
     const TYPE_NAME = 'name';
     /** @var string Input looks like a SMILES string. */
@@ -69,9 +68,11 @@ class input_normalizer {
         // SMILES heuristic: single token containing SMILES-specific characters
         // and no spaces. Names usually contain spaces or are plain words.
         // If this matches, we treat it as SMILES-only (no fallback to text search).
-        if (strpos($value, ' ') === false
-                && preg_match('/[=#\[\]()@+\-\\\\\/]/', $value)
-                && preg_match('/[A-Za-z]/', $value)) {
+        if (
+            strpos($value, ' ') === false
+            && preg_match('/[=#\[\]()@+\-\\\\\/]/', $value)
+            && preg_match('/[A-Za-z]/', $value)
+        ) {
             return self::TYPE_SMILES;
         }
 

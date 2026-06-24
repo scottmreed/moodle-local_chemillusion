@@ -5,7 +5,15 @@
 
     Context variables required for this template:
     * state string  one of loading|ready|failed|disabled
-}}
+
+    Example context (json):
+    {
+        "loading": false,
+        "ready": true,
+        "failed": false,
+        "disabled": false,
+        "message": "Local chemistry engine ready"
+    }}
 <div class="local-chemillusion-rdkit-status small text-muted" data-region="rdkit-status"
      data-state="{{state}}" aria-live="polite">
     {{#str}}rdkit_loading, local_chemillusion{{/str}}

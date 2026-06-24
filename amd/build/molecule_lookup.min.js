@@ -34,12 +34,17 @@ define([
     /**
      * Call the lookup web service.
      * @param {String} query
+     * @param {String|null} forceType Optional type override for retry.
      * @return {Promise}
      */
-    var resolve = function(query) {
+    var lookup = function(query, forceType) {
+        var args = {query: query};
+        if (forceType) {
+            args.force_type = forceType; // eslint-disable-line camelcase
+        }
         return Ajax.call([{
             methodname: 'local_chemillusion_lookup_molecule',
-            args: {query: query}
+            args: args
         }])[0];
     };
 
@@ -68,6 +73,7 @@ define([
      * @return {Promise}
      */
     var renderResult = function(data) {
+        /* eslint-disable camelcase */
         var context = {
             name: data.name,
             cid: data.cid,
@@ -85,6 +91,7 @@ define([
             visual_url: launchUrl('visual_card', data),
             visual_blurb: ''
         };
+        /* eslint-enable camelcase */
         return Templates.render('local_chemillusion/molecule_result_card', context)
             .then(function(html) {
                 var region = document.getElementById('local-chemillusion-results');
@@ -131,39 +138,74 @@ define([
      */
     var renderGroups = function(fg, groups, smiles, Renderer) {
         fg.innerHTML = '';
-        var chain = Promise.resolve();
-        groups.forEach(function(g) {
-            chain = chain.then(function() {
-                return Templates.render('local_chemillusion/functional_group_badge', {
-                    id: g.id, label: g.label, summary: g.summary || ''
-                }).then(function(html) {
-                    var wrap = document.createElement('span');
-                    wrap.innerHTML = html;
-                    var btn = wrap.querySelector('[data-action="highlight-group"]');
-                    if (btn) {
-                        btn.addEventListener('click', function() {
-                            var card = fg.closest('[data-region="molecule-card"]');
-                            var target = card && card.querySelector('[data-region="structure-svg"]');
-                            if (target) {
-                                Renderer.highlight(target, smiles, g.smarts);
-                            }
-                        });
-                    }
-                    fg.appendChild(wrap);
-                    return null;
-                });
+        var promises = groups.map(function(g) {
+            return Templates.render('local_chemillusion/functional_group_badge', {
+                id: g.id, label: g.label, summary: g.summary || ''
+            }).then(function(html) {
+                var wrap = document.createElement('span');
+                wrap.innerHTML = html;
+                var btn = wrap.querySelector('[data-action="highlight-group"]');
+                if (btn) {
+                    btn.addEventListener('click', function() {
+                        var card = fg.closest('[data-region="molecule-card"]');
+                        var target = card && card.querySelector('[data-region="structure-svg"]');
+                        if (target) {
+                            Renderer.highlight(target, smiles, g.smarts);
+                        }
+                    });
+                }
+                fg.appendChild(wrap);
+                return null;
             });
         });
-        return chain;
+        return Promise.all(promises);
     };
 
     /**
-     * Submit handler for the lookup form (with optional force_type override).
-     * @param {Event} e
-     * @param {String|null} force_type Optional type override for retry.
+     * Render lookup error UI with optional retry buttons.
+     * @param {Object} data Error payload from the web service.
+     * @return {Promise}
      */
-    var onSubmit = function(e, force_type) {
-        if (e.preventDefault) {
+    var renderError = function(data) {
+        return Str.get_string('error_' + data.error, 'local_chemillusion').then(function(msg) {
+            var html = '<div class="alert alert-warning" role="alert">' + msg;
+
+            if (data.error_note) {
+                html += '<br/><em>' + data.error_note + '</em>';
+            }
+
+            if (data.alt_types && data.alt_types.length > 0) {
+                html += '<div class="mt-2">';
+                data.alt_types.forEach(function(altType) {
+                    html += '<button type="button" class="btn btn-sm btn-outline-secondary" ' +
+                        'data-action="retry-lookup" data-type="' + altType + '">' +
+                        'Try searching by ' + altType + '</button> ';
+                });
+                html += '</div>';
+            }
+
+            html += '</div>';
+            var region = document.getElementById('local-chemillusion-results');
+            region.innerHTML = html;
+
+            region.querySelectorAll('[data-action="retry-lookup"]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var retryType = btn.getAttribute('data-type');
+                    onSubmit(null, retryType);
+                });
+            });
+
+            return null;
+        });
+    };
+
+    /**
+     * Submit handler for the lookup form (with optional forceType override).
+     * @param {Event|null} e
+     * @param {String|null} forceType Optional type override for retry.
+     */
+    var onSubmit = function(e, forceType) {
+        if (e && e.preventDefault) {
             e.preventDefault();
         }
         var input = document.getElementById('id_query');
@@ -172,54 +214,11 @@ define([
             return;
         }
 
-        // Call resolve with optional force_type for retry.
-        var ajax_args = {query: query};
-        if (force_type) {
-            ajax_args.force_type = force_type;
-        }
-
-        Ajax.call([{
-            methodname: 'local_chemillusion_lookup_molecule',
-            args: ajax_args
-        }])[0].then(function(data) {
+        lookup(query, forceType).then(function(data) {
             if (data.status === 'ok') {
                 return renderResult(data);
             }
-
-            // Handle error with fallback/alternative types.
-            return Str.get_string('error_' + data.error, 'local_chemillusion').then(function(msg) {
-                var html = '<div class="alert alert-warning" role="alert">' + msg;
-
-                // Add error note if provided (e.g., fallback message).
-                if (data.error_note) {
-                    html += '<br/><em>' + data.error_note + '</em>';
-                }
-
-                // If there are alternative types to try, add retry buttons.
-                if (data.alt_types && data.alt_types.length > 0) {
-                    html += '<div class="mt-2">';
-                    data.alt_types.forEach(function(altType) {
-                        html += '<button type="button" class="btn btn-sm btn-outline-secondary" ' +
-                                'data-action="retry-lookup" data-type="' + altType + '">' +
-                                'Try searching by ' + altType + '</button> ';
-                    });
-                    html += '</div>';
-                }
-
-                html += '</div>';
-                var region = document.getElementById('local-chemillusion-results');
-                region.innerHTML = html;
-
-                // Wire up retry buttons.
-                region.querySelectorAll('[data-action="retry-lookup"]').forEach(function(btn) {
-                    btn.addEventListener('click', function() {
-                        var retryType = btn.getAttribute('data-type');
-                        onSubmit(null, retryType);
-                    });
-                });
-
-                return null;
-            });
+            return renderError(data);
         }).catch(Notification.exception);
     };
 

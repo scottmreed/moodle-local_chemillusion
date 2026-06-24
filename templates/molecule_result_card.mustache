@@ -8,7 +8,25 @@
     * pubchem_url, open_url, visual_url string
     * has_pubchem, has_smiles, rdkit_enabled, visual_enabled bool
     * visual_blurb string
-}}
+
+    Example context (json):
+    {
+        "name": "Ethanol",
+        "formula": "C2H6O",
+        "mw": "46.07",
+        "cid": "702",
+        "canonical_smiles": "CCO",
+        "isomeric_smiles": "CCO",
+        "inchikey": "LFQSCWFLJHTTHZ-UHFFFAOYSA-N",
+        "pubchem_url": "https://pubchem.ncbi.nlm.nih.gov/compound/702",
+        "open_url": "#",
+        "visual_url": "#",
+        "has_pubchem": true,
+        "has_smiles": true,
+        "rdkit_enabled": true,
+        "visual_enabled": false,
+        "visual_blurb": ""
+    }}
 <div class="card local-chemillusion-result" data-region="molecule-card"
      data-smiles="{{canonical_smiles}}" data-name="{{name}}" data-cid="{{cid}}">
     <div class="card-body">

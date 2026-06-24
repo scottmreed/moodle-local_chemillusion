@@ -40,11 +40,13 @@ $PAGE->set_heading(get_string('graphical_cards_heading', 'local_chemillusion'));
 
 $cancreate = has_capability('local/chemillusion:createcards', $context);
 
-$cards = $DB->get_records('local_chemillusion_cards',
+$cards = $DB->get_records(
+    'local_chemillusion_cards',
     ['owneruserid' => $USER->id],
     'created_at DESC',
     'id, name, cardtype, created_at',
-    0, 50
+    0,
+    50
 );
 
 $output = $PAGE->get_renderer('local_chemillusion');

@@ -51,7 +51,10 @@ $role = has_capability('local/chemillusion:managedecks', $context) ? 'teacher' :
 if ($action === 'start') {
     require_sesskey();
     \local_chemillusion\telemetry\local_event_logger::log(
-        \local_chemillusion\telemetry\local_event_logger::EVENT_LINK_CLICK, 'account_link', 'account_link');
+        \local_chemillusion\telemetry\local_event_logger::EVENT_LINK_CLICK,
+        'account_link',
+        'account_link'
+    );
     $url = \local_chemillusion\auth\account_linker::start_link($USER->id, $role, 'account_link');
     redirect(new moodle_url($url));
 }
@@ -75,7 +78,10 @@ if ($linked) {
     echo $output->notification(get_string('link_status_linked', 'local_chemillusion'), 'success');
 } else {
     $starturl = new moodle_url('/local/chemillusion/link.php', ['action' => 'start', 'sesskey' => sesskey()]);
-    echo \html_writer::link($starturl, get_string('link_start', 'local_chemillusion'),
-        ['class' => 'btn btn-primary']);
+    echo \html_writer::link(
+        $starturl,
+        get_string('link_start', 'local_chemillusion'),
+        ['class' => 'btn btn-primary']
+    );
 }
 echo $output->footer();

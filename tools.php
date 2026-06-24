@@ -41,10 +41,18 @@ $form = new \local_chemillusion\form\molecule_lookup_form($PAGE->url->out(false)
 echo $output->header();
 
 // Navigation breadcrumb.
-echo \html_writer::tag('nav',
-    \html_writer::tag('a', get_string('back_to_dashboard', 'local_chemillusion'),
-        ['href' => (new moodle_url('/local/chemillusion/'))->out(false), 'class' => 'btn btn-sm btn-outline-secondary mb-3']),
-    ['class' => 'local-chemillusion-breadcrumb']);
+echo \html_writer::tag(
+    'nav',
+    \html_writer::tag(
+        'a',
+        get_string('back_to_dashboard', 'local_chemillusion'),
+        [
+            'href' => (new moodle_url('/local/chemillusion/'))->out(false),
+            'class' => 'btn btn-sm btn-outline-secondary mb-3',
+        ]
+    ),
+    ['class' => 'local-chemillusion-breadcrumb']
+);
 
 // Progressive enhancement: server-side lookup when JS is unavailable.
 $rendered = '';
@@ -52,7 +60,9 @@ if ($data = $form->get_data()) {
     $result = \local_chemillusion\api\pubchem_client::resolve($data->query);
     if ($result['status'] === 'ok') {
         \local_chemillusion\telemetry\local_event_logger::log(
-            \local_chemillusion\telemetry\local_event_logger::EVENT_LOOKUP, 'molecule_lookup');
+            \local_chemillusion\telemetry\local_event_logger::EVENT_LOOKUP,
+            'molecule_lookup'
+        );
         $card = new \local_chemillusion\output\molecule_card($result['data']);
         $rendered = $output->render($card);
     } else {

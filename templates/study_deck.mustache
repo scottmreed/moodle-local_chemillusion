@@ -10,7 +10,23 @@
     * emptytext string
     * cancreate bool
     * courseid int
-}}
+
+    Example context (json):
+    {
+        "heading": "Study decks",
+        "decks": [
+            {
+                "id": 1,
+                "name": "Alkanes",
+                "cardcount": 4,
+                "viewurl": "#"
+            }
+        ],
+        "hasdecks": true,
+        "emptytext": "No decks yet.",
+        "cancreate": true,
+        "courseid": 0
+    }}
 <div class="local-chemillusion-decks">
     {{#hasdecks}}
         <ul class="list-group">

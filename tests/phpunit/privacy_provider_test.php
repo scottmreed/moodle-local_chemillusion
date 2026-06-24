@@ -30,7 +30,6 @@ use core_privacy\local\request\writer;
  * @covers     \local_chemillusion\privacy\provider
  */
 final class privacy_provider_test extends \advanced_testcase {
-
     public function test_get_metadata_is_populated(): void {
         $this->resetAfterTest();
         $collection = provider::get_metadata(new collection('local_chemillusion'));
@@ -42,8 +41,11 @@ final class privacy_provider_test extends \advanced_testcase {
         $collection = provider::get_metadata(new collection('local_chemillusion'));
         $items = $collection->get_collection();
         $names = array_map(fn($item) => $item->get_name(), $items);
-        $this->assertContains('local_chemillusion_events', $names,
-            'Privacy metadata must declare local_chemillusion_events');
+        $this->assertContains(
+            'local_chemillusion_events',
+            $names,
+            'Privacy metadata must declare local_chemillusion_events'
+        );
     }
 
     public function test_metadata_includes_pubchem_external_location(): void {
@@ -51,8 +53,11 @@ final class privacy_provider_test extends \advanced_testcase {
         $collection = provider::get_metadata(new collection('local_chemillusion'));
         $items = $collection->get_collection();
         $names = array_map(fn($item) => $item->get_name(), $items);
-        $this->assertContains('pubchem_pug_rest', $names,
-            'Privacy metadata must declare pubchem_pug_rest external location');
+        $this->assertContains(
+            'pubchem_pug_rest',
+            $names,
+            'Privacy metadata must declare pubchem_pug_rest external location'
+        );
     }
 
     public function test_events_create_context_for_userid(): void {
@@ -72,8 +77,11 @@ final class privacy_provider_test extends \advanced_testcase {
         ]);
 
         $contexts = provider::get_contexts_for_userid($user->id);
-        $this->assertContains($system->id, $contexts->get_contextids(),
-            'An event row with a userid must create a system context entry');
+        $this->assertContains(
+            $system->id,
+            $contexts->get_contextids(),
+            'An event row with a userid must create a system context entry'
+        );
     }
 
     public function test_contexts_export_and_delete(): void {
@@ -82,8 +90,10 @@ final class privacy_provider_test extends \advanced_testcase {
         $user = $this->getDataGenerator()->create_user();
         $system = \context_system::instance();
 
-        $DB->insert_record('local_chemillusion_links',
-            (object) ['userid' => $user->id, 'linked_at' => time(), 'status' => 'linked']);
+        $DB->insert_record(
+            'local_chemillusion_links',
+            (object) ['userid' => $user->id, 'linked_at' => time(), 'status' => 'linked']
+        );
         $deckid = $DB->insert_record('local_chemillusion_decks', (object) [
             'userid' => $user->id, 'name' => 'D', 'visibility' => 'private',
             'source' => 'manual', 'created_at' => time(), 'updated_at' => time(),
@@ -113,8 +123,10 @@ final class privacy_provider_test extends \advanced_testcase {
         $this->assertFalse($DB->record_exists('local_chemillusion_links', ['userid' => $user->id]));
         $this->assertFalse($DB->record_exists('local_chemillusion_decks', ['userid' => $user->id]));
         $this->assertFalse($DB->record_exists('local_chemillusion_cards', ['deckid' => $deckid]));
-        $this->assertFalse($DB->record_exists('local_chemillusion_events', ['userid' => $user->id]),
-            'Deleting user data must remove their event rows');
+        $this->assertFalse(
+            $DB->record_exists('local_chemillusion_events', ['userid' => $user->id]),
+            'Deleting user data must remove their event rows'
+        );
     }
 
     public function test_delete_user_does_not_affect_other_users_events(): void {
@@ -140,8 +152,10 @@ final class privacy_provider_test extends \advanced_testcase {
         provider::delete_data_for_user($approved);
 
         $this->assertFalse($DB->record_exists('local_chemillusion_events', ['userid' => $user1->id]));
-        $this->assertTrue($DB->record_exists('local_chemillusion_events', ['userid' => $user2->id]),
-            'Deleting user1 must not remove user2 event rows');
+        $this->assertTrue(
+            $DB->record_exists('local_chemillusion_events', ['userid' => $user2->id]),
+            'Deleting user1 must not remove user2 event rows'
+        );
     }
 
     public function test_delete_all_users_clears_events(): void {
@@ -161,8 +175,11 @@ final class privacy_provider_test extends \advanced_testcase {
         ]);
 
         provider::delete_data_for_all_users_in_context($system);
-        $this->assertEquals(0, $DB->count_records('local_chemillusion_events'),
-            'delete_data_for_all_users_in_context must clear event rows');
+        $this->assertEquals(
+            0,
+            $DB->count_records('local_chemillusion_events'),
+            'delete_data_for_all_users_in_context must clear event rows'
+        );
     }
 
     public function test_delete_data_for_users_bulk_removes_event_rows(): void {
@@ -188,9 +205,13 @@ final class privacy_provider_test extends \advanced_testcase {
             $system, 'local_chemillusion', [$user1->id]);
         provider::delete_data_for_users($approveduserlist);
 
-        $this->assertFalse($DB->record_exists('local_chemillusion_events', ['userid' => $user1->id]),
-            'delete_data_for_users must remove event rows for the listed user');
-        $this->assertTrue($DB->record_exists('local_chemillusion_events', ['userid' => $user2->id]),
-            'delete_data_for_users must not remove event rows for unlisted users');
+        $this->assertFalse(
+            $DB->record_exists('local_chemillusion_events', ['userid' => $user1->id]),
+            'delete_data_for_users must remove event rows for the listed user'
+        );
+        $this->assertTrue(
+            $DB->record_exists('local_chemillusion_events', ['userid' => $user2->id]),
+            'delete_data_for_users must not remove event rows for unlisted users'
+        );
     }
 }

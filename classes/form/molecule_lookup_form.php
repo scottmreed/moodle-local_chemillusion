@@ -28,7 +28,6 @@ require_once($GLOBALS['CFG']->libdir . '/formslib.php');
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class molecule_lookup_form extends \moodleform {
-
     /**
      * Form definition.
      *
@@ -37,8 +36,15 @@ class molecule_lookup_form extends \moodleform {
     public function definition() {
         $mform = $this->_form;
 
-        $mform->addElement('text', 'query', get_string('lookup_label', 'local_chemillusion'),
-            ['size' => 48, 'placeholder' => get_string('lookup_placeholder', 'local_chemillusion')]);
+        $mform->addElement(
+            'text',
+            'query',
+            get_string('lookup_label', 'local_chemillusion'),
+            [
+                'size' => 48,
+                'placeholder' => get_string('lookup_placeholder', 'local_chemillusion'),
+            ]
+        );
         $mform->setType('query', PARAM_TEXT);
         $mform->addRule('query', get_string('error_invalidinput', 'local_chemillusion'), 'required', null, 'client');
 

@@ -13,7 +13,18 @@
     * exportenabled bool
     * pngexportenabled bool
     * rotate_enabled bool  Whether student can rotate the back carbon.
-}}
+
+    Example context (json):
+    {
+        "name": "Butane staggered",
+        "frontjson": "{\"front\":\"C\",\"back\":\"C\"}",
+        "summary": "Staggered butane.",
+        "summaryvisible": true,
+        "canexport": true,
+        "exportenabled": true,
+        "pngexportenabled": false,
+        "rotate_enabled": true
+    }}
 <div class="local-chemillusion-newman-editor" data-region="newman-card" data-frontjson="{{frontjson}}">
 
     <div class="local-chemillusion-card-face"

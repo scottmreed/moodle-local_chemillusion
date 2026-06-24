@@ -28,7 +28,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class card_accessibility_summary {
-
     /**
      * Generate a plain-text accessible summary string for a card.
      *
@@ -59,6 +58,12 @@ class card_accessibility_summary {
         }
     }
 
+    /**
+     * Newman projection summary.
+     *
+     * @param array $front
+     * @return string
+     */
     private static function newman(array $front): string {
         $bond  = $front['bond_label'] ?? 'C–C';
         $flist = implode(', ', $front['front'] ?? ['?', '?', '?']);
@@ -74,6 +79,12 @@ class card_accessibility_summary {
         ]) . $conf;
     }
 
+    /**
+     * Reaction coordinate summary.
+     *
+     * @param array $front
+     * @return string
+     */
     private static function reaction_coordinate(array $front): string {
         $title  = $front['title'] ?? 'Reaction';
         $points = $front['points'] ?? [];
@@ -96,6 +107,12 @@ class card_accessibility_summary {
         ]);
     }
 
+    /**
+     * Orbital diagram summary.
+     *
+     * @param array $front
+     * @return string
+     */
     private static function orbital(array $front): string {
         $label = $front['label'] ?? ($front['smiles'] ?? 'molecule');
         $hyb   = $front['hybridization'] ?? '';
@@ -110,6 +127,13 @@ class card_accessibility_summary {
         return implode(' ', $parts);
     }
 
+    /**
+     * Molecule card summary.
+     *
+     * @param array $front
+     * @param array $back
+     * @return string
+     */
     private static function molecule(array $front, array $back): string {
         $name    = $front['name'] ?? ($back['name'] ?? '');
         $smiles  = $front['smiles'] ?? ($back['canonical_smiles'] ?? '');
@@ -131,6 +155,13 @@ class card_accessibility_summary {
         return $parts ? implode(' ', $parts) : get_string('accessible_alt_default', 'local_chemillusion');
     }
 
+    /**
+     * Reagent card summary.
+     *
+     * @param array $front
+     * @param array $back
+     * @return string
+     */
     private static function reagent(array $front, array $back): string {
         $acronym = $front['acronym'] ?? '';
         $name    = $back['full_name'] ?? '';

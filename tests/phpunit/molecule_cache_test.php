@@ -27,7 +27,6 @@ use local_chemillusion\cache\molecule_cache;
  * @covers     \local_chemillusion\cache\molecule_cache
  */
 final class molecule_cache_test extends \advanced_testcase {
-
     public function test_set_and_get(): void {
         $this->resetAfterTest();
         molecule_cache::set('k1', ['a' => 1], 100);

@@ -26,7 +26,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class newman_template_registry {
-
     /** @var array|null */
     private static $templates = null;
 
@@ -77,6 +76,11 @@ class newman_template_registry {
         ];
     }
 
+    /**
+     * Load templates from JSON.
+     *
+     * @return array
+     */
     private static function load(): array {
         if (self::$templates !== null) {
             return self::$templates;

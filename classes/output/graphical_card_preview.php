@@ -31,7 +31,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class graphical_card_preview implements renderable, templatable {
-
     /** @var \stdClass */
     protected $card;
 
@@ -52,6 +51,12 @@ class graphical_card_preview implements renderable, templatable {
         $this->canedit   = $canedit;
     }
 
+    /**
+     * Export template context.
+     *
+     * @param renderer_base $output
+     * @return array
+     */
     public function export_for_template(renderer_base $output): array {
         $front = json_decode($this->card->frontjson ?? '{}', true) ?? [];
         $back  = json_decode($this->card->backjson ?? '{}', true) ?? [];
@@ -70,10 +75,14 @@ class graphical_card_preview implements renderable, templatable {
             'summaryvisible'  => $summaryvisible,
             'canexport'       => $this->canexport,
             'canedit'         => $this->canedit,
-            'editurl'         => (new moodle_url('/local/chemillusion/card_edit.php',
-                                    ['id' => $this->card->id]))->out(false),
-            'exportsvgurl'    => (new moodle_url('/local/chemillusion/card_export.php',
-                                    ['id' => $this->card->id, 'type' => 'svg']))->out(false),
+            'editurl' => (new moodle_url(
+                '/local/chemillusion/card_edit.php',
+                ['id' => $this->card->id]
+            ))->out(false),
+            'exportsvgurl' => (new moodle_url(
+                '/local/chemillusion/card_export.php',
+                ['id' => $this->card->id, 'type' => 'svg']
+            ))->out(false),
             'is_newman'       => $this->card->cardtype === 'newman_projection',
             'is_orbital'      => $this->card->cardtype === 'orbital_hybridization',
             'is_reaction'     => $this->card->cardtype === 'reaction_coordinate',

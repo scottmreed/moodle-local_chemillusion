@@ -27,7 +27,6 @@ use local_chemillusion\cards\deck_repository;
  * @covers     \local_chemillusion\cards\deck_repository
  */
 final class deck_repository_test extends \advanced_testcase {
-
     public function test_private_deck_is_visible_to_owner_only_unless_manager(): void {
         $this->resetAfterTest();
         $owner = $this->getDataGenerator()->create_user();
@@ -62,7 +61,7 @@ final class deck_repository_test extends \advanced_testcase {
         deck_repository::create_deck($owner->id, $course->id, 'Course deck', 'course');
         deck_repository::create_deck($owner->id, null, 'Site deck', 'site');
 
-        $names = array_map(static function($deck) {
+        $names = array_map(static function ($deck) {
             return $deck->name;
         }, deck_repository::list_decks($viewer->id));
 

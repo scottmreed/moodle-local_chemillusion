@@ -13,7 +13,18 @@
     * exportenabled bool
     * pngexportenabled bool
     * rcd_disclaimer string  Localised disclaimer text.
-}}
+
+    Example context (json):
+    {
+        "name": "SN2 profile",
+        "frontjson": "{\"template\":\"sn2\"}",
+        "summary": "Two-step energy profile.",
+        "summaryvisible": true,
+        "canexport": true,
+        "exportenabled": true,
+        "pngexportenabled": false,
+        "rcd_disclaimer": "Schematic only."
+    }}
 <div class="local-chemillusion-reaction-coordinate-editor"
      data-region="rcd-card"
      data-frontjson="{{frontjson}}">

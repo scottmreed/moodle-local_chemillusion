@@ -42,15 +42,31 @@ echo $output->header();
 
 // Navigation breadcrumb.
 if (!$deckid) {
-    echo \html_writer::tag('nav',
-        \html_writer::tag('a', get_string('back_to_dashboard', 'local_chemillusion'),
-            ['href' => (new moodle_url('/local/chemillusion/'))->out(false), 'class' => 'btn btn-sm btn-outline-secondary mb-3']),
-        ['class' => 'local-chemillusion-breadcrumb']);
+    echo \html_writer::tag(
+        'nav',
+        \html_writer::tag(
+            'a',
+            get_string('back_to_dashboard', 'local_chemillusion'),
+            [
+                'href' => (new moodle_url('/local/chemillusion/'))->out(false),
+                'class' => 'btn btn-sm btn-outline-secondary mb-3',
+            ]
+        ),
+        ['class' => 'local-chemillusion-breadcrumb']
+    );
 } else {
-    echo \html_writer::tag('nav',
-        \html_writer::tag('a', get_string('back_to_decks', 'local_chemillusion'),
-            ['href' => (new moodle_url('/local/chemillusion/cards.php'))->out(false), 'class' => 'btn btn-sm btn-outline-secondary mb-3']),
-        ['class' => 'local-chemillusion-breadcrumb']);
+    echo \html_writer::tag(
+        'nav',
+        \html_writer::tag(
+            'a',
+            get_string('back_to_decks', 'local_chemillusion'),
+            [
+                'href' => (new moodle_url('/local/chemillusion/cards.php'))->out(false),
+                'class' => 'btn btn-sm btn-outline-secondary mb-3',
+            ]
+        ),
+        ['class' => 'local-chemillusion-breadcrumb']
+    );
 }
 
 if ($deckid) {
@@ -65,8 +81,12 @@ if ($deckid) {
         $PAGE->set_context($context);
     }
     $canmanage = has_capability('local/chemillusion:managedecks', $context);
-    if (!\local_chemillusion\cards\deck_repository::can_view_deck($deck, $USER->id,
-            !empty($deck->courseid) ? (int) $deck->courseid : null, $canmanage)) {
+    if (!\local_chemillusion\cards\deck_repository::can_view_deck(
+        $deck,
+        $USER->id,
+        !empty($deck->courseid) ? (int) $deck->courseid : null,
+        $canmanage
+    )) {
         throw new \required_capability_exception($context, 'local/chemillusion:view', 'nopermissions', '');
     }
     $cards = [];
@@ -78,15 +98,21 @@ if ($deckid) {
         ];
     }
     \local_chemillusion\telemetry\local_event_logger::log(
-        \local_chemillusion\telemetry\local_event_logger::EVENT_STUDY_SESSION, 'study_deck');
+        \local_chemillusion\telemetry\local_event_logger::EVENT_STUDY_SESSION,
+        'study_deck'
+    );
 
     echo \html_writer::tag('h3', format_string($deck->name));
     echo \html_writer::div('', 'local-chemillusion-flashcards', [
-        'id' => 'local-chemillusion-flashcards', 'tabindex' => '0',
+        'id' => 'local-chemillusion-flashcards',
+        'tabindex' => '0',
         'aria-label' => get_string('cards_heading', 'local_chemillusion'),
     ]);
-    $PAGE->requires->js_call_amd('local_chemillusion/flashcard_player', 'init',
-        [['cards' => $cards]]);
+    $PAGE->requires->js_call_amd(
+        'local_chemillusion/flashcard_player',
+        'init',
+        [['cards' => $cards]]
+    );
 } else {
     $cancreate = has_capability('local/chemillusion:managedecks', $context)
         || ($courseid && has_capability('local/chemillusion:managedecks', context_course::instance($courseid)));

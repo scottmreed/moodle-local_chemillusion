@@ -61,36 +61,38 @@ define([], function() {
      * Download an SVG element as an .svg file.
      *
      * @param {SVGElement} svgEl
-     * @param {string}     filename
+     * @param {string} filename
      */
     function exportSVG(svgEl, filename) {
-        var svgStr  = serialise(svgEl);
-        var blob    = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
-        var url     = URL.createObjectURL(blob);
+        var svgStr = serialise(svgEl);
+        var blob = new Blob([svgStr], {type: 'image/svg+xml;charset=utf-8'});
+        var url = URL.createObjectURL(blob);
         triggerDownload(url, filename || 'chemillusion-card.svg');
-        setTimeout(function() { URL.revokeObjectURL(url); }, 5000);
+        setTimeout(function() {
+            URL.revokeObjectURL(url);
+        }, 5000);
     }
 
     /**
      * Download an SVG element rasterised to PNG.
      *
      * @param {SVGElement} svgEl
-     * @param {string}     filename
-     * @param {number}     width   Target pixel width (default 600).
-     * @param {number}     height  Target pixel height (default 400).
+     * @param {string} filename
+     * @param {number} width Target pixel width (default 600).
+     * @param {number} height Target pixel height (default 400).
      */
     function exportPNG(svgEl, filename, width, height) {
-        width  = width  || 600;
+        width = width || 600;
         height = height || 400;
 
-        var svgStr  = serialise(svgEl);
-        var svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
-        var url     = URL.createObjectURL(svgBlob);
+        var svgStr = serialise(svgEl);
+        var svgBlob = new Blob([svgStr], {type: 'image/svg+xml;charset=utf-8'});
+        var url = URL.createObjectURL(svgBlob);
 
         var img = new Image();
         img.onload = function() {
-            var canvas  = document.createElement('canvas');
-            canvas.width  = width;
+            var canvas = document.createElement('canvas');
+            canvas.width = width;
             canvas.height = height;
             var ctx = canvas.getContext('2d');
             ctx.fillStyle = '#ffffff';
@@ -132,14 +134,14 @@ define([], function() {
      * Copy a Moodle-pasteable HTML snippet (SVG + figcaption) to the clipboard.
      *
      * @param {SVGElement} svgEl
-     * @param {string}     summaryText  Accessible text summary.
+     * @param {string} summaryText Accessible text summary.
      * @return {Promise}
      */
     function copyMoodleSnippet(svgEl, summaryText) {
-        var svgStr  = serialise(svgEl);
+        var svgStr = serialise(svgEl);
         var escaped = (summaryText || '').replace(/&/g, '&amp;')
-                                         .replace(/</g, '&lt;')
-                                         .replace(/>/g, '&gt;');
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
         var snippet = '<figure class="local-chemillusion-card-export">'
             + svgStr
             + '<figcaption>' + escaped + '</figcaption>'
@@ -160,9 +162,9 @@ define([], function() {
     }
 
     return {
-        exportSVG:          exportSVG,
-        exportPNG:          exportPNG,
+        exportSVG: exportSVG,
+        exportPNG: exportPNG,
         copySVGToClipboard: copySVGToClipboard,
-        copyMoodleSnippet:  copyMoodleSnippet,
+        copyMoodleSnippet: copyMoodleSnippet,
     };
 });

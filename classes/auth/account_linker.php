@@ -29,7 +29,6 @@ use local_chemillusion\security\signed_state;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class account_linker {
-
     /**
      * Whether linking is enabled site-wide.
      *

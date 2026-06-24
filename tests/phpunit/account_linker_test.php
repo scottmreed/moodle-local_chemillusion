@@ -28,7 +28,6 @@ use local_chemillusion\security\signed_state;
  * @covers     \local_chemillusion\auth\account_linker
  */
 final class account_linker_test extends \advanced_testcase {
-
     public function test_start_link_creates_pending_record(): void {
         global $DB;
         $this->resetAfterTest();

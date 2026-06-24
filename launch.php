@@ -54,12 +54,18 @@ $ctx = [
 switch ($cta) {
     case 'visual_card':
         \local_chemillusion\telemetry\local_event_logger::log(
-            \local_chemillusion\telemetry\local_event_logger::EVENT_VISUAL_CARD, $surface, $cta);
+            \local_chemillusion\telemetry\local_event_logger::EVENT_VISUAL_CARD,
+            $surface,
+            $cta
+        );
         $target = \local_chemillusion\api\chemillusion_client::visual_card_url($meta, $ctx);
         break;
     case 'teacher_demo':
         \local_chemillusion\telemetry\local_event_logger::log(
-            \local_chemillusion\telemetry\local_event_logger::EVENT_DEMO_CLICK, $surface, $cta);
+            \local_chemillusion\telemetry\local_event_logger::EVENT_DEMO_CLICK,
+            $surface,
+            $cta
+        );
         $target = \local_chemillusion\api\chemillusion_client::teacher_demo_url();
         break;
     default:

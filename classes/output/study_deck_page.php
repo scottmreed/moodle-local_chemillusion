@@ -32,7 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class study_deck_page implements renderable, templatable {
-
     /** @var int Owner user id. */
     protected $userid;
 

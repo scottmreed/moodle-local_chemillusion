@@ -27,7 +27,6 @@ namespace local_chemillusion\cache;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class molecule_cache {
-
     /** @var string Default cache bucket name. */
     const DEFAULT_NAME = 'pubchem';
 

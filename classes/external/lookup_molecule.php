@@ -35,7 +35,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class lookup_molecule extends external_api {
-
     /**
      * Parameters.
      *
@@ -52,18 +51,20 @@ class lookup_molecule extends external_api {
      * Resolve the molecule, with optional type override for retry.
      *
      * @param string $query
-     * @param string $force_type Optional type override for retry.
+     * @param string $forcetype Optional type override for retry.
      * @return array
      */
-    public static function execute($query, $force_type = '') {
-        $params = self::validate_parameters(self::execute_parameters(),
-            ['query' => $query, 'force_type' => $force_type]);
+    public static function execute($query, $forcetype = '') {
+        $params = self::validate_parameters(self::execute_parameters(), [
+            'query' => $query,
+            'force_type' => $forcetype,
+        ]);
 
         $context = \context_system::instance();
         self::validate_context($context);
         require_capability('local/chemillusion:view', $context);
 
-        $detected_type = input_normalizer::detect_type($params['query']);
+        $detectedtype = input_normalizer::detect_type($params['query']);
         $result = pubchem_client::resolve($params['query'], $params['force_type'] ?: null);
 
         if ($result['status'] === 'ok') {
@@ -71,7 +72,7 @@ class lookup_molecule extends external_api {
             $data = $result['data'];
             $response = [
                 'status'           => 'ok',
-                'inputtype'        => $params['force_type'] ?: $detected_type,
+                'inputtype'        => $params['force_type'] ?: $detectedtype,
                 'name'             => $data['name'],
                 'cid'              => (int) $data['cid'],
                 'formula'          => $data['formula'],
@@ -92,7 +93,7 @@ class lookup_molecule extends external_api {
 
         $response = [
             'status'    => 'error',
-            'inputtype' => $params['force_type'] ?: $detected_type,
+            'inputtype' => $params['force_type'] ?: $detectedtype,
             'error'     => $result['error'],
         ];
 

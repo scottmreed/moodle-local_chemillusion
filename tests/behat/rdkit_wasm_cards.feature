@@ -10,7 +10,7 @@ Feature: RDKit WASM study cards (Phase 1B)
 
   Scenario: The tools page exposes the live results and structure regions
     Given I log in as "admin"
-    And I am on the "local/chemillusion/index.php" page
+    And I visit "/local/chemillusion/index.php"
     When I follow "Molecule lookup & study tools"
     Then "#local-chemillusion-results" "css_element" should exist
     And I should see "Look up"

@@ -38,10 +38,9 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements
-        \core_privacy\local\metadata\provider,
-        \core_privacy\local\request\core_userlist_provider,
-        \core_privacy\local\request\plugin\provider {
-
+    \core_privacy\local\metadata\provider,
+    \core_privacy\local\request\core_userlist_provider,
+    \core_privacy\local\request\plugin\provider {
     /**
      * Describe the data this plugin stores.
      *
@@ -122,8 +121,11 @@ class provider implements
         }
         $userlist->add_from_sql('userid', 'SELECT userid FROM {local_chemillusion_links}', []);
         $userlist->add_from_sql('userid', 'SELECT userid FROM {local_chemillusion_decks}', []);
-        $userlist->add_from_sql('userid',
-            'SELECT userid FROM {local_chemillusion_events} WHERE userid IS NOT NULL', []);
+        $userlist->add_from_sql(
+            'userid',
+            'SELECT userid FROM {local_chemillusion_events} WHERE userid IS NOT NULL',
+            []
+        );
     }
 
     /**
@@ -143,14 +145,17 @@ class provider implements
             if ($links) {
                 writer::with_context($context)->export_data(
                     [get_string('pluginname', 'local_chemillusion'), 'links'],
-                    (object) ['links' => array_values($links)]);
+                    (object) ['links' => array_values($links)]
+                );
             }
             $decks = $DB->get_records('local_chemillusion_decks', ['userid' => $userid]);
             foreach ($decks as $deck) {
                 $cards = $DB->get_records('local_chemillusion_cards', ['deckid' => $deck->id]);
                 $deck->cards = array_values($cards);
                 writer::with_context($context)->export_data(
-                    [get_string('pluginname', 'local_chemillusion'), 'decks', $deck->id], $deck);
+                    [get_string('pluginname', 'local_chemillusion'), 'decks', $deck->id],
+                    $deck
+                );
             }
             $events = $DB->get_records('local_chemillusion_events', ['userid' => $userid], 'created_at ASC');
             if ($events) {
@@ -223,7 +228,7 @@ class provider implements
         if (empty($userids)) {
             return;
         }
-        list($insql, $params) = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
+        [$insql, $params] = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
         $deckids = $DB->get_fieldset_select('local_chemillusion_decks', 'id', "userid $insql", $params);
         if ($deckids) {
             $DB->delete_records_list('local_chemillusion_cards', 'deckid', $deckids);

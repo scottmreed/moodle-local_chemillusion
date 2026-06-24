@@ -50,17 +50,15 @@ define(['local_chemillusion/rdkit_loader'], function(Loader) {
         render: function(el, smiles) {
             return Loader.load().then(function(rdkit) {
                 var mol = rdkit.get_mol(smiles || '');
-                try {
-                    if (!mol || !mol.is_valid()) {
-                        return false;
-                    }
-                    el.innerHTML = mol.get_svg(320, 240);
-                    return true;
-                } finally {
+                if (!mol || !mol.is_valid()) {
                     if (mol) {
                         mol.delete();
                     }
+                    return false;
                 }
+                el.innerHTML = mol.get_svg(320, 240);
+                mol.delete();
+                return true;
             }).catch(function() {
                 el.setAttribute('data-rdkit-error', '1');
                 return false;
@@ -78,22 +76,21 @@ define(['local_chemillusion/rdkit_loader'], function(Loader) {
             return Loader.load().then(function(rdkit) {
                 var mol = rdkit.get_mol(smiles || '');
                 var qmol = rdkit.get_qmol(smarts || '');
-                try {
-                    if (!mol || !mol.is_valid() || !qmol) {
-                        return false;
-                    }
-                    var match = mol.get_substruct_match(qmol);
-                    var details = (match && match !== '{}') ? match : '{}';
-                    el.innerHTML = mol.get_svg_with_highlights(details);
-                    return true;
-                } finally {
+                if (!mol || !mol.is_valid() || !qmol) {
                     if (mol) {
                         mol.delete();
                     }
                     if (qmol) {
                         qmol.delete();
                     }
+                    return false;
                 }
+                var match = mol.get_substruct_match(qmol);
+                var details = (match && match !== '{}') ? match : '{}';
+                el.innerHTML = mol.get_svg_with_highlights(details);
+                mol.delete();
+                qmol.delete();
+                return true;
             }).catch(function() {
                 return false;
             });

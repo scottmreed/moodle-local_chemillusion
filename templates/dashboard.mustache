@@ -19,7 +19,42 @@
     * teacher_blurb string
     * demo_url string
     * metrics array of { label, value }
-}}
+
+    Example context (json):
+    {
+        "heading": "ChemIllusion Study Tools",
+        "intro": "Create chemistry diagrams and study cards.",
+        "toolsurl": "/local/chemillusion/tools.php",
+        "cardsurl": "/local/chemillusion/cards.php",
+        "graphicalurl": "/local/chemillusion/graphical.php",
+        "graphical_enabled": true,
+        "diagram_tools": [
+            {
+                "url": "/local/chemillusion/graphical.php?type=molecule",
+                "title": "Molecule",
+                "description": "Structure from SMILES",
+                "imagealt": "Molecule",
+                "is_molecule": true,
+                "is_newman": false,
+                "is_reaction": false,
+                "is_orbital": false,
+                "imageurl": ""
+            }
+        ],
+        "has_diagram_tools": true,
+        "privacyurl": "/local/chemillusion/privacy.php",
+        "linking_enabled": false,
+        "linkurl": "/local/chemillusion/link.php",
+        "isteacher": false,
+        "teacher_blurb": "",
+        "demo_url": "https://chemillusion.com",
+        "metrics": [
+            {
+                "label": "Lookups",
+                "value": "12"
+            }
+        ]
+    }}
 <div class="local-chemillusion-dashboard">
     <p class="lead">{{{intro}}}</p>
 

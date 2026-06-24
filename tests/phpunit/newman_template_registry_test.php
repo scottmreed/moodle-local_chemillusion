@@ -20,17 +20,19 @@
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \local_chemillusion\cards\newman_template_registry
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace local_chemillusion\phpunit;
 
 use local_chemillusion\cards\newman_template_registry;
 
-/**
- * @covers \local_chemillusion\cards\newman_template_registry
- */
-class newman_template_registry_test extends advanced_testcase {
+defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Newman template registry tests.
+ */
+final class newman_template_registry_test extends \advanced_testcase {
     public function test_json_is_valid(): void {
         $path = __DIR__ . '/../../data/newman_templates.json';
         $this->assertFileExists($path);
@@ -49,7 +51,7 @@ class newman_template_registry_test extends advanced_testcase {
             $this->assertArrayHasKey('back', $t);
             $this->assertArrayHasKey('rotation_degrees', $t);
             $this->assertCount(3, $t['front'], 'Front must have exactly 3 substituents');
-            $this->assertCount(3, $t['back'],  'Back must have exactly 3 substituents');
+            $this->assertCount(3, $t['back'], 'Back must have exactly 3 substituents');
         }
     }
 

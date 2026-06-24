@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 namespace local_chemillusion\phpunit;
 
@@ -21,11 +21,12 @@ use local_chemillusion\cards\diagram_tool_catalog;
 /**
  * Tests for the root-page diagram tool catalog.
  *
- * @package local_chemillusion
- * @covers \local_chemillusion\cards\diagram_tool_catalog
+ * @package    local_chemillusion
+ * @copyright  2026 MolLogic / Scott Reed
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \local_chemillusion\cards\diagram_tool_catalog
  */
 final class diagram_tool_catalog_test extends \advanced_testcase {
-
     public function test_catalog_has_four_tools_in_creation_order(): void {
         $tools = diagram_tool_catalog::get_all(false);
 

@@ -7,7 +7,12 @@
     Context variables required for this template:
     * summary string  Plain-text description of the card content.
     * visible bool    Whether the summary starts visible.
-}}
+
+    Example context (json):
+    {
+        "summary": "Ethene pi bond between two sp2 carbons.",
+        "visible": true
+    }}
 <div class="local-chemillusion-accessible-summary"
      aria-live="polite"
      {{^visible}}hidden{{/visible}}>

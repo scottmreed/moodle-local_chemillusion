@@ -42,8 +42,27 @@ define([
     }
 
     /**
+     * Toggle editor form sections based on card type.
+     *
+     * @param {string} selectedType
+     * @param {Object} sections Section id to card-type map.
+     */
+    function updateSections(selectedType, sections) {
+        Object.keys(sections).forEach(function(sectionId) {
+            var el = document.getElementById('id_' + sectionId);
+            if (!el) {
+                return;
+            }
+            var relevantTypes = sections[sectionId];
+            el.style.display = relevantTypes.indexOf(selectedType) !== -1 ? '' : 'none';
+        });
+    }
+
+    /**
      * Init the card editor (card_edit.php).
      * Progressively enhances the PHP form with type-dependent section toggling.
+     *
+     * @param {Object} opts Editor options from PHP.
      */
     function initEditor(opts) {
         opts = opts || {};
@@ -52,35 +71,92 @@ define([
             return;
         }
 
+        /* eslint-disable camelcase */
         var sections = {
-            molecule_section:  ['molecule_identity', 'functional_group_highlight', 'functional_group_list',
-                                'smiles_to_structure', 'structure_to_smiles', 'accessibility_card'],
-            newman_section:    ['newman_projection'],
-            rcd_section:       ['reaction_coordinate'],
-            orbital_section:   ['orbital_hybridization'],
-            reagent_section:   ['reagent_card'],
+            molecule_section: ['molecule_identity', 'functional_group_highlight', 'functional_group_list',
+                'smiles_to_structure', 'structure_to_smiles', 'accessibility_card'],
+            newman_section: ['newman_projection'],
+            rcd_section: ['reaction_coordinate'],
+            orbital_section: ['orbital_hybridization'],
+            reagent_section: ['reagent_card'],
         };
+        /* eslint-enable camelcase */
 
-        function updateSections(selectedType) {
-            Object.keys(sections).forEach(function(sectionId) {
-                var el = document.getElementById('id_' + sectionId);
-                if (!el) {
-                    return;
-                }
-                var relevantTypes = sections[sectionId];
-                el.style.display = relevantTypes.indexOf(selectedType) !== -1 ? '' : 'none';
-            });
-        }
-
-        updateSections(typeSelect.value);
+        updateSections(typeSelect.value, sections);
         typeSelect.addEventListener('change', function() {
-            updateSections(this.value);
+            updateSections(typeSelect.value, sections);
         });
 
         _initFocusedPreview(opts);
-
-        // Newman live preview wired up when renderer is loaded.
         _tryInitNewmanPreview();
+    }
+
+    /**
+     * Build molecule preview data from form values.
+     *
+     * @param {Object} values
+     * @return {Object}
+     */
+    function buildMoleculePreviewData(values) {
+        return {smiles: values.smiles || ''};
+    }
+
+    /**
+     * Build Newman preview data from form values.
+     *
+     * @param {Object} values
+     * @return {Object}
+     */
+    function buildNewmanPreviewData(values) {
+        var data = {
+            front: [
+                values.newman_front_a || 'H',
+                values.newman_front_b || 'H',
+                values.newman_front_c || 'H',
+            ],
+            back: [
+                values.newman_back_a || 'H',
+                values.newman_back_b || 'H',
+                values.newman_back_c || 'H',
+            ],
+        };
+        data.rotation_degrees = parseInt(values.newman_rotation || '0', 10); // eslint-disable-line camelcase
+        data.show_energy_hint = Boolean(values.newman_show_energy); // eslint-disable-line camelcase
+        return data;
+    }
+
+    /**
+     * Build reaction coordinate preview data from form values.
+     *
+     * @param {Object} values
+     * @param {Object} presets
+     * @return {Object}
+     */
+    function buildReactionPreviewData(values, presets) {
+        var reaction = Object.assign({}, presets[values.rcd_template] || {});
+        try {
+            var points = JSON.parse(values.rcd_points_json || '[]');
+            if (Array.isArray(points) && points.length >= 2) {
+                reaction.points = points;
+            }
+        } catch (error) {
+            // Keep the selected preset visible while advanced JSON is incomplete.
+        }
+        return reaction;
+    }
+
+    /**
+     * Build orbital preview data from form values.
+     *
+     * @param {Object} values
+     * @param {Object} presets
+     * @return {Object}
+     */
+    function buildOrbitalPreviewData(values, presets) {
+        var orbital = Object.assign({}, presets[values.orbital_template] || {});
+        orbital.smiles = values.orbital_smiles || orbital.smiles || '';
+        orbital.atom_idx = parseInt(values.orbital_atom_idx || '0', 10); // eslint-disable-line camelcase
+        return orbital;
     }
 
     /**
@@ -94,45 +170,148 @@ define([
     function buildPreviewData(toolid, values, presets) {
         presets = presets || {};
         if (toolid === 'molecule') {
-            return {smiles: values.smiles || ''};
+            return buildMoleculePreviewData(values);
         }
         if (toolid === 'newman') {
-            return {
-                front: [
-                    values.newman_front_a || 'H',
-                    values.newman_front_b || 'H',
-                    values.newman_front_c || 'H',
-                ],
-                back: [
-                    values.newman_back_a || 'H',
-                    values.newman_back_b || 'H',
-                    values.newman_back_c || 'H',
-                ],
-                rotation_degrees: parseInt(values.newman_rotation || '0', 10),
-                show_energy_hint: Boolean(values.newman_show_energy),
-            };
+            return buildNewmanPreviewData(values);
         }
         if (toolid === 'reaction') {
-            var reaction = Object.assign({}, presets[values.rcd_template] || {});
-            try {
-                var points = JSON.parse(values.rcd_points_json || '[]');
-                if (Array.isArray(points) && points.length >= 2) {
-                    reaction.points = points;
-                }
-            } catch (error) {
-                // Keep the selected preset visible while advanced JSON is incomplete.
-            }
-            return reaction;
+            return buildReactionPreviewData(values, presets);
         }
         if (toolid === 'orbital') {
-            var orbital = Object.assign({}, presets[values.orbital_template] || {});
-            orbital.smiles = values.orbital_smiles || orbital.smiles || '';
-            orbital.atom_idx = parseInt(values.orbital_atom_idx || '0', 10);
-            return orbital;
+            return buildOrbitalPreviewData(values, presets);
         }
         return {};
     }
 
+    /**
+     * Read current preview form field values for a tool.
+     *
+     * @param {string} toolid
+     * @param {Object} fieldNames
+     * @return {Object}
+     */
+    function readPreviewValues(toolid, fieldNames) {
+        var values = {};
+        (fieldNames[toolid] || []).forEach(function(name) {
+            var field = document.querySelector('[name="' + name + '"]');
+            if (field) {
+                values[name] = field.type === 'checkbox' ? field.checked : field.value;
+            }
+        });
+        return values;
+    }
+
+    /**
+     * Render the diagram preview canvas for the active tool.
+     *
+     * @param {string} toolid
+     * @param {HTMLElement} canvas
+     * @param {Object} presets
+     * @param {Object} fieldNames
+     */
+    function renderDiagramPreview(toolid, canvas, presets, fieldNames) {
+        var data = buildPreviewData(toolid, readPreviewValues(toolid, fieldNames), presets);
+        if (toolid === 'molecule') {
+            if (!data.smiles) {
+                canvas.innerHTML = '';
+                return;
+            }
+            require(['local_chemillusion/rdkit_molecule_renderer'], function(Renderer) {
+                Renderer.render(canvas, data.smiles);
+            });
+            return;
+        }
+        if (toolid === 'newman') {
+            require(['local_chemillusion/newman_projection'], function(Newman) {
+                canvas.innerHTML = Newman.render(data);
+            });
+            return;
+        }
+        if (toolid === 'reaction') {
+            require(['local_chemillusion/reaction_coordinate_diagram'], function(RCD) {
+                canvas.innerHTML = RCD.render(data);
+            });
+            return;
+        }
+        if (toolid === 'orbital') {
+            require(['local_chemillusion/orbital_overlay_renderer'], function(Orbital) {
+                Orbital.render(data, canvas);
+            });
+        }
+    }
+
+    /**
+     * Set a form field value by name.
+     *
+     * @param {string} name
+     * @param {*} value
+     */
+    function setPreviewField(name, value) {
+        var field = document.querySelector('[name="' + name + '"]');
+        if (!field) {
+            return;
+        }
+        if (field.type === 'checkbox') {
+            field.checked = Boolean(value);
+        } else {
+            field.value = value === undefined || value === null ? '' : value;
+        }
+    }
+
+    /**
+     * Apply a preset to the editor form fields.
+     *
+     * @param {string} toolid
+     * @param {string} presetid
+     * @param {Object} presets
+     * @param {Function} scheduleRender
+     */
+    function applyEditorPreset(toolid, presetid, presets, scheduleRender) {
+        var preset = presets[presetid];
+        if (!preset) {
+            scheduleRender();
+            return;
+        }
+        if (toolid === 'newman') {
+            ['a', 'b', 'c'].forEach(function(key, index) {
+                setPreviewField('newman_front_' + key, preset.front[index]);
+                setPreviewField('newman_back_' + key, preset.back[index]);
+            });
+            setPreviewField('newman_rotation', preset.rotation_degrees);
+            setPreviewField('newman_show_energy', preset.show_energy_hint);
+        } else if (toolid === 'reaction') {
+            setPreviewField('rcd_points_json', JSON.stringify(preset.points || []));
+        } else if (toolid === 'orbital') {
+            setPreviewField('orbital_smiles', preset.smiles || '');
+            setPreviewField('orbital_atom_idx', preset.atom_idx || 0);
+        }
+        setPreviewField('name', preset.title || '');
+        setPreviewField('teacher_note', preset.teacher_note || '');
+        scheduleRender();
+    }
+
+    /**
+     * Resolve the preset select field name for a tool.
+     *
+     * @param {string} toolid
+     * @return {string}
+     */
+    function presetFieldNameForTool(toolid) {
+        if (toolid === 'newman') {
+            return 'newman_preset';
+        }
+        if (toolid === 'reaction') {
+            return 'rcd_template';
+        }
+        return 'orbital_template';
+    }
+
+    /**
+     * Wire up live diagram preview on the focused editor page.
+     *
+     * @param {Object} opts
+     */
     function _initFocusedPreview(opts) {
         var preview = document.querySelector('[data-region="diagram-preview"]');
         var canvas = document.querySelector('[data-region="diagram-preview-canvas"]');
@@ -155,82 +334,12 @@ define([
         };
         var renderTimer = null;
 
-        function currentValues() {
-            var values = {};
-            (fieldNames[toolid] || []).forEach(function(name) {
-                var field = document.querySelector('[name="' + name + '"]');
-                if (field) {
-                    values[name] = field.type === 'checkbox' ? field.checked : field.value;
-                }
-            });
-            return values;
-        }
-
-        function renderPreview() {
-            var data = buildPreviewData(toolid, currentValues(), presets);
-            if (toolid === 'molecule') {
-                if (!data.smiles) {
-                    canvas.innerHTML = '';
-                    return;
-                }
-                require(['local_chemillusion/rdkit_molecule_renderer'], function(Renderer) {
-                    Renderer.renderSMILES(data.smiles, canvas);
-                });
-            } else if (toolid === 'newman') {
-                require(['local_chemillusion/newman_projection'], function(Newman) {
-                    canvas.innerHTML = Newman.render(data);
-                });
-            } else if (toolid === 'reaction') {
-                require(['local_chemillusion/reaction_coordinate_diagram'], function(RCD) {
-                    canvas.innerHTML = RCD.render(data);
-                });
-            } else if (toolid === 'orbital') {
-                require(['local_chemillusion/orbital_overlay_renderer'], function(Orbital) {
-                    Orbital.render(data, canvas);
-                });
-            }
-        }
-
-        function scheduleRender() {
+        var scheduleRender = function() {
             window.clearTimeout(renderTimer);
-            renderTimer = window.setTimeout(renderPreview, toolid === 'molecule' ? 180 : 0);
-        }
-
-        function setField(name, value) {
-            var field = document.querySelector('[name="' + name + '"]');
-            if (!field) {
-                return;
-            }
-            if (field.type === 'checkbox') {
-                field.checked = Boolean(value);
-            } else {
-                field.value = value === undefined || value === null ? '' : value;
-            }
-        }
-
-        function applyPreset(presetid) {
-            var preset = presets[presetid];
-            if (!preset) {
-                scheduleRender();
-                return;
-            }
-            if (toolid === 'newman') {
-                ['a', 'b', 'c'].forEach(function(key, index) {
-                    setField('newman_front_' + key, preset.front[index]);
-                    setField('newman_back_' + key, preset.back[index]);
-                });
-                setField('newman_rotation', preset.rotation_degrees);
-                setField('newman_show_energy', preset.show_energy_hint);
-            } else if (toolid === 'reaction') {
-                setField('rcd_points_json', JSON.stringify(preset.points || []));
-            } else if (toolid === 'orbital') {
-                setField('orbital_smiles', preset.smiles || '');
-                setField('orbital_atom_idx', preset.atom_idx || 0);
-            }
-            setField('name', preset.title || '');
-            setField('teacher_note', preset.teacher_note || '');
-            scheduleRender();
-        }
+            renderTimer = window.setTimeout(function() {
+                renderDiagramPreview(toolid, canvas, presets, fieldNames);
+            }, toolid === 'molecule' ? 180 : 0);
+        };
 
         (fieldNames[toolid] || []).forEach(function(name) {
             var field = document.querySelector('[name="' + name + '"]');
@@ -241,23 +350,20 @@ define([
             field.addEventListener(eventName, scheduleRender);
         });
 
-        var presetField = document.querySelector(
-            '[name="' + (toolid === 'newman' ? 'newman_preset'
-                : toolid === 'reaction' ? 'rcd_template' : 'orbital_template') + '"]'
-        );
+        var presetField = document.querySelector('[name="' + presetFieldNameForTool(toolid) + '"]');
         if (presetField && toolid !== 'molecule') {
             presetField.addEventListener('change', function() {
-                applyPreset(this.value);
+                applyEditorPreset(toolid, presetField.value, presets, scheduleRender);
             });
         }
 
-        renderPreview();
+        renderDiagramPreview(toolid, canvas, presets, fieldNames);
     }
 
     /**
      * Init the card viewer (card_view.php).
      *
-     * @param {Object} opts  { cardid }
+     * @param {Object} opts { cardid }
      */
     function initView(opts) {
         var cardid = opts.cardid;
@@ -266,9 +372,9 @@ define([
         }
 
         var frontEl = document.querySelector('[data-region="card-front"]');
-        var backEl  = document.querySelector('[data-region="card-back"]');
+        var backEl = document.querySelector('[data-region="card-back"]');
         var flipBtn = document.querySelector('[data-action="flip-card"]');
-        var shown   = false;
+        var shown = false;
 
         if (flipBtn) {
             flipBtn.addEventListener('click', function() {
@@ -299,22 +405,26 @@ define([
             }
         });
 
-        // Export toolbar.
         _initExportToolbar(cardid);
 
-        // Fetch card data and render type-specific SVG.
         Ajax.call([{
             methodname: 'local_chemillusion_get_graphical_card_preview',
-            args: { cardid: cardid },
+            args: {cardid: cardid},
         }])[0].then(function(card) {
             _renderCardType(card);
             CardAccessibility.update(card.cardtype, card.frontjson, card.backjson);
             return card;
         }).catch(function() {
             // Silently fall back to PHP-rendered content.
+            return null;
         });
     }
 
+    /**
+     * Wire export toolbar buttons for SVG, PNG, and clipboard actions.
+     *
+     * @param {number} cardid
+     */
     function _initExportToolbar(cardid) {
         document.querySelectorAll('[data-action="export-svg"]').forEach(function(btn) {
             btn.addEventListener('click', function() {
@@ -345,9 +455,9 @@ define([
 
         document.querySelectorAll('[data-action="copy-snippet"]').forEach(function(btn) {
             btn.addEventListener('click', function() {
-                var svgEl     = document.querySelector('.local-chemillusion-card-face svg');
+                var svgEl = document.querySelector('.local-chemillusion-card-face svg');
                 var summaryEl = document.querySelector('.local-chemillusion-accessible-summary');
-                var summary   = summaryEl ? summaryEl.textContent : '';
+                var summary = summaryEl ? summaryEl.textContent : '';
                 if (svgEl) {
                     SvgExporter.copyMoodleSnippet(svgEl, summary);
                 }
@@ -355,6 +465,11 @@ define([
         });
     }
 
+    /**
+     * Render type-specific diagram content into the card viewer.
+     *
+     * @param {Object} card
+     */
     function _renderCardType(card) {
         var frontjson = JSON.parse(card.frontjson || '{}');
         var region = document.querySelector('[data-region="card-front"]');
@@ -380,15 +495,29 @@ define([
                 });
                 break;
             default:
-                // Molecule types rendered by rdkit_molecule_renderer via existing phase 1B code.
                 if (frontjson.smiles) {
                     require(['local_chemillusion/rdkit_molecule_renderer'], function(Renderer) {
-                        Renderer.renderSMILES(frontjson.smiles, region);
+                        Renderer.render(region, frontjson.smiles);
                     });
                 }
         }
     }
 
+    /**
+     * Read a Newman form field value with a default.
+     *
+     * @param {string} name
+     * @param {string} fallback
+     * @return {string}
+     */
+    function _newmanFieldValue(name, fallback) {
+        var field = document.querySelector('[name="' + name + '"]');
+        return field ? field.value : fallback;
+    }
+
+    /**
+     * Wire live Newman preview on the legacy editor form.
+     */
     function _tryInitNewmanPreview() {
         var newmanFields = document.querySelectorAll('[name^="newman_"]');
         if (!newmanFields.length) {
@@ -398,23 +527,30 @@ define([
         if (!previewEl) {
             return;
         }
-        function updatePreview() {
+
+        /**
+         * Refresh the Newman preview SVG from current form values.
+         */
+        var updatePreview = function() {
             require(['local_chemillusion/newman_projection'], function(Newman) {
                 var front = [
-                    document.querySelector('[name="newman_front_a"]')?.value || 'H',
-                    document.querySelector('[name="newman_front_b"]')?.value || 'H',
-                    document.querySelector('[name="newman_front_c"]')?.value || 'H',
+                    _newmanFieldValue('newman_front_a', 'H'),
+                    _newmanFieldValue('newman_front_b', 'H'),
+                    _newmanFieldValue('newman_front_c', 'H'),
                 ];
                 var back = [
-                    document.querySelector('[name="newman_back_a"]')?.value || 'H',
-                    document.querySelector('[name="newman_back_b"]')?.value || 'H',
-                    document.querySelector('[name="newman_back_c"]')?.value || 'H',
+                    _newmanFieldValue('newman_back_a', 'H'),
+                    _newmanFieldValue('newman_back_b', 'H'),
+                    _newmanFieldValue('newman_back_c', 'H'),
                 ];
-                var rot = parseInt(document.querySelector('[name="newman_rotation"]')?.value || '0', 10);
-                var svg = Newman.render({ front: front, back: back, rotation_degrees: rot });
+                var rot = parseInt(_newmanFieldValue('newman_rotation', '0'), 10);
+                var newmanData = {front: front, back: back};
+                newmanData.rotation_degrees = rot; // eslint-disable-line camelcase
+                var svg = Newman.render(newmanData);
                 previewEl.innerHTML = svg;
             });
-        }
+        };
+
         newmanFields.forEach(function(f) {
             f.addEventListener('input', updatePreview);
         });

@@ -29,7 +29,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class graphical_card_schema {
-
     /** Required frontjson keys per card type. */
     private const REQUIRED = [
         'molecule_identity'          => ['smiles'],

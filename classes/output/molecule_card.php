@@ -31,7 +31,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class molecule_card implements renderable, templatable {
-
     /** @var array Normalised molecule payload. */
     protected $payload;
 

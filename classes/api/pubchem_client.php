@@ -31,7 +31,6 @@ use local_chemillusion\util\input_normalizer;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class pubchem_client {
-
     /** @var string PubChem PUG REST base. */
     const BASE = 'https://pubchem.ncbi.nlm.nih.gov/rest/pug';
 
@@ -49,22 +48,24 @@ class pubchem_client {
      * If PubChem fails, returns a fallback response with cached/parsed data if available.
      *
      * @param string $rawinput User-supplied identifier.
-     * @param string|null $force_type Override detected type (e.g., to retry as 'name' after SMILES fails).
+     * @param string|null $forcetype Override detected type (e.g., to retry as 'name' after SMILES fails).
      * @return array{status:string, data?:array, error?:string, fallback?:bool, alt_types?:array}
      */
-    public static function resolve($rawinput, $force_type = null) {
+    public static function resolve($rawinput, $forcetype = null) {
         $value = input_normalizer::normalize($rawinput);
         if (!input_normalizer::is_nonempty($value)) {
             return ['status' => 'error', 'error' => 'invalidinput'];
         }
 
-        if (get_config('local_chemillusion', 'disable_external')
-                || !get_config('local_chemillusion', 'enable_pubchem')) {
+        if (
+            get_config('local_chemillusion', 'disable_external')
+            || !get_config('local_chemillusion', 'enable_pubchem')
+        ) {
             return ['status' => 'error', 'error' => 'external_disabled'];
         }
 
-        $detected_type = input_normalizer::detect_type($value);
-        $type = $force_type ?: $detected_type;
+        $detectedtype = input_normalizer::detect_type($value);
+        $type = $forcetype ?: $detectedtype;
         $cachekey = molecule_cache::make_key($type, $value);
 
         $cached = molecule_cache::get($cachekey);
@@ -77,7 +78,7 @@ class pubchem_client {
         if ($result['status'] === 'ok') {
             $ttl = (int) get_config('local_chemillusion', 'cache_ttl');
             molecule_cache::set($cachekey, $result['data'], $ttl);
-        } else if ($result['status'] === 'error' && $type === input_normalizer::TYPE_SMILES && !$force_type) {
+        } else if ($result['status'] === 'error' && $type === input_normalizer::TYPE_SMILES && !$forcetype) {
             // SMILES lookup failed and user didn't force an override.
             // Suggest text search as alternative.
             $result['alt_types'] = [input_normalizer::TYPE_NAME];

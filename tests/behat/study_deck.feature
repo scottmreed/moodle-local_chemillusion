@@ -6,6 +6,6 @@ Feature: Study decks
 
   Scenario: A logged-in user can open the study decks page
     Given I log in as "admin"
-    And I am on the "local/chemillusion/index.php" page
+    And I visit "/local/chemillusion/index.php"
     When I follow "Study decks"
     Then I should see "Study decks"

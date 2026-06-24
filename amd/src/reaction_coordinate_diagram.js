@@ -30,27 +30,27 @@ define([], function() {
 
     'use strict';
 
-    var W        = 520;
-    var H        = 300;
-    var PAD_L    = 60;  // left padding (for y-axis label)
-    var PAD_R    = 20;
-    var PAD_T    = 20;
-    var PAD_B    = 40;  // bottom padding (for x-axis label)
-    var PLOT_W   = W - PAD_L - PAD_R;
-    var PLOT_H   = H - PAD_T - PAD_B;
+    var W = 520;
+    var H = 300;
+    var PAD_L = 60; // Left padding (for y-axis label).
+    var PAD_R = 20;
+    var PAD_T = 20;
+    var PAD_B = 40; // Bottom padding (for x-axis label).
+    var PLOT_W = W - PAD_L - PAD_R;
+    var PLOT_H = H - PAD_T - PAD_B;
 
     /**
      * Render an SVG reaction coordinate diagram from card data.
      *
-     * @param {Object} data  { title, points, annotations, x_axis, y_axis, disclaimer }
-     * @return {string}  SVG markup string.
+     * @param {Object} data { title, points, annotations, x_axis, y_axis, disclaimer }
+     * @return {string} SVG markup string.
      */
     function render(data) {
-        var points      = data.points      || [];
+        var points = data.points || [];
         var annotations = data.annotations || [];
-        var xLabel      = data.x_axis || 'Reaction coordinate';
-        var yLabel      = data.y_axis || 'Free energy';
-        var disclaimer  = data.disclaimer !== false;
+        var xLabel = data.x_axis || 'Reaction coordinate';
+        var yLabel = data.y_axis || 'Free energy';
+        var disclaimer = data.disclaimer !== false;
 
         if (points.length < 2) {
             return _errorSVG('Need at least 2 points.');
@@ -78,9 +78,16 @@ define([], function() {
 
         // Point markers and labels.
         px.forEach(function(p) {
-            var isTS  = (p.id || '').toLowerCase().indexOf('ts') === 0;
+            var isTS = (p.id || '').toLowerCase().indexOf('ts') === 0;
             var isInt = (p.id || '').toLowerCase().indexOf('int') === 0;
-            var fill  = isTS ? '#dc3545' : isInt ? '#fd7e14' : '#0d6efd';
+            var fill;
+            if (isTS) {
+                fill = '#dc3545';
+            } else if (isInt) {
+                fill = '#fd7e14';
+            } else {
+                fill = '#0d6efd';
+            }
             parts.push('<circle cx="' + _r(p.sx) + '" cy="' + _r(p.sy)
                 + '" r="4" fill="' + fill + '" stroke="white" stroke-width="1.5"/>');
             parts.push(_ptLabel(p));
@@ -88,9 +95,15 @@ define([], function() {
 
         // Annotations.
         annotations.forEach(function(ann) {
-            var fromPt = px.find(function(p) { return p.id === ann.from; });
-            var toPt   = px.find(function(p) { return p.id === ann.to; });
-            if (!fromPt || !toPt) { return; }
+            var fromPt = px.find(function(p) {
+                return p.id === ann.from;
+            });
+            var toPt = px.find(function(p) {
+                return p.id === ann.to;
+            });
+            if (!fromPt || !toPt) {
+                return;
+            }
             if (ann.type === 'arrow') {
                 parts.push(_eaArrow(fromPt, toPt, ann.label || ''));
             } else if (ann.type === 'bracket') {
@@ -109,6 +122,12 @@ define([], function() {
         return parts.join('\n');
     }
 
+    /**
+     * Map normalised points to SVG plot coordinates.
+     *
+     * @param {Array} points
+     * @return {Array}
+     */
     function _mapPoints(points) {
         return points.map(function(p) {
             return Object.assign({}, p, {
@@ -118,9 +137,18 @@ define([], function() {
         });
     }
 
+    /**
+     * Build axis lines and labels.
+     *
+     * @param {string} xLabel
+     * @param {string} yLabel
+     * @return {string}
+     */
     function _axis(xLabel, yLabel) {
-        var x0 = PAD_L, y0 = PAD_T;
-        var x1 = PAD_L + PLOT_W, y1 = PAD_T + PLOT_H;
+        var x0 = PAD_L;
+        var y0 = PAD_T;
+        var x1 = PAD_L + PLOT_W;
+        var y1 = PAD_T + PLOT_H;
         return [
             '<line x1="' + x0 + '" y1="' + y0 + '" x2="' + x0 + '" y2="' + y1
                 + '" stroke="#495057" stroke-width="1.5"/>',
@@ -135,12 +163,18 @@ define([], function() {
         ].join('\n');
     }
 
+    /**
+     * Build a cardinal spline path through plot points.
+     *
+     * @param {Array} pts
+     * @return {string}
+     */
     function _cardinalSpline(pts) {
         if (pts.length === 2) {
             return 'M ' + _r(pts[0].sx) + ' ' + _r(pts[0].sy)
                 + ' L ' + _r(pts[1].sx) + ' ' + _r(pts[1].sy);
         }
-        var t = 0.4; // tension
+        var t = 0.4; // Tension.
         var d = 'M ' + _r(pts[0].sx) + ' ' + _r(pts[0].sy);
         for (var i = 0; i < pts.length - 1; i++) {
             var p0 = pts[i - 1] || pts[i];
@@ -158,19 +192,32 @@ define([], function() {
         return d;
     }
 
+    /**
+     * Build a point label element.
+     *
+     * @param {Object} p
+     * @return {string}
+     */
     function _ptLabel(p) {
-        var isTS  = (p.id || '').toLowerCase().indexOf('ts') === 0;
-        var dy    = isTS ? -12 : 18;
+        var isTS = (p.id || '').toLowerCase().indexOf('ts') === 0;
+        var dy = isTS ? -12 : 18;
         return '<text x="' + _r(p.sx) + '" y="' + _r(p.sy + dy)
             + '" text-anchor="middle" fill="#333" font-size="10">'
             + _esc(p.label || '') + '</text>';
     }
 
+    /**
+     * Build an activation-energy arrow annotation.
+     *
+     * @param {Object} from
+     * @param {Object} to
+     * @param {string} label
+     * @return {string}
+     */
     function _eaArrow(from, to, label) {
-        var midX = _r((from.sx + to.sx) / 2);
-        var x    = _r(from.sx);
-        var y1   = _r(from.sy);
-        var y2   = _r(to.sy);
+        var x = _r(from.sx);
+        var y1 = _r(from.sy);
+        var y2 = _r(to.sy);
         return '<line x1="' + x + '" y1="' + y1 + '" x2="' + x + '" y2="' + y2
             + '" stroke="#dc3545" stroke-width="1" stroke-dasharray="3,2"'
             + ' marker-end="url(#arrowhead)"/>'
@@ -178,24 +225,52 @@ define([], function() {
             + '" text-anchor="end" fill="#dc3545" font-size="9">' + _esc(label) + '</text>';
     }
 
+    /**
+     * Build a delta-G bracket annotation.
+     *
+     * @param {Object} from
+     * @param {Object} to
+     * @param {string} label
+     * @return {string}
+     */
     function _deltaGBracket(from, to, label) {
-        var x    = _r(Math.max(from.sx, to.sx) + 14);
-        var y1   = _r(from.sy);
-        var y2   = _r(to.sy);
+        var x = _r(Math.max(from.sx, to.sx) + 14);
+        var y1 = _r(from.sy);
+        var y2 = _r(to.sy);
         return '<line x1="' + x + '" y1="' + y1 + '" x2="' + x + '" y2="' + y2
             + '" stroke="#198754" stroke-width="1.5"/>'
             + '<text x="' + _r(parseFloat(x) + 4) + '" y="' + _r((from.sy + to.sy) / 2)
             + '" fill="#198754" font-size="9">' + _esc(label) + '</text>';
     }
 
+    /**
+     * Build a minimal error SVG.
+     *
+     * @param {string} msg
+     * @return {string}
+     */
     function _errorSVG(msg) {
         return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="60">'
             + '<text x="10" y="30" fill="#dc3545" font-family="sans-serif" font-size="12">'
             + _esc(msg) + '</text></svg>';
     }
 
-    function _r(n) { return Math.round(n * 10) / 10; }
+    /**
+     * Round a number for SVG output.
+     *
+     * @param {number} n
+     * @return {number}
+     */
+    function _r(n) {
+        return Math.round(n * 10) / 10;
+    }
 
+    /**
+     * Escape text for safe SVG insertion.
+     *
+     * @param {string} s
+     * @return {string}
+     */
     function _esc(s) {
         return String(s)
             .replace(/&/g, '&amp;')
@@ -204,5 +279,5 @@ define([], function() {
             .replace(/"/g, '&quot;');
     }
 
-    return { render: render };
+    return {render: render};
 });

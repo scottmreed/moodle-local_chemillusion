@@ -8,11 +8,11 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 namespace local_chemillusion\cards;
 
@@ -21,10 +21,11 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Root-page diagram tools and their focused editor defaults.
  *
- * @package local_chemillusion
+ * @package    local_chemillusion
+ * @copyright  2026 MolLogic / Scott Reed
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class diagram_tool_catalog {
-
     /**
      * Return diagram tools in dashboard display order.
      *
@@ -208,12 +209,12 @@ final class diagram_tool_catalog {
             foreach (newman_template_registry::get_all() as $template) {
                 $presets[$template['id']] = newman_template_registry::default_card_data($template['id']);
             }
-        } elseif ($id === 'reaction') {
+        } else if ($id === 'reaction') {
             foreach (reaction_coordinate_template_registry::get_all() as $template) {
                 $presets[$template['id']] =
                     reaction_coordinate_template_registry::default_card_data($template['id']);
             }
-        } elseif ($id === 'orbital') {
+        } else if ($id === 'orbital') {
             foreach (orbital_template_registry::get_all() as $template) {
                 $presets[$template['id']] = [
                     'title' => $template['label'],

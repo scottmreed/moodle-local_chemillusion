@@ -8,11 +8,19 @@
 //
 // Moodle is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <https://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
+/**
+ * Tests for graphical_card_form focused editor fields.
+ *
+ * @package    local_chemillusion
+ * @copyright  2026 MolLogic / Scott Reed
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 namespace local_chemillusion\phpunit;
 
@@ -21,9 +29,10 @@ use local_chemillusion\form\graphical_card_form;
 
 /**
  * Exposes QuickForm for focused editor assertions.
+ *
+ * @package    local_chemillusion
  */
 final class testable_graphical_card_form extends graphical_card_form {
-
     /**
      * Return the underlying QuickForm instance.
      *
@@ -37,11 +46,12 @@ final class testable_graphical_card_form extends graphical_card_form {
 /**
  * Focused graphical-card form tests.
  *
- * @package local_chemillusion
- * @covers \local_chemillusion\form\graphical_card_form
+ * @package    local_chemillusion
+ * @copyright  2026 MolLogic / Scott Reed
+ * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \local_chemillusion\form\graphical_card_form
  */
 final class graphical_card_form_test extends \advanced_testcase {
-
     /**
      * Build a direct tool form.
      *

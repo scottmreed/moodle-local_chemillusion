@@ -27,7 +27,6 @@ namespace local_chemillusion\cards;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class card_generator {
-
     /**
      * Build a molecule identity card from a PubChem payload.
      *

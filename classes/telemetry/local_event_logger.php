@@ -29,13 +29,17 @@ namespace local_chemillusion\telemetry;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class local_event_logger {
-
-    /** @var string Event names. */
+    /** @var string Molecule lookup event. */
     const EVENT_LOOKUP = 'molecule_lookup';
+    /** @var string Deck created event. */
     const EVENT_DECK_CREATED = 'deck_created';
+    /** @var string Study session event. */
     const EVENT_STUDY_SESSION = 'study_session';
+    /** @var string Account link click event. */
     const EVENT_LINK_CLICK = 'account_link_click';
+    /** @var string Teacher demo click event. */
     const EVENT_DEMO_CLICK = 'teacher_demo_click';
+    /** @var string Visual card click event. */
     const EVENT_VISUAL_CARD = 'visual_card_click';
 
     /**

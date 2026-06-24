@@ -26,7 +26,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class orbital_template_registry {
-
     /** @var array|null */
     private static $templates = null;
 
@@ -86,6 +85,11 @@ class orbital_template_registry {
         return file_exists($full) ? $full : null;
     }
 
+    /**
+     * Load templates from JSON.
+     *
+     * @return array
+     */
     private static function load(): array {
         if (self::$templates !== null) {
             return self::$templates;

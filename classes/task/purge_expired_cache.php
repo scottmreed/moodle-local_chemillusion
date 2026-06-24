@@ -26,7 +26,6 @@ use local_chemillusion\cache\molecule_cache;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class purge_expired_cache extends \core\task\scheduled_task {
-
     /**
      * Human-readable task name.
      *

@@ -28,21 +28,26 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($hassiteconfig) {
-    $settings = new admin_settingpage('local_chemillusion',
-        get_string('pluginname', 'local_chemillusion'));
+    $settings = new admin_settingpage(
+        'local_chemillusion',
+        get_string('pluginname', 'local_chemillusion')
+    );
     $ADMIN->add('localplugins', $settings);
 
-    // --- Info / support ----------------------------------------------------.
-    $settings->add(new admin_setting_heading('local_chemillusion/infoheading',
+    $settings->add(new admin_setting_heading(
+        'local_chemillusion/infoheading',
         get_string('settings_info_heading', 'local_chemillusion'),
-        get_string('settings_info_desc', 'local_chemillusion')));
+        get_string('settings_info_desc', 'local_chemillusion')
+    ));
 
-    // --- Mode ---------------------------------------------------------------.
-    $settings->add(new admin_setting_heading('local_chemillusion/modeheading',
+    $settings->add(new admin_setting_heading(
+        'local_chemillusion/modeheading',
         get_string('settings_mode_heading', 'local_chemillusion'),
-        get_string('settings_mode_desc', 'local_chemillusion')));
+        get_string('settings_mode_desc', 'local_chemillusion')
+    ));
 
-    $settings->add(new admin_setting_configselect('local_chemillusion/mode',
+    $settings->add(new admin_setting_configselect(
+        'local_chemillusion/mode',
         get_string('settings_mode', 'local_chemillusion'),
         get_string('settings_mode_help', 'local_chemillusion'),
         'local_only',
@@ -50,99 +55,158 @@ if ($hassiteconfig) {
             'local_only' => get_string('mode_local_only', 'local_chemillusion'),
             'local_link' => get_string('mode_local_link', 'local_chemillusion'),
             'local_saas' => get_string('mode_local_saas', 'local_chemillusion'),
-        ]));
+        ]
+    ));
 
-    // --- External services --------------------------------------------------.
-    $settings->add(new admin_setting_heading('local_chemillusion/extheading',
+    $settings->add(new admin_setting_heading(
+        'local_chemillusion/extheading',
         get_string('settings_external_heading', 'local_chemillusion'),
-        get_string('settings_external_desc', 'local_chemillusion')));
+        get_string('settings_external_desc', 'local_chemillusion')
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_pubchem',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_pubchem',
         get_string('settings_enable_pubchem', 'local_chemillusion'),
-        get_string('settings_enable_pubchem_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_pubchem_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_account_linking',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_account_linking',
         get_string('settings_enable_account_linking', 'local_chemillusion'),
-        get_string('settings_enable_account_linking_help', 'local_chemillusion'), 0));
+        get_string('settings_enable_account_linking_help', 'local_chemillusion'),
+        0
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_visual_preview',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_visual_preview',
         get_string('settings_enable_visual_preview', 'local_chemillusion'),
-        get_string('settings_enable_visual_preview_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_visual_preview_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_conversion_metadata',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_conversion_metadata',
         get_string('settings_enable_conversion_metadata', 'local_chemillusion'),
-        get_string('settings_enable_conversion_metadata_help', 'local_chemillusion'), 0));
+        get_string('settings_enable_conversion_metadata_help', 'local_chemillusion'),
+        0
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_rdkit',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_rdkit',
         get_string('settings_enable_rdkit', 'local_chemillusion'),
-        get_string('settings_enable_rdkit_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_rdkit_help', 'local_chemillusion'),
+        1
+    ));
 
-    // --- ChemIllusion connection -------------------------------------------.
-    $settings->add(new admin_setting_heading('local_chemillusion/connheading',
+    $settings->add(new admin_setting_heading(
+        'local_chemillusion/connheading',
         get_string('settings_conn_heading', 'local_chemillusion'),
-        get_string('settings_conn_desc', 'local_chemillusion')));
+        get_string('settings_conn_desc', 'local_chemillusion')
+    ));
 
-    $settings->add(new admin_setting_configtext('local_chemillusion/chemillusion_base_url',
+    $settings->add(new admin_setting_configtext(
+        'local_chemillusion/chemillusion_base_url',
         get_string('settings_base_url', 'local_chemillusion'),
         get_string('settings_base_url_help', 'local_chemillusion'),
-        'https://chemillusion.com', PARAM_URL));
+        'https://chemillusion.com',
+        PARAM_URL
+    ));
 
-    $settings->add(new admin_setting_configpasswordunmask('local_chemillusion/signing_secret',
+    $settings->add(new admin_setting_configpasswordunmask(
+        'local_chemillusion/signing_secret',
         get_string('settings_signing_secret', 'local_chemillusion'),
-        get_string('settings_signing_secret_help', 'local_chemillusion'), ''));
+        get_string('settings_signing_secret_help', 'local_chemillusion'),
+        ''
+    ));
 
-    // --- Privacy ------------------------------------------------------------.
-    $settings->add(new admin_setting_heading('local_chemillusion/privheading',
+    $settings->add(new admin_setting_heading(
+        'local_chemillusion/privheading',
         get_string('settings_privacy_heading', 'local_chemillusion'),
-        get_string('settings_privacy_desc', 'local_chemillusion')));
+        get_string('settings_privacy_desc', 'local_chemillusion')
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/minimal_mode',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/minimal_mode',
         get_string('settings_minimal_mode', 'local_chemillusion'),
-        get_string('settings_minimal_mode_help', 'local_chemillusion'), 1));
+        get_string('settings_minimal_mode_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/disable_external',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/disable_external',
         get_string('settings_disable_external', 'local_chemillusion'),
-        get_string('settings_disable_external_help', 'local_chemillusion'), 0));
+        get_string('settings_disable_external_help', 'local_chemillusion'),
+        0
+    ));
 
-    $settings->add(new admin_setting_configtext('local_chemillusion/cache_ttl',
+    $settings->add(new admin_setting_configtext(
+        'local_chemillusion/cache_ttl',
         get_string('settings_cache_ttl', 'local_chemillusion'),
         get_string('settings_cache_ttl_help', 'local_chemillusion'),
-        '604800', PARAM_INT));
+        '604800',
+        PARAM_INT
+    ));
 
-    // --- Graphical cards ---------------------------------------------------.
-    $settings->add(new admin_setting_heading('local_chemillusion/graphicheading',
+    $settings->add(new admin_setting_heading(
+        'local_chemillusion/graphicheading',
         get_string('settings_graphical_heading', 'local_chemillusion'),
-        get_string('settings_graphical_desc', 'local_chemillusion')));
+        get_string('settings_graphical_desc', 'local_chemillusion')
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_graphical_cards',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_graphical_cards',
         get_string('settings_enable_graphical_cards', 'local_chemillusion'),
-        get_string('settings_enable_graphical_cards_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_graphical_cards_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_newman_cards',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_newman_cards',
         get_string('settings_enable_newman_cards', 'local_chemillusion'),
-        get_string('settings_enable_newman_cards_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_newman_cards_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_orbital_cards',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_orbital_cards',
         get_string('settings_enable_orbital_cards', 'local_chemillusion'),
-        get_string('settings_enable_orbital_cards_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_orbital_cards_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_reaction_coordinate_cards',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_reaction_coordinate_cards',
         get_string('settings_enable_reaction_coordinate_cards', 'local_chemillusion'),
-        get_string('settings_enable_reaction_coordinate_cards_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_reaction_coordinate_cards_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_card_exports',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_card_exports',
         get_string('settings_enable_card_exports', 'local_chemillusion'),
-        get_string('settings_enable_card_exports_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_card_exports_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_png_export',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_png_export',
         get_string('settings_enable_png_export', 'local_chemillusion'),
-        get_string('settings_enable_png_export_help', 'local_chemillusion'), 1));
+        get_string('settings_enable_png_export_help', 'local_chemillusion'),
+        1
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/enable_chemillusion_visual_card_cta',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/enable_chemillusion_visual_card_cta',
         get_string('settings_enable_chemillusion_visual_card_cta', 'local_chemillusion'),
-        get_string('settings_enable_chemillusion_visual_card_cta_help', 'local_chemillusion'), 0));
+        get_string('settings_enable_chemillusion_visual_card_cta_help', 'local_chemillusion'),
+        0
+    ));
 
-    $settings->add(new admin_setting_configcheckbox('local_chemillusion/default_accessible_summary_visible',
+    $settings->add(new admin_setting_configcheckbox(
+        'local_chemillusion/default_accessible_summary_visible',
         get_string('settings_default_accessible_summary_visible', 'local_chemillusion'),
-        get_string('settings_default_accessible_summary_visible_help', 'local_chemillusion'), 1));
+        get_string('settings_default_accessible_summary_visible_help', 'local_chemillusion'),
+        1
+    ));
 }

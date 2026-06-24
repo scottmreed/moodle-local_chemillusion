@@ -34,7 +34,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class dashboard_page implements renderable, templatable {
-
     /** @var bool Whether the viewer can manage decks (teacher/manager). */
     protected $isteacher;
 

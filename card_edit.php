@@ -45,14 +45,14 @@ if ($cardid > 0) {
 $tool = null;
 if ($card) {
     $tool = \local_chemillusion\cards\diagram_tool_catalog::get_by_cardtype($card->cardtype);
-} elseif ($requestedtool !== '') {
+} else if ($requestedtool !== '') {
     $tool = \local_chemillusion\cards\diagram_tool_catalog::get($requestedtool);
 }
 
 $pageparams = [];
 if ($cardid > 0) {
     $pageparams['id'] = $cardid;
-} elseif ($tool) {
+} else if ($tool) {
     $pageparams['tool'] = $tool['id'];
 }
 
@@ -118,7 +118,7 @@ if ($card) {
             ];
     }
     $form->set_data($formdata);
-} elseif ($tool) {
+} else if ($tool) {
     $form->set_data(\local_chemillusion\cards\diagram_tool_catalog::get_editor_defaults($tool['id']));
 }
 
@@ -204,8 +204,10 @@ if ($data = $form->get_data()) {
         $cardid = $DB->insert_record('local_chemillusion_cards', $rec);
     }
 
-    redirect(new moodle_url('/local/chemillusion/card_view.php', ['id' => $cardid]),
-        get_string('card_saved', 'local_chemillusion'));
+    redirect(
+        new moodle_url('/local/chemillusion/card_view.php', ['id' => $cardid]),
+        get_string('card_saved', 'local_chemillusion')
+    );
 }
 
 $editorconfig = [

@@ -20,7 +20,7 @@
  * @copyright  2026 MolLogic / Scott Reed
  * @license    GPL-3.0-or-later
  */
-define(['core/ajax', 'core/notification', 'core/str'], function(Ajax, Notification, Str) {
+define(['core/ajax', 'core/notification'], function(Ajax, Notification) {
 
     'use strict';
 
@@ -87,7 +87,9 @@ define(['core/ajax', 'core/notification', 'core/str'], function(Ajax, Notificati
     var buildAndSave = function(box) {
         var name = box.querySelector('#local-chemillusion-deckname').value.trim();
         var lines = box.querySelector('#local-chemillusion-decklist').value
-            .split('\n').map(function(l) { return l.trim(); }).filter(Boolean);
+            .split('\n').map(function(l) {
+                return l.trim();
+            }).filter(Boolean);
         var status = box.querySelector('[data-region="deck-status"]');
         if (!name || !lines.length) {
             status.textContent = 'Enter a name and at least one molecule.';
@@ -96,34 +98,41 @@ define(['core/ajax', 'core/notification', 'core/str'], function(Ajax, Notificati
         status.textContent = 'Resolving ' + lines.length + ' molecules…';
 
         Promise.all(lines.map(function(line) {
-            return resolve(line).catch(function() { return {status: 'error'}; });
+            return resolve(line).catch(function() {
+                return {status: 'error'};
+            });
         })).then(function(results) {
             var cards = [];
             results.forEach(function(r) {
                 if (r.status === 'ok') {
+                    /* eslint-disable camelcase */
                     cards.push({
                         cardtype: 'molecule_identity',
                         prompt: r.name || '',
                         answer: ['Formula: ' + (r.formula || ''),
-                                 'MW: ' + (r.mw || ''),
-                                 'CID: ' + (r.cid || ''),
-                                 'SMILES: ' + (r.canonical_smiles || '')].join('\n'),
+                            'MW: ' + (r.mw || ''),
+                            'CID: ' + (r.cid || ''),
+                            'SMILES: ' + (r.canonical_smiles || '')].join('\n'),
                         molecule_payload: JSON.stringify({
                             cid: r.cid, formula: r.formula,
                             canonical_smiles: r.canonical_smiles, inchikey: r.inchikey
                         })
                     });
+                    /* eslint-enable camelcase */
                 }
             });
             if (!cards.length) {
                 status.textContent = 'No molecules could be resolved.';
                 return null;
             }
-            return save(name, cards).then(function(res) {
-                status.textContent = 'Saved ' + res.cardcount + ' cards.';
-                window.location.reload();
+            return save(name, cards);
+        }).then(function(res) {
+            if (!res) {
                 return null;
-            });
+            }
+            status.textContent = 'Saved ' + res.cardcount + ' cards.';
+            window.location.reload();
+            return null;
         }).catch(Notification.exception);
     };
 

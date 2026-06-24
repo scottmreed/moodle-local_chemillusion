@@ -27,15 +27,15 @@
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['core/ajax'], function(Ajax) {
+define([], function() {
 
     'use strict';
 
     /**
      * Render into containerEl based on card data.
      *
-     * @param {Object}      data         Decoded frontjson.
-     * @param {HTMLElement} containerEl  DOM element to render into.
+     * @param {Object} data Decoded frontjson.
+     * @param {HTMLElement} containerEl DOM element to render into.
      */
     function render(data, containerEl) {
         if (!containerEl) {
@@ -62,22 +62,27 @@ define(['core/ajax'], function(Ajax) {
      *
      * @param {string} smiles
      * @param {number} atomIdx
-     * @return {Object}  { hybridization, explanation }
+     * @return {Object} { hybridization, explanation }
      */
     function renderHybridization(smiles, atomIdx) {
         var hyb = _classifyHybridization(smiles, atomIdx);
-        var exp = _hybridizationExplanation(hyb, smiles);
-        return { hybridization: hyb, explanation: exp };
+        var exp = _hybridizationExplanation(hyb);
+        return {hybridization: hyb, explanation: exp};
     }
 
-    // ---- Private helpers ---------------------------------------------------
-
+    /**
+     * Fetch and inline a curated orbital SVG asset.
+     *
+     * @param {Object} data
+     * @param {HTMLElement} el
+     */
     function _renderCurated(data, el) {
-        // Fetch the SVG asset via AJAX from a static Moodle URL.
         var url = M.cfg.wwwroot + '/local/chemillusion/pix/orbitals/' + data.template_id + '.svg';
         fetch(url)
             .then(function(resp) {
-                if (!resp.ok) { throw new Error('asset not found'); }
+                if (!resp.ok) {
+                    throw new Error('asset not found');
+                }
                 return resp.text();
             })
             .then(function(svg) {
@@ -85,45 +90,56 @@ define(['core/ajax'], function(Ajax) {
                 if (data.description) {
                     el.innerHTML += '<p class="mt-2 text-muted small">' + _esc(data.description) + '</p>';
                 }
+                return null;
             })
             .catch(function() {
                 _renderFallback(el, data.chemillusion_url || '');
+                return null;
             });
     }
 
+    /**
+     * Render molecule structure with rule-based p-orbital overlay.
+     *
+     * @param {Object} data
+     * @param {HTMLElement} el
+     */
     function _renderRuleBased(data, el) {
-        // Use RDKit to get 2D coordinates, then place p-orbital lobes.
         require(['local_chemillusion/rdkit_molecule_renderer'], function(Renderer) {
-            Renderer.renderSMILES(data.smiles, el).then(function() {
-                // After molecule SVG is injected, attempt to add p-orbital lobes.
+            Renderer.render(el, data.smiles).then(function() {
                 var svgEl = el.querySelector('svg');
                 if (!svgEl) {
                     _renderFallback(el, data.chemillusion_url || '');
-                    return;
+                    return null;
                 }
                 var hyb = _classifyHybridization(data.smiles, data.atom_idx);
                 if (!hyb) {
                     _renderFallback(el, data.chemillusion_url || '');
-                    return;
+                    return null;
                 }
-                // Add simple p-orbital lobe overlay for sp/sp2 atoms.
                 if (hyb === 'sp' || hyb === 'sp2') {
                     _addPOrbitalLobes(svgEl, data.atom_idx || 0, hyb);
                 }
-                // Hybridization label badge.
                 var badge = document.createElement('div');
                 badge.className = 'badge bg-info text-dark mt-2';
                 badge.textContent = hyb + ' hybridisation';
                 el.appendChild(badge);
+                return null;
             }).catch(function() {
                 _renderFallback(el, data.chemillusion_url || '');
+                return null;
             });
         });
     }
 
+    /**
+     * Add simple p-orbital lobe ellipses to an RDKit SVG.
+     *
+     * @param {SVGElement} svgEl
+     * @param {number} atomIdx
+     * @param {string} hybridization
+     */
     function _addPOrbitalLobes(svgEl, atomIdx, hybridization) {
-        // Attempt to find atom position from RDKit-rendered SVG atom data.
-        // RDKit SVG includes data-atom-idx attributes on atom groups.
         var atomEl = svgEl.querySelector('[data-atom-idx="' + atomIdx + '"]');
         var x = parseFloat(svgEl.getAttribute('width') || 200) / 2;
         var y = parseFloat(svgEl.getAttribute('height') || 200) / 2;
@@ -132,16 +148,14 @@ define(['core/ajax'], function(Ajax) {
             var bbox = atomEl.getBoundingClientRect();
             var svgBbox = svgEl.getBoundingClientRect();
             x = bbox.left - svgBbox.left + bbox.width / 2;
-            y = bbox.top  - svgBbox.top  + bbox.height / 2;
+            y = bbox.top - svgBbox.top + bbox.height / 2;
         }
 
-        // Draw simple p-orbital lobe ellipses perpendicular to molecular plane.
-        var ns  = 'http://www.w3.org/2000/svg';
-        var lw  = hybridization === 'sp' ? 20 : 14;
-        var lh  = hybridization === 'sp' ? 36 : 28;
+        var ns = 'http://www.w3.org/2000/svg';
+        var lw = hybridization === 'sp' ? 20 : 14;
+        var lh = hybridization === 'sp' ? 36 : 28;
         var clr = '#0dcaf0';
 
-        // Upper lobe.
         var up = document.createElementNS(ns, 'ellipse');
         up.setAttribute('cx', x);
         up.setAttribute('cy', y - lh / 2 - 2);
@@ -153,7 +167,6 @@ define(['core/ajax'], function(Ajax) {
         up.setAttribute('stroke-width', '1');
         svgEl.appendChild(up);
 
-        // Lower lobe.
         var dn = document.createElementNS(ns, 'ellipse');
         dn.setAttribute('cx', x);
         dn.setAttribute('cy', y + lh / 2 + 2);
@@ -166,26 +179,57 @@ define(['core/ajax'], function(Ajax) {
         svgEl.appendChild(dn);
     }
 
+    /**
+     * Classify hybridization from SMILES using conservative local rules.
+     *
+     * @param {string} smiles
+     * @param {number} atomIdx Selected atom index (reserved for future RDKit use).
+     * @return {string|null}
+     */
     function _classifyHybridization(smiles, atomIdx) {
-        // Conservative local rules — cannot compute without RDKit context.
-        // Return a string hint based on trivial SMILES patterns.
-        if (!smiles) { return null; }
+        if (atomIdx !== undefined && atomIdx !== null && atomIdx < 0) {
+            return null;
+        }
+        if (!smiles) {
+            return null;
+        }
         var s = smiles.toLowerCase();
-        if (s.indexOf('c#') !== -1 || s.indexOf('#c') !== -1) { return 'sp'; }
-        if (s.indexOf('c=c') !== -1 || s.indexOf('c=o') !== -1 || s.indexOf('c=n') !== -1) { return 'sp2'; }
-        if (s.match(/c1[c=]c[c=]c[c=]1/)) { return 'sp2'; }
+        if (s.indexOf('c#') !== -1 || s.indexOf('#c') !== -1) {
+            return 'sp';
+        }
+        if (s.indexOf('c=c') !== -1 || s.indexOf('c=o') !== -1 || s.indexOf('c=n') !== -1) {
+            return 'sp2';
+        }
+        if (s.match(/c1[c=]c[c=]c[c=]1/)) {
+            return 'sp2';
+        }
         return 'sp3';
     }
 
-    function _hybridizationExplanation(hyb, smiles) {
+    /**
+     * Return a teaching explanation for a hybridization label.
+     *
+     * @param {string} hyb
+     * @return {string}
+     */
+    function _hybridizationExplanation(hyb) {
         var explanations = {
-            'sp':  'sp hybridisation: two sp orbitals form a linear σ framework; two p orbitals form perpendicular π bonds.',
-            'sp2': 'sp² hybridisation: three sp² orbitals form a trigonal planar σ framework; one p orbital is available for π bonding.',
-            'sp3': 'sp³ hybridisation: four sp³ orbitals form a tetrahedral σ framework; no p orbital available for π bonding.',
+            'sp': 'sp hybridisation: two sp orbitals form a linear σ framework; '
+                + 'two p orbitals form perpendicular π bonds.',
+            'sp2': 'sp² hybridisation: three sp² orbitals form a trigonal planar σ framework; '
+                + 'one p orbital is available for π bonding.',
+            'sp3': 'sp³ hybridisation: four sp³ orbitals form a tetrahedral σ framework; '
+                + 'no p orbital available for π bonding.',
         };
         return explanations[hyb] || 'Hybridisation could not be determined from local rules alone.';
     }
 
+    /**
+     * Render a fallback CTA when no orbital overlay is available.
+     *
+     * @param {HTMLElement} el
+     * @param {string} chemillusionUrl
+     */
     function _renderFallback(el, chemillusionUrl) {
         var ctaHref = chemillusionUrl || (M.cfg.wwwroot + '/local/chemillusion/link.php');
         el.innerHTML = '<div class="local-chemillusion-orbital-fallback">'
@@ -196,6 +240,12 @@ define(['core/ajax'], function(Ajax) {
             + '</div>';
     }
 
+    /**
+     * Escape text for safe HTML insertion.
+     *
+     * @param {string} s
+     * @return {string}
+     */
     function _esc(s) {
         return String(s)
             .replace(/&/g, '&amp;')
@@ -204,5 +254,5 @@ define(['core/ajax'], function(Ajax) {
             .replace(/"/g, '&quot;');
     }
 
-    return { render: render, renderHybridization: renderHybridization };
+    return {render: render, renderHybridization: renderHybridization};
 });

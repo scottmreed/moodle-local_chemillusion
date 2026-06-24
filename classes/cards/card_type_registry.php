@@ -26,7 +26,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class card_type_registry {
-
     /** @var array|null Cached registry entries. */
     private static $registry = null;
 

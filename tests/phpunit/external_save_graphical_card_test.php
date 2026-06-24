@@ -14,6 +14,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
+namespace local_chemillusion\phpunit;
+
+use local_chemillusion\external\save_graphical_card;
+
 /**
  * Tests for save_graphical_card external function.
  *
@@ -22,20 +26,10 @@
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \local_chemillusion\external\save_graphical_card
+ * @runTestsInSeparateProcesses
  */
-
-defined('MOODLE_INTERNAL') || die();
-
-use local_chemillusion\external\save_graphical_card;
-
-global $CFG;
-require_once($CFG->libdir . '/externallib.php');
-
-/**
- * @covers \local_chemillusion\external\save_graphical_card
- */
-class external_save_graphical_card_test extends advanced_testcase {
-
+final class external_save_graphical_card_test extends \advanced_testcase {
     protected function setUp(): void {
         parent::setUp();
         $this->resetAfterTest();
@@ -52,13 +46,20 @@ class external_save_graphical_card_test extends advanced_testcase {
         $this->setUser($teacher);
 
         $frontjson = json_encode([
-            'front'            => ['CH3', 'H', 'H'],
-            'back'             => ['CH3', 'H', 'H'],
+            'front' => ['CH3', 'H', 'H'],
+            'back' => ['CH3', 'H', 'H'],
             'rotation_degrees' => 180,
         ]);
 
         $result = save_graphical_card::execute(
-            0, 'newman_projection', 'Butane anti', $frontjson, '{}', '{}', '{}', 0
+            0,
+            'newman_projection',
+            'Butane anti',
+            $frontjson,
+            '{}',
+            '{}',
+            '{}',
+            0
         );
 
         $this->assertTrue($result['success']);
@@ -71,14 +72,22 @@ class external_save_graphical_card_test extends advanced_testcase {
     public function test_invalid_frontjson_throws(): void {
         $teacher = $this->getDataGenerator()->create_user();
         $this->setUser($teacher);
-        $this->assignUserCapability('local/chemillusion:createcards',
-            \context_system::instance()->id, $this->getDataGenerator()->create_role());
+        $this->assignUserCapability(
+            'local/chemillusion:createcards',
+            \context_system::instance()->id,
+            $this->getDataGenerator()->create_role()
+        );
 
         $this->expectException(\invalid_parameter_exception::class);
         save_graphical_card::execute(
-            0, 'newman_projection', 'Bad card',
-            json_encode(['front' => ['CH3']]), // wrong: only 1 substituent
-            '{}', '{}', '{}', 0
+            0,
+            'newman_projection',
+            'Bad card',
+            json_encode(['front' => ['CH3']]),
+            '{}',
+            '{}',
+            '{}',
+            0
         );
     }
 
@@ -87,13 +96,18 @@ class external_save_graphical_card_test extends advanced_testcase {
         $this->setUser($student);
         $this->expectException(\required_capability_exception::class);
         save_graphical_card::execute(
-            0, 'newman_projection', 'Test card',
+            0,
+            'newman_projection',
+            'Test card',
             json_encode([
                 'front' => ['H', 'H', 'H'],
-                'back'  => ['H', 'H', 'H'],
+                'back' => ['H', 'H', 'H'],
                 'rotation_degrees' => 60,
             ]),
-            '{}', '{}', '{}', 0
+            '{}',
+            '{}',
+            '{}',
+            0
         );
     }
 }

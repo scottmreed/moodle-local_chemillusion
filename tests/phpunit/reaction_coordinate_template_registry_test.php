@@ -20,17 +20,19 @@
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \local_chemillusion\cards\reaction_coordinate_template_registry
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace local_chemillusion\phpunit;
 
 use local_chemillusion\cards\reaction_coordinate_template_registry;
 
-/**
- * @covers \local_chemillusion\cards\reaction_coordinate_template_registry
- */
-class reaction_coordinate_template_registry_test extends advanced_testcase {
+defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Reaction coordinate template registry tests.
+ */
+final class reaction_coordinate_template_registry_test extends \advanced_testcase {
     public function test_templates_json_is_valid(): void {
         $path = __DIR__ . '/../../data/reaction_coordinate_templates.json';
         $this->assertFileExists($path);
@@ -54,12 +56,15 @@ class reaction_coordinate_template_registry_test extends advanced_testcase {
             $this->assertArrayHasKey('id', $t);
             $this->assertArrayHasKey('label', $t);
             $this->assertArrayHasKey('points', $t);
-            $this->assertGreaterThanOrEqual(2, count($t['points']),
-                'Each template needs at least reactants and products');
+            $this->assertGreaterThanOrEqual(
+                2,
+                count($t['points']),
+                'Each template needs at least reactants and products'
+            );
             foreach ($t['points'] as $pt) {
                 $this->assertArrayHasKey('id', $pt);
-                $this->assertArrayHasKey('x',  $pt);
-                $this->assertArrayHasKey('y',  $pt);
+                $this->assertArrayHasKey('x', $pt);
+                $this->assertArrayHasKey('y', $pt);
                 $this->assertArrayHasKey('label', $pt);
             }
         }
@@ -69,7 +74,6 @@ class reaction_coordinate_template_registry_test extends advanced_testcase {
         $t = reaction_coordinate_template_registry::get('sn1_profile');
         $this->assertNotNull($t);
         $this->assertSame('sn1_profile', $t['id']);
-        // SN1 must have a transition state and a carbocation intermediate.
         $ids = array_column($t['points'], 'id');
         $this->assertContains('intermediate', $ids);
         $this->assertContains('ts1', $ids);

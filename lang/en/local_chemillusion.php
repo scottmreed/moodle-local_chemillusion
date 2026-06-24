@@ -24,324 +24,266 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'ChemIllusion Study Tools';
-$string['plugindescription'] = 'Privacy-aware chemistry study tools for Moodle: molecule lookup, RDKit.js structure rendering, functional-group highlighting, study flashcards, and optional ChemIllusion account linking. More tools and premium features available at <a href="https://chemillusion.com">chemillusion.com</a>. Support: <a href="mailto:support@chemillusion.com">support@chemillusion.com</a>.';
-
-// Navigation / pages.
-$string['nav_studytools'] = 'ChemIllusion study tools';
+$string['accessible_alt_default'] = 'Chemical structure diagram';
+$string['accessible_summary_heading'] = 'Text description';
+$string['accessible_summary_toggle'] = 'Toggle text description';
+$string['back_to_dashboard'] = '← Back to ChemIllusion';
+$string['back_to_decks'] = '← Back to study decks';
+$string['card_deck_label'] = 'Deck (optional)';
+$string['card_edit_heading'] = 'Create / edit graphical card';
+$string['card_flip'] = 'Flip card';
+$string['card_hide_answer'] = 'Hide answer';
+$string['card_name_label'] = 'Card name';
+$string['card_next'] = 'Next card';
+$string['card_nocard'] = 'Card not found.';
+$string['card_nopermission'] = 'You do not have permission to edit this card.';
+$string['card_prev'] = 'Previous card';
+$string['card_preview'] = 'Preview';
+$string['card_save'] = 'Save card';
+$string['card_saved'] = 'Card saved successfully.';
+$string['card_show_answer'] = 'Show answer';
+$string['card_teacher_note'] = 'Teacher note (editable)';
+$string['card_type_label'] = 'Card type';
+$string['card_view_heading'] = 'View card';
+$string['cards_heading'] = 'Study decks';
+$string['cardtype_accessibility_card'] = 'Accessibility card';
+$string['cardtype_functional_group_highlight'] = 'Functional group highlight card';
+$string['cardtype_functional_group_list'] = 'Functional group list card';
+$string['cardtype_molecule_identity'] = 'Molecule identity card';
+$string['cardtype_newman_projection'] = 'Newman projection card';
+$string['cardtype_orbital_hybridization'] = 'Orbital and hybridization card';
+$string['cardtype_reaction_coordinate'] = 'Reaction coordinate diagram card';
+$string['cardtype_reagent_card'] = 'Reagent mini-card';
+$string['cardtype_smiles_to_structure'] = 'SMILES to structure card';
+$string['cardtype_structure_to_smiles'] = 'Structure to SMILES/name card';
+$string['chemillusion:createcards'] = 'Create graphical chemistry cards';
+$string['chemillusion:editallcards'] = 'Edit all graphical chemistry cards';
+$string['chemillusion:editowncards'] = 'Edit own graphical chemistry cards';
+$string['chemillusion:exportcards'] = 'Export graphical chemistry cards';
+$string['chemillusion:link'] = 'Link a ChemIllusion account';
+$string['chemillusion:managedecks'] = 'Create and manage ChemIllusion study decks';
+$string['chemillusion:view'] = 'Use ChemIllusion study tools';
+$string['chemillusion:viewdashboard'] = 'View the ChemIllusion conversion dashboard';
+$string['common_mistake'] = 'Common mistake';
+$string['cta_accessible_readout'] = 'Try accessible molecule readout';
+$string['cta_continue_chemillusion'] = 'Continue in ChemIllusion';
+$string['cta_guided_workspace'] = 'Try the guided molecule workspace';
+$string['cta_save_deck'] = 'Save this deck to ChemIllusion';
+$string['cta_teacher_account'] = 'Create a free ChemIllusion teacher account';
+$string['cta_teacher_convert'] = 'Convert this deck into a ChemIllusion guided activity';
+$string['cta_teacher_demo'] = 'Book a ChemIllusion demo';
+$string['cta_teacher_visualset'] = 'Generate visual study cards for your class';
+$string['cta_visual_card'] = 'Generate a visual study card in ChemIllusion';
+$string['cta_visual_card_blurb'] = 'Make this memorable in ChemIllusion: generate a visual study card with your molecule and functional group highlighted.';
 $string['dashboard_heading'] = 'ChemIllusion Study Tools';
 $string['dashboard_intro'] = 'Free chemistry study tools inside Moodle. Look up molecules, build study decks, create graphical cards, and learn functional groups and reagents. More tools available at <a href="https://chemillusion.com">chemillusion.com</a>.';
+$string['deck_addcard'] = 'Add to deck';
+$string['deck_create'] = 'Create deck';
+$string['deck_empty'] = 'No decks yet. Create one to start studying.';
+$string['deck_name'] = 'Deck name';
+$string['deck_type_formula_mw'] = 'Formula / MW';
+$string['deck_type_functional_group'] = 'Functional group recognition';
+$string['deck_type_molecule'] = 'Molecule identity';
+$string['deck_type_name_smiles'] = 'Name to SMILES';
+$string['deck_type_reagent'] = 'Reagent acronym';
+$string['diagram_editor_advanced'] = 'Advanced options';
+$string['diagram_editor_atom_index'] = 'Atom index';
+$string['diagram_editor_energy_hint'] = 'Show energy hint';
+$string['diagram_editor_group_id'] = 'Functional group id';
+$string['diagram_editor_invalid_json'] = 'Enter valid JSON or leave this field unchanged.';
+$string['diagram_editor_molecule_name'] = 'Molecule name';
+$string['diagram_editor_orbital_smiles'] = 'SMILES for orbital analysis';
+$string['diagram_editor_points_json'] = 'Custom points JSON';
+$string['diagram_editor_rotation'] = 'Back carbon rotation';
+$string['diagram_editor_smiles'] = 'SMILES';
+$string['diagram_editor_starting_example'] = 'Starting example';
+$string['diagram_tool_molecule'] = 'Molecule structure';
+$string['diagram_tool_molecule_alt'] = 'Example SMILES string ClCCCCBr';
+$string['diagram_tool_molecule_desc'] = 'Paste or edit a SMILES string';
+$string['diagram_tool_newman'] = 'Newman projection';
+$string['diagram_tool_newman_alt'] = 'Newman projection icon';
+$string['diagram_tool_newman_desc'] = 'Start with anti-butane';
+$string['diagram_tool_orbital'] = 'Orbital diagram';
+$string['diagram_tool_orbital_alt'] = 'Pi bond highlighted in comparison with a sigma bond';
+$string['diagram_tool_orbital_desc'] = 'Compare π and σ bonding';
+$string['diagram_tool_reaction'] = 'Reaction coordinate';
+$string['diagram_tool_reaction_alt'] = 'Reaction coordinate diagram icon';
+$string['diagram_tool_reaction_desc'] = 'Start with a one-step reaction';
+$string['diagram_tool_versus'] = 'vs';
 $string['diagram_tools_heading'] = 'Create a chemistry diagram';
 $string['diagram_tools_intro'] = 'Choose a diagram. A useful example is ready to edit.';
 $string['diagram_tools_saved'] = 'Saved diagrams';
-$string['diagram_tool_molecule'] = 'Molecule structure';
-$string['diagram_tool_molecule_desc'] = 'Paste or edit a SMILES string';
-$string['diagram_tool_molecule_alt'] = 'Example SMILES string ClCCCCBr';
-$string['diagram_tool_newman'] = 'Newman projection';
-$string['diagram_tool_newman_desc'] = 'Start with anti-butane';
-$string['diagram_tool_newman_alt'] = 'Newman projection icon';
-$string['diagram_tool_reaction'] = 'Reaction coordinate';
-$string['diagram_tool_reaction_desc'] = 'Start with a one-step reaction';
-$string['diagram_tool_reaction_alt'] = 'Reaction coordinate diagram icon';
-$string['diagram_tool_orbital'] = 'Orbital diagram';
-$string['diagram_tool_orbital_desc'] = 'Compare π and σ bonding';
-$string['diagram_tool_orbital_alt'] = 'Pi bond highlighted in comparison with a sigma bond';
-$string['diagram_tool_versus'] = 'vs';
-$string['tools_heading'] = 'Molecule lookup & study tools';
-$string['cards_heading'] = 'Study decks';
-$string['back_to_dashboard'] = '← Back to ChemIllusion';
-$string['back_to_decks'] = '← Back to study decks';
-
-// Settings: plugin info.
-$string['settings_info_heading'] = 'ChemIllusion Study Tools';
-$string['settings_info_desc'] = 'Molecule lookup, graphical cards, Newman projections, orbital diagrams, reaction coordinate charts, and more — all running locally inside Moodle, no account required. More tools and premium features are available at <a href="https://chemillusion.com">chemillusion.com</a>. For support, contact <a href="mailto:support@chemillusion.com">support@chemillusion.com</a>.';
-
-// Settings: mode.
-$string['settings_mode_heading'] = 'Operating mode';
-$string['settings_mode_desc'] = 'Choose how much of ChemIllusion is enabled. Local-only keeps all study tools inside Moodle with no account required.';
-$string['settings_mode'] = 'ChemIllusion mode';
-$string['settings_mode_help'] = 'Local-only: study tools only. Local + linking: students/teachers can link a ChemIllusion account. Local + SaaS: enables premium ChemIllusion escalation.';
-$string['mode_local_only'] = 'Local-only';
-$string['mode_local_link'] = 'Local + ChemIllusion account linking';
-$string['mode_local_saas'] = 'Local + ChemIllusion SaaS tools';
-
-// Settings: external services.
-$string['settings_external_heading'] = 'External services';
-$string['settings_external_desc'] = 'Control which outbound calls the plugin may make. Administrators can disable every external call.';
-$string['settings_enable_pubchem'] = 'Enable PubChem lookup';
-$string['settings_enable_pubchem_help'] = 'Allow server-side molecule resolution via the public PubChem REST API. Results are cached locally.';
-$string['settings_enable_account_linking'] = 'Enable ChemIllusion account linking';
-$string['settings_enable_account_linking_help'] = 'Show CTAs that let users link or create a ChemIllusion account. No grades or rosters are ever sent.';
-$string['settings_enable_visual_preview'] = 'Enable ChemIllusion visual preview examples';
-$string['settings_enable_visual_preview_help'] = 'Show bundled example images of ChemIllusion-style visual study cards. No anonymous image generation occurs in Moodle.';
-$string['settings_enable_conversion_metadata'] = 'Enable external analytics/conversion metadata';
-$string['settings_enable_conversion_metadata_help'] = 'With consent, send minimal source metadata (no PII) to ChemIllusion when a user clicks a funnel CTA.';
-$string['settings_enable_rdkit'] = 'Enable RDKit WASM local chemistry mode (Phase 1B)';
-$string['settings_enable_rdkit_help'] = 'Lazy-load the bundled RDKit.js/WASM build on study tool pages for in-browser SMILES validation, rendering, and functional-group detection.';
-
-// Settings: connection.
-$string['settings_conn_heading'] = 'ChemIllusion connection';
-$string['settings_conn_desc'] = 'Where ChemIllusion lives and how launch tokens are signed. The signing secret never reaches the browser.';
-$string['settings_base_url'] = 'ChemIllusion base URL';
-$string['settings_base_url_help'] = 'Base URL of the ChemIllusion site used for account linking and CTA links.';
-$string['settings_signing_secret'] = 'Launch signing secret';
-$string['settings_signing_secret_help'] = 'Shared secret used to sign account-link/launch state. Keep this private; it is never exposed in page output or JavaScript.';
-
-// Settings: privacy.
-$string['settings_privacy_heading'] = 'Privacy';
-$string['settings_privacy_desc'] = 'Defaults favour minimal data. A data-flow summary is shown before ChemIllusion SaaS features are enabled.';
-$string['settings_minimal_mode'] = 'Minimal mode (default)';
-$string['settings_minimal_mode_help'] = 'Store only the minimum local data needed for study tools and account mapping.';
-$string['settings_disable_external'] = 'Disable all external calls';
-$string['settings_disable_external_help'] = 'Master kill-switch: when enabled, the plugin makes no outbound network calls at all.';
-$string['settings_cache_ttl'] = 'Lookup cache lifetime (seconds)';
-$string['settings_cache_ttl_help'] = 'How long PubChem lookup payloads are cached server-side. Default is one week (604800 seconds).';
-
-// Capabilities.
-$string['chemillusion:view'] = 'Use ChemIllusion study tools';
-$string['chemillusion:managedecks'] = 'Create and manage ChemIllusion study decks';
-$string['chemillusion:viewdashboard'] = 'View the ChemIllusion conversion dashboard';
-$string['chemillusion:link'] = 'Link a ChemIllusion account';
-
-// Lookup UI.
-$string['lookup_label'] = 'Molecule name, SMILES, InChI, or InChIKey';
-$string['lookup_placeholder'] = 'e.g. aspirin, CC(=O)Oc1ccccc1C(=O)O';
-$string['lookup_button'] = 'Look up';
-$string['lookup_inputtype'] = 'Detected input type: {$a}';
-$string['result_name'] = 'Preferred name';
-$string['result_cid'] = 'PubChem CID';
-$string['result_formula'] = 'Molecular formula';
-$string['result_mw'] = 'Molecular weight';
-$string['result_canonical_smiles'] = 'Canonical SMILES';
-$string['result_isomeric_smiles'] = 'Isomeric SMILES';
-$string['result_inchikey'] = 'InChIKey';
-$string['result_pubchem_link'] = 'View on PubChem';
-$string['result_open_chemillusion'] = 'Open in ChemIllusion';
-$string['result_textonly'] = 'Show text-only version';
-
-// Decks / cards.
-$string['deck_create'] = 'Create deck';
-$string['deck_name'] = 'Deck name';
-$string['deck_addcard'] = 'Add to deck';
-$string['deck_empty'] = 'No decks yet. Create one to start studying.';
-$string['deck_type_molecule'] = 'Molecule identity';
-$string['deck_type_functional_group'] = 'Functional group recognition';
-$string['deck_type_reagent'] = 'Reagent acronym';
-$string['deck_type_name_smiles'] = 'Name to SMILES';
-$string['deck_type_formula_mw'] = 'Formula / MW';
-$string['flashcard_show_answer'] = 'Show answer';
-$string['flashcard_next'] = 'Next card';
-$string['flashcard_prev'] = 'Previous card';
-$string['flashcard_progress'] = 'Card {$a->index} of {$a->total}';
-$string['flashcard_textonly'] = 'Text-only version';
-
-// Functional groups / reagents.
-$string['functional_groups_heading'] = 'Detected functional groups';
-$string['functional_group_highlight'] = 'Highlight';
-$string['functional_group_makecard'] = 'Make flashcard';
-$string['common_mistake'] = 'Common mistake';
-$string['reagent_role'] = 'Role';
-$string['reagent_use'] = 'Common use';
-
-// CTAs / funnel.
-$string['cta_continue_chemillusion'] = 'Continue in ChemIllusion';
-$string['cta_save_deck'] = 'Save this deck to ChemIllusion';
-$string['cta_visual_card'] = 'Generate a visual study card in ChemIllusion';
-$string['cta_guided_workspace'] = 'Try the guided molecule workspace';
-$string['cta_visual_card_blurb'] = 'Make this memorable in ChemIllusion: generate a visual study card with your molecule and functional group highlighted.';
-$string['cta_teacher_account'] = 'Create a free ChemIllusion teacher account';
-$string['cta_teacher_demo'] = 'Book a ChemIllusion demo';
-$string['cta_teacher_convert'] = 'Convert this deck into a ChemIllusion guided activity';
-$string['cta_teacher_visualset'] = 'Generate visual study cards for your class';
-$string['cta_accessible_readout'] = 'Try accessible molecule readout';
-$string['teacher_dashboard_blurb'] = 'Your students can use the local Moodle study cards for free. Link a ChemIllusion teacher account to create richer visual decks, guided tutorials, accessible molecule readouts, and course-ready activities.';
-
-// Account linking.
-$string['link_heading'] = 'Link your ChemIllusion account';
-$string['link_start'] = 'Connect ChemIllusion';
-$string['link_status_pending'] = 'Link pending';
-$string['link_status_linked'] = 'Account linked';
-$string['link_success'] = 'Your ChemIllusion account is now linked.';
-$string['link_disabled'] = 'Account linking is not enabled on this site.';
-
-// RDKit status.
-$string['rdkit_loading'] = 'Loading local chemistry engine…';
-$string['rdkit_ready'] = 'Local chemistry engine ready';
-$string['rdkit_failed'] = 'Local chemistry engine unavailable; showing text and PubChem data instead.';
-$string['rdkit_disabled'] = 'Local RDKit mode is disabled by the administrator.';
-
-// Dashboard metrics.
-$string['metric_lookups'] = 'Molecule lookups';
-$string['metric_decks'] = 'Decks created';
-$string['metric_sessions'] = 'Study sessions';
-$string['metric_link_clicks'] = 'Account-link clicks';
-$string['metric_demo_clicks'] = 'Teacher demo clicks';
-
-// Privacy summary page.
-$string['privacy_page_heading'] = 'ChemIllusion data-flow summary';
-$string['privacy_page_intro'] = 'This page explains exactly what data the plugin stores and what (if anything) leaves your Moodle site.';
-
-// Errors.
-$string['error_nomatch'] = 'No molecule matched your search. Check the spelling or try a SMILES string.';
-$string['error_ratelimited'] = 'The lookup service is busy. Please try again in a moment.';
-$string['error_network'] = 'Could not reach the lookup service. Please try again later.';
 $string['error_external_disabled'] = 'External lookups are disabled by the administrator.';
 $string['error_invalidinput'] = 'Please enter a molecule name, SMILES, InChI, or InChIKey.';
 $string['error_invalidsesskey'] = 'Your session has expired. Please reload the page and try again.';
-
-// Tasks.
+$string['error_network'] = 'Could not reach the lookup service. Please try again later.';
+$string['error_nomatch'] = 'No molecule matched your search. Check the spelling or try a SMILES string.';
+$string['error_ratelimited'] = 'The lookup service is busy. Please try again in a moment.';
+$string['export_copy_snippet'] = 'Copy Moodle HTML snippet';
+$string['export_copy_svg'] = 'Copy SVG';
+$string['export_png'] = 'Download PNG';
+$string['export_success'] = 'Exported successfully.';
+$string['export_svg'] = 'Download SVG';
+$string['flashcard_next'] = 'Next card';
+$string['flashcard_prev'] = 'Previous card';
+$string['flashcard_progress'] = 'Card {$a->index} of {$a->total}';
+$string['flashcard_show_answer'] = 'Show answer';
+$string['flashcard_textonly'] = 'Text-only version';
+$string['functional_group_highlight'] = 'Highlight';
+$string['functional_group_makecard'] = 'Make flashcard';
+$string['functional_groups_heading'] = 'Detected functional groups';
+$string['graphical_cards_heading'] = 'Graphical chemistry cards';
+$string['graphical_cards_intro'] = 'Create, study, and export graphical chemistry cards: molecule structures, Newman projections, orbital diagrams, and reaction coordinate diagrams.';
+$string['link_disabled'] = 'Account linking is not enabled on this site.';
+$string['link_heading'] = 'Link your ChemIllusion account';
+$string['link_start'] = 'Connect ChemIllusion';
+$string['link_status_linked'] = 'Account linked';
+$string['link_status_pending'] = 'Link pending';
+$string['link_success'] = 'Your ChemIllusion account is now linked.';
+$string['lookup_button'] = 'Look up';
+$string['lookup_inputtype'] = 'Detected input type: {$a}';
+$string['lookup_label'] = 'Molecule name, SMILES, InChI, or InChIKey';
+$string['lookup_placeholder'] = 'e.g. aspirin, CC(=O)Oc1ccccc1C(=O)O';
+$string['metric_decks'] = 'Decks created';
+$string['metric_demo_clicks'] = 'Teacher demo clicks';
+$string['metric_link_clicks'] = 'Account-link clicks';
+$string['metric_lookups'] = 'Molecule lookups';
+$string['metric_sessions'] = 'Study sessions';
+$string['mode_local_link'] = 'Local + ChemIllusion account linking';
+$string['mode_local_only'] = 'Local-only';
+$string['mode_local_saas'] = 'Local + ChemIllusion SaaS tools';
+$string['nav_create_card'] = 'Create a card';
+$string['nav_graphical_cards'] = 'Graphical cards';
+$string['nav_study_decks'] = 'Study decks';
+$string['nav_studytools'] = 'ChemIllusion study tools';
+$string['newman_accessibility_summary'] = 'Newman projection looking down the {$a->bond} bond. Front substituents: {$a->front}. Back substituents: {$a->back}. Back carbon rotated {$a->rotation}°.';
+$string['newman_anti'] = 'Anti';
+$string['newman_back'] = 'Back carbon substituents';
+$string['newman_conformation'] = 'Conformation';
+$string['newman_eclipsed'] = 'Eclipsed';
+$string['newman_front'] = 'Front carbon substituents';
+$string['newman_gauche'] = 'Gauche';
+$string['newman_rotate_ccw'] = 'Rotate counter-clockwise 60°';
+$string['newman_rotate_cw'] = 'Rotate clockwise 60°';
+$string['newman_staggered'] = 'Staggered';
+$string['orbital_confidence_curated'] = 'Curated teaching diagram';
+$string['orbital_confidence_rule'] = 'Rule-based overlay';
+$string['orbital_cta'] = 'Open in ChemIllusion for a guided orbital explanation.';
+$string['orbital_hybridization_label'] = 'Hybridization';
+$string['orbital_no_overlay'] = 'No local orbital overlay available for this structure.';
+$string['orbital_sp'] = 'sp (linear)';
+$string['orbital_sp2'] = 'sp² (trigonal planar)';
+$string['orbital_sp3'] = 'sp³ (tetrahedral)';
+$string['plugindescription'] = 'Privacy-aware chemistry study tools for Moodle: molecule lookup, RDKit.js structure rendering, functional-group highlighting, study flashcards, and optional ChemIllusion account linking. More tools and premium features available at <a href="https://chemillusion.com">chemillusion.com</a>. Support: <a href="mailto:support@chemillusion.com">support@chemillusion.com</a>.';
+$string['pluginname'] = 'ChemIllusion Study Tools';
+$string['privacy:metadata:chemillusion_saas'] = 'Information sent to ChemIllusion when a user explicitly links an account or clicks a funnel CTA (only if enabled).';
+$string['privacy:metadata:chemillusion_saas:role'] = 'The coarse role (student, teacher, or admin).';
+$string['privacy:metadata:chemillusion_saas:source'] = 'A static source label (for example, "moodle").';
+$string['privacy:metadata:chemillusion_saas:surface'] = 'Which study surface triggered the action.';
+$string['privacy:metadata:local_chemillusion_cards'] = 'Cards within a user-created study deck.';
+$string['privacy:metadata:local_chemillusion_cards:answer'] = 'The card answer text.';
+$string['privacy:metadata:local_chemillusion_cards:prompt'] = 'The card prompt text.';
+$string['privacy:metadata:local_chemillusion_decks'] = 'Study decks created by the user.';
+$string['privacy:metadata:local_chemillusion_decks:created_at'] = 'When the deck was created.';
+$string['privacy:metadata:local_chemillusion_decks:name'] = 'The deck name.';
+$string['privacy:metadata:local_chemillusion_decks:userid'] = 'The user who created the deck.';
+$string['privacy:metadata:local_chemillusion_events'] = 'Coarse local usage events for ChemIllusion Study Tools.';
+$string['privacy:metadata:local_chemillusion_events:courseid'] = 'The Moodle course associated with the event, if any.';
+$string['privacy:metadata:local_chemillusion_events:created_at'] = 'When the event was recorded.';
+$string['privacy:metadata:local_chemillusion_events:cta'] = 'The call-to-action identifier, if applicable.';
+$string['privacy:metadata:local_chemillusion_events:eventname'] = 'The coarse event type, such as molecule lookup or deck creation.';
+$string['privacy:metadata:local_chemillusion_events:payload'] = 'Reserved event payload field. The current implementation stores null.';
+$string['privacy:metadata:local_chemillusion_events:surface'] = 'The plugin surface where the event occurred.';
+$string['privacy:metadata:local_chemillusion_events:userid'] = 'The Moodle user associated with the event when minimal mode is disabled.';
+$string['privacy:metadata:local_chemillusion_links'] = 'Minimal mapping between a Moodle user and a linked ChemIllusion account.';
+$string['privacy:metadata:local_chemillusion_links:chemillusion_email_hash'] = 'A one-way hash of the email used to link, if provided.';
+$string['privacy:metadata:local_chemillusion_links:chemillusion_user_id'] = 'The opaque ChemIllusion account identifier.';
+$string['privacy:metadata:local_chemillusion_links:last_launch_at'] = 'When the user last launched ChemIllusion.';
+$string['privacy:metadata:local_chemillusion_links:linked_at'] = 'When the account was linked.';
+$string['privacy:metadata:local_chemillusion_links:userid'] = 'The Moodle user who linked an account.';
+$string['privacy:metadata:pubchem_pug_rest'] = 'PubChem PUG REST may receive the molecule identifier entered by the user when PubChem lookup is enabled.';
+$string['privacy:metadata:pubchem_pug_rest:identifier'] = 'The molecule name, SMILES, InChI, or InChIKey submitted for lookup.';
+$string['privacy_page_heading'] = 'ChemIllusion data-flow summary';
+$string['privacy_page_intro'] = 'This page explains exactly what data the plugin stores and what (if anything) leaves your Moodle site.';
 $string['purgeexpiredcachetask'] = 'Purge expired ChemIllusion lookup cache';
-
-// Graphical cards — settings.
-$string['settings_graphical_heading'] = 'Graphical chemistry cards';
-$string['settings_graphical_desc'] = 'Enable or disable graphical card types. All render locally without AI tokens.';
+$string['rcd_accessibility_summary'] = 'Reaction coordinate diagram: {$a->title}. {$a->ts_count} transition state(s) and {$a->int_count} intermediate(s). {$a->direction}.';
+$string['rcd_deltag_label'] = 'ΔG';
+$string['rcd_ea_label'] = 'Activation energy (Ea)';
+$string['rcd_heading'] = 'Reaction coordinate diagram';
+$string['rcd_intermediate_label'] = 'Intermediate';
+$string['rcd_products_label'] = 'Products';
+$string['rcd_qualitative_disclaimer'] = 'This is a qualitative teaching diagram. Values are not experimental.';
+$string['rcd_rds_label'] = 'Rate-determining step';
+$string['rcd_reactants_label'] = 'Reactants';
+$string['rcd_template_label'] = 'Diagram template';
+$string['rcd_ts_label'] = 'Transition state';
+$string['rcd_xaxis'] = 'Reaction coordinate';
+$string['rcd_yaxis'] = 'Free energy (qualitative)';
+$string['rdkit_disabled'] = 'Local RDKit mode is disabled by the administrator.';
+$string['rdkit_failed'] = 'Local chemistry engine unavailable; showing text and PubChem data instead.';
+$string['rdkit_loading'] = 'Loading local chemistry engine…';
+$string['rdkit_ready'] = 'Local chemistry engine ready';
+$string['reagent_role'] = 'Role';
+$string['reagent_use'] = 'Common use';
+$string['result_canonical_smiles'] = 'Canonical SMILES';
+$string['result_cid'] = 'PubChem CID';
+$string['result_formula'] = 'Molecular formula';
+$string['result_inchikey'] = 'InChIKey';
+$string['result_isomeric_smiles'] = 'Isomeric SMILES';
+$string['result_mw'] = 'Molecular weight';
+$string['result_name'] = 'Preferred name';
+$string['result_open_chemillusion'] = 'Open in ChemIllusion';
+$string['result_pubchem_link'] = 'View on PubChem';
+$string['result_textonly'] = 'Show text-only version';
+$string['settings_base_url'] = 'ChemIllusion base URL';
+$string['settings_base_url_help'] = 'Base URL of the ChemIllusion site used for account linking and CTA links.';
+$string['settings_cache_ttl'] = 'Lookup cache lifetime (seconds)';
+$string['settings_cache_ttl_help'] = 'How long PubChem lookup payloads are cached server-side. Default is one week (604800 seconds).';
+$string['settings_conn_desc'] = 'Where ChemIllusion lives and how launch tokens are signed. The signing secret never reaches the browser.';
+$string['settings_conn_heading'] = 'ChemIllusion connection';
+$string['settings_default_accessible_summary_visible'] = 'Show accessible text summary by default';
+$string['settings_default_accessible_summary_visible_help'] = 'Display a visible text description below every graphical card by default.';
+$string['settings_disable_external'] = 'Disable all external calls';
+$string['settings_disable_external_help'] = 'Master kill-switch: when enabled, the plugin makes no outbound network calls at all.';
+$string['settings_enable_account_linking'] = 'Enable ChemIllusion account linking';
+$string['settings_enable_account_linking_help'] = 'Show CTAs that let users link or create a ChemIllusion account. No grades or rosters are ever sent.';
+$string['settings_enable_card_exports'] = 'Enable card export (SVG and HTML snippet)';
+$string['settings_enable_card_exports_help'] = 'Allow teachers to download cards as SVG and copy Moodle HTML snippets.';
+$string['settings_enable_chemillusion_visual_card_cta'] = 'Enable "Generate visual card in ChemIllusion" CTA';
+$string['settings_enable_chemillusion_visual_card_cta_help'] = 'Show an optional button that lets teachers continue into ChemIllusion for richer visual card generation. Requires account linking enabled.';
+$string['settings_enable_conversion_metadata'] = 'Enable external analytics/conversion metadata';
+$string['settings_enable_conversion_metadata_help'] = 'With consent, send minimal source metadata (no PII) to ChemIllusion when a user clicks a funnel CTA.';
 $string['settings_enable_graphical_cards'] = 'Enable graphical chemistry cards';
 $string['settings_enable_graphical_cards_help'] = 'Show the graphical card section in the dashboard and enable card creation/study pages.';
 $string['settings_enable_newman_cards'] = 'Enable Newman projection cards';
 $string['settings_enable_newman_cards_help'] = 'Allow teachers to create and students to study Newman projection cards.';
 $string['settings_enable_orbital_cards'] = 'Enable orbital and hybridization cards';
 $string['settings_enable_orbital_cards_help'] = 'Allow curated orbital and hybridization teaching overlays for simple organic chemistry cases.';
-$string['settings_enable_reaction_coordinate_cards'] = 'Enable reaction coordinate diagram cards';
-$string['settings_enable_reaction_coordinate_cards_help'] = 'Allow teachers to create editable reaction coordinate energy-profile diagrams.';
-$string['settings_enable_card_exports'] = 'Enable card export (SVG and HTML snippet)';
-$string['settings_enable_card_exports_help'] = 'Allow teachers to download cards as SVG and copy Moodle HTML snippets.';
 $string['settings_enable_png_export'] = 'Enable PNG export (browser-side)';
 $string['settings_enable_png_export_help'] = 'Allow browser-side PNG rasterisation of SVG cards using Canvas. No server processing.';
-$string['settings_enable_chemillusion_visual_card_cta'] = 'Enable "Generate visual card in ChemIllusion" CTA';
-$string['settings_enable_chemillusion_visual_card_cta_help'] = 'Show an optional button that lets teachers continue into ChemIllusion for richer visual card generation. Requires account linking enabled.';
-$string['settings_default_accessible_summary_visible'] = 'Show accessible text summary by default';
-$string['settings_default_accessible_summary_visible_help'] = 'Display a visible text description below every graphical card by default.';
-
-// Graphical cards — navigation / page headings.
-$string['graphical_cards_heading'] = 'Graphical chemistry cards';
-$string['graphical_cards_intro'] = 'Create, study, and export graphical chemistry cards: molecule structures, Newman projections, orbital diagrams, and reaction coordinate diagrams.';
-$string['nav_graphical_cards'] = 'Graphical cards';
-$string['nav_create_card'] = 'Create a card';
-$string['nav_study_decks'] = 'Study decks';
-
-// Card type labels.
-$string['cardtype_molecule_identity'] = 'Molecule identity card';
-$string['cardtype_functional_group_highlight'] = 'Functional group highlight card';
-$string['cardtype_functional_group_list'] = 'Functional group list card';
-$string['cardtype_smiles_to_structure'] = 'SMILES to structure card';
-$string['cardtype_structure_to_smiles'] = 'Structure to SMILES/name card';
-$string['cardtype_reagent_card'] = 'Reagent mini-card';
-$string['cardtype_accessibility_card'] = 'Accessibility card';
-$string['cardtype_newman_projection'] = 'Newman projection card';
-$string['cardtype_orbital_hybridization'] = 'Orbital and hybridization card';
-$string['cardtype_reaction_coordinate'] = 'Reaction coordinate diagram card';
-
-// Card editor.
-$string['card_edit_heading'] = 'Create / edit graphical card';
-$string['card_type_label'] = 'Card type';
-$string['card_name_label'] = 'Card name';
-$string['card_deck_label'] = 'Deck (optional)';
-$string['card_teacher_note'] = 'Teacher note (editable)';
-$string['card_save'] = 'Save card';
-$string['card_preview'] = 'Preview';
-$string['card_saved'] = 'Card saved successfully.';
-$string['card_nocard'] = 'Card not found.';
-$string['card_nopermission'] = 'You do not have permission to edit this card.';
-$string['diagram_editor_advanced'] = 'Advanced options';
-$string['diagram_editor_smiles'] = 'SMILES';
-$string['diagram_editor_molecule_name'] = 'Molecule name';
-$string['diagram_editor_group_id'] = 'Functional group id';
-$string['diagram_editor_starting_example'] = 'Starting example';
-$string['diagram_editor_rotation'] = 'Back carbon rotation';
-$string['diagram_editor_energy_hint'] = 'Show energy hint';
-$string['diagram_editor_points_json'] = 'Custom points JSON';
-$string['diagram_editor_orbital_smiles'] = 'SMILES for orbital analysis';
-$string['diagram_editor_atom_index'] = 'Atom index';
-$string['diagram_editor_invalid_json'] = 'Enter valid JSON or leave this field unchanged.';
-
-// Card view / study.
-$string['card_view_heading'] = 'View card';
-$string['card_flip'] = 'Flip card';
-$string['card_show_answer'] = 'Show answer';
-$string['card_hide_answer'] = 'Hide answer';
-$string['card_next'] = 'Next card';
-$string['card_prev'] = 'Previous card';
-
-// Export.
-$string['export_svg'] = 'Download SVG';
-$string['export_png'] = 'Download PNG';
-$string['export_copy_svg'] = 'Copy SVG';
-$string['export_copy_snippet'] = 'Copy Moodle HTML snippet';
-$string['export_success'] = 'Exported successfully.';
-
-// Newman projection.
-$string['newman_rotate_cw'] = 'Rotate clockwise 60°';
-$string['newman_rotate_ccw'] = 'Rotate counter-clockwise 60°';
-$string['newman_front'] = 'Front carbon substituents';
-$string['newman_back'] = 'Back carbon substituents';
-$string['newman_conformation'] = 'Conformation';
-$string['newman_staggered'] = 'Staggered';
-$string['newman_eclipsed'] = 'Eclipsed';
-$string['newman_anti'] = 'Anti';
-$string['newman_gauche'] = 'Gauche';
-$string['newman_accessibility_summary'] = 'Newman projection looking down the {$a->bond} bond. Front substituents: {$a->front}. Back substituents: {$a->back}. Back carbon rotated {$a->rotation}°.';
-
-// Orbital / hybridization.
-$string['orbital_no_overlay'] = 'No local orbital overlay available for this structure.';
-$string['orbital_cta'] = 'Open in ChemIllusion for a guided orbital explanation.';
-$string['orbital_hybridization_label'] = 'Hybridization';
-$string['orbital_sp'] = 'sp (linear)';
-$string['orbital_sp2'] = 'sp² (trigonal planar)';
-$string['orbital_sp3'] = 'sp³ (tetrahedral)';
-$string['orbital_confidence_curated'] = 'Curated teaching diagram';
-$string['orbital_confidence_rule'] = 'Rule-based overlay';
-
-// Reaction coordinate.
-$string['rcd_heading'] = 'Reaction coordinate diagram';
-$string['rcd_xaxis'] = 'Reaction coordinate';
-$string['rcd_yaxis'] = 'Free energy (qualitative)';
-$string['rcd_template_label'] = 'Diagram template';
-$string['rcd_ts_label'] = 'Transition state';
-$string['rcd_intermediate_label'] = 'Intermediate';
-$string['rcd_reactants_label'] = 'Reactants';
-$string['rcd_products_label'] = 'Products';
-$string['rcd_ea_label'] = 'Activation energy (Ea)';
-$string['rcd_deltag_label'] = 'ΔG';
-$string['rcd_rds_label'] = 'Rate-determining step';
-$string['rcd_qualitative_disclaimer'] = 'This is a qualitative teaching diagram. Values are not experimental.';
-$string['rcd_accessibility_summary'] = 'Reaction coordinate diagram: {$a->title}. {$a->ts_count} transition state(s) and {$a->int_count} intermediate(s). {$a->direction}.';
-
-// Accessibility.
-$string['accessible_summary_heading'] = 'Text description';
-$string['accessible_summary_toggle'] = 'Toggle text description';
-$string['accessible_alt_default'] = 'Chemical structure diagram';
-
-// Capabilities (display names).
-$string['chemillusion:createcards'] = 'Create graphical chemistry cards';
-$string['chemillusion:editowncards'] = 'Edit own graphical chemistry cards';
-$string['chemillusion:editallcards'] = 'Edit all graphical chemistry cards';
-$string['chemillusion:exportcards'] = 'Export graphical chemistry cards';
-
-// Privacy API metadata.
-$string['privacy:metadata:local_chemillusion_links'] = 'Minimal mapping between a Moodle user and a linked ChemIllusion account.';
-$string['privacy:metadata:local_chemillusion_links:userid'] = 'The Moodle user who linked an account.';
-$string['privacy:metadata:local_chemillusion_links:chemillusion_user_id'] = 'The opaque ChemIllusion account identifier.';
-$string['privacy:metadata:local_chemillusion_links:chemillusion_email_hash'] = 'A one-way hash of the email used to link, if provided.';
-$string['privacy:metadata:local_chemillusion_links:linked_at'] = 'When the account was linked.';
-$string['privacy:metadata:local_chemillusion_links:last_launch_at'] = 'When the user last launched ChemIllusion.';
-$string['privacy:metadata:local_chemillusion_decks'] = 'Study decks created by the user.';
-$string['privacy:metadata:local_chemillusion_decks:userid'] = 'The user who created the deck.';
-$string['privacy:metadata:local_chemillusion_decks:name'] = 'The deck name.';
-$string['privacy:metadata:local_chemillusion_decks:created_at'] = 'When the deck was created.';
-$string['privacy:metadata:local_chemillusion_cards'] = 'Cards within a user-created study deck.';
-$string['privacy:metadata:local_chemillusion_cards:prompt'] = 'The card prompt text.';
-$string['privacy:metadata:local_chemillusion_cards:answer'] = 'The card answer text.';
-$string['privacy:metadata:chemillusion_saas'] = 'Information sent to ChemIllusion when a user explicitly links an account or clicks a funnel CTA (only if enabled).';
-$string['privacy:metadata:chemillusion_saas:source'] = 'A static source label (for example, "moodle").';
-$string['privacy:metadata:chemillusion_saas:role'] = 'The coarse role (student, teacher, or admin).';
-$string['privacy:metadata:chemillusion_saas:surface'] = 'Which study surface triggered the action.';
-$string['privacy:metadata:local_chemillusion_events'] = 'Coarse local usage events for ChemIllusion Study Tools.';
-$string['privacy:metadata:local_chemillusion_events:userid'] = 'The Moodle user associated with the event when minimal mode is disabled.';
-$string['privacy:metadata:local_chemillusion_events:courseid'] = 'The Moodle course associated with the event, if any.';
-$string['privacy:metadata:local_chemillusion_events:eventname'] = 'The coarse event type, such as molecule lookup or deck creation.';
-$string['privacy:metadata:local_chemillusion_events:surface'] = 'The plugin surface where the event occurred.';
-$string['privacy:metadata:local_chemillusion_events:cta'] = 'The call-to-action identifier, if applicable.';
-$string['privacy:metadata:local_chemillusion_events:payload'] = 'Reserved event payload field. The current implementation stores null.';
-$string['privacy:metadata:local_chemillusion_events:created_at'] = 'When the event was recorded.';
-$string['privacy:metadata:pubchem_pug_rest'] = 'PubChem PUG REST may receive the molecule identifier entered by the user when PubChem lookup is enabled.';
-$string['privacy:metadata:pubchem_pug_rest:identifier'] = 'The molecule name, SMILES, InChI, or InChIKey submitted for lookup.';
+$string['settings_enable_pubchem'] = 'Enable PubChem lookup';
+$string['settings_enable_pubchem_help'] = 'Allow server-side molecule resolution via the public PubChem REST API. Results are cached locally.';
+$string['settings_enable_rdkit'] = 'Enable RDKit WASM local chemistry mode (Phase 1B)';
+$string['settings_enable_rdkit_help'] = 'Lazy-load the bundled RDKit.js/WASM build on study tool pages for in-browser SMILES validation, rendering, and functional-group detection.';
+$string['settings_enable_reaction_coordinate_cards'] = 'Enable reaction coordinate diagram cards';
+$string['settings_enable_reaction_coordinate_cards_help'] = 'Allow teachers to create editable reaction coordinate energy-profile diagrams.';
+$string['settings_enable_visual_preview'] = 'Enable ChemIllusion visual preview examples';
+$string['settings_enable_visual_preview_help'] = 'Show bundled example images of ChemIllusion-style visual study cards. No anonymous image generation occurs in Moodle.';
+$string['settings_external_desc'] = 'Control which outbound calls the plugin may make. Administrators can disable every external call.';
+$string['settings_external_heading'] = 'External services';
+$string['settings_graphical_desc'] = 'Enable or disable graphical card types. All render locally without AI tokens.';
+$string['settings_graphical_heading'] = 'Graphical chemistry cards';
+$string['settings_info_desc'] = 'Molecule lookup, graphical cards, Newman projections, orbital diagrams, reaction coordinate charts, and more — all running locally inside Moodle, no account required. More tools and premium features are available at <a href="https://chemillusion.com">chemillusion.com</a>. For support, contact <a href="mailto:support@chemillusion.com">support@chemillusion.com</a>.';
+$string['settings_info_heading'] = 'ChemIllusion Study Tools';
+$string['settings_minimal_mode'] = 'Minimal mode (default)';
+$string['settings_minimal_mode_help'] = 'Store only the minimum local data needed for study tools and account mapping.';
+$string['settings_mode'] = 'ChemIllusion mode';
+$string['settings_mode_desc'] = 'Choose how much of ChemIllusion is enabled. Local-only keeps all study tools inside Moodle with no account required.';
+$string['settings_mode_heading'] = 'Operating mode';
+$string['settings_mode_help'] = 'Local-only: study tools only. Local + linking: students/teachers can link a ChemIllusion account. Local + SaaS: enables premium ChemIllusion escalation.';
+$string['settings_privacy_desc'] = 'Defaults favour minimal data. A data-flow summary is shown before ChemIllusion SaaS features are enabled.';
+$string['settings_privacy_heading'] = 'Privacy';
+$string['settings_signing_secret'] = 'Launch signing secret';
+$string['settings_signing_secret_help'] = 'Shared secret used to sign account-link/launch state. Keep this private; it is never exposed in page output or JavaScript.';
+$string['teacher_dashboard_blurb'] = 'Your students can use the local Moodle study cards for free. Link a ChemIllusion teacher account to create richer visual decks, guided tutorials, accessible molecule readouts, and course-ready activities.';
+$string['tools_heading'] = 'Molecule lookup & study tools';

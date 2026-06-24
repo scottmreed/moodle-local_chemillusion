@@ -32,7 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class graphical_card_page implements renderable, templatable {
-
     /** @var array Existing card stubs for the picker list. */
     protected $cards;
 
@@ -40,14 +39,22 @@ class graphical_card_page implements renderable, templatable {
     protected $cancreate;
 
     /**
-     * @param array $cards     Array of card rows (id, name, cardtype, created_at).
-     * @param bool  $cancreate
+     * Constructor.
+     *
+     * @param array $cards Array of card rows (id, name, cardtype, created_at).
+     * @param bool $cancreate Whether the viewer can create cards.
      */
     public function __construct(array $cards, bool $cancreate) {
         $this->cards     = $cards;
         $this->cancreate = $cancreate;
     }
 
+    /**
+     * Export template context.
+     *
+     * @param renderer_base $output
+     * @return array
+     */
     public function export_for_template(renderer_base $output): array {
         $types = card_type_registry::get_enabled_types();
         $typeoptions = [];

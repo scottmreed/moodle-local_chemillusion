@@ -20,17 +20,19 @@
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @covers     \local_chemillusion\cards\orbital_template_registry
  */
 
-defined('MOODLE_INTERNAL') || die();
+namespace local_chemillusion\phpunit;
 
 use local_chemillusion\cards\orbital_template_registry;
 
-/**
- * @covers \local_chemillusion\cards\orbital_template_registry
- */
-class orbital_template_registry_test extends advanced_testcase {
+defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Orbital template registry tests.
+ */
+final class orbital_template_registry_test extends \advanced_testcase {
     public function test_json_is_valid(): void {
         $path = __DIR__ . '/../../data/orbital_templates.json';
         $this->assertFileExists($path);
