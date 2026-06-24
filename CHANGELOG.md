@@ -6,6 +6,13 @@ versioning convention (`version.php`).
 
 ## [Unreleased]
 
+### Added
+- GitHub Actions CI (Moodle Plugin CI on 4.3/4.5) and release packaging workflow.
+- Bug report issue template and pull request template.
+
+### Changed
+- Public repository preparation: removed internal dev/PRD documents; aligned repo name with Moodle convention (`moodle-local_chemillusion`).
+
 ## [0.2.0] - 2026-06-23
 
 ### Changed
@@ -42,6 +49,6 @@ Initial Phase 1A + Phase 1B scaffold.
 - Accessible, keyboard-operable flashcard player (no auto-flip).
 - PHPUnit and Behat test scaffolding, Moodle Plugin CI, and packaging scripts.
 
-[Unreleased]: https://github.com/scottmreed/moodle-local-chemillusion/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/scottmreed/moodle-local-chemillusion/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/scottmreed/moodle-local-chemillusion/releases/tag/v0.1.0
+[Unreleased]: https://github.com/scottmreed/moodle-local_chemillusion/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/scottmreed/moodle-local_chemillusion/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/scottmreed/moodle-local_chemillusion/releases/tag/v0.1.0

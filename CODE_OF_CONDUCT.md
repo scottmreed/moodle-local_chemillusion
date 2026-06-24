@@ -23,8 +23,10 @@ information without explicit permission.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the project maintainers. All complaints will be reviewed and
-investigated promptly and fairly.
+reported to the project maintainers at
+[support@chemillusion.com](mailto:support@chemillusion.com) or
+[@scottmreed](https://github.com/scottmreed) on GitHub. All complaints will be
+reviewed and investigated promptly and fairly.
 
 This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org),
 version 2.1.

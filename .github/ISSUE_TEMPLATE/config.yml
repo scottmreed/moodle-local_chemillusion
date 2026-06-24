@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/scottmreed/moodle-local_chemillusion/security/advisories/new
+    about: Report security issues privately via GitHub (see SECURITY.md)
+  - name: Moodle community forum
+    url: https://moodle.org/mod/forum/view.php?id=55
+    about: General Moodle development questions
+  - name: Contributing guide
+    url: https://github.com/scottmreed/moodle-local_chemillusion/blob/main/CONTRIBUTING.md
+    about: How to submit pull requests and coding standards

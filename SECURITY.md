@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-The plugin is in alpha (0.1.x). Security fixes target the latest tagged release
+The plugin is in alpha (0.2.x). Security fixes target the latest tagged release
 and `main`.
 
 ## Reporting a vulnerability

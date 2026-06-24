@@ -6,7 +6,7 @@ Feature: ChemIllusion admin settings
 
   Scenario: Administrator can open the ChemIllusion settings page
     Given I log in as "admin"
-    When I navigate to "Plugins > Local plugins > ChemIllusion Study Cards" in site administration
+    When I navigate to "Plugins > Local plugins > ChemIllusion Study Tools" in site administration
     Then I should see "Operating mode"
     And I should see "External services"
     And I should see "Privacy"

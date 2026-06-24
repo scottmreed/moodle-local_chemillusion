@@ -44,9 +44,9 @@ request.
 - [x] Supported range: 4.3 through 5.0.x
 - [x] Automated CI: 4.3 and 4.5
 - [x] Local dev/testing: 5.0.8
-- [ ] Public issue tracker enabled on GitHub before submission
-- [ ] Public repository visibility before submission
-- [ ] Screenshots captured for Moodle Plugins Directory listing
+- [x] Public issue tracker enabled on GitHub before submission
+- [x] Public repository visibility before submission
+- [x] Screenshots captured for Moodle Plugins Directory listing
 - [ ] Release ZIP smoke-tested with developer debugging enabled
 
 ## Reviewer-sensitive points (and our mitigations)

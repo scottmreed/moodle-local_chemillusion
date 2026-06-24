@@ -1,0 +1,85 @@
+name: Bug report
+description: Report a problem with ChemIllusion Study Tools for Moodle
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Please include enough detail
+        for us to reproduce the issue. For security issues, use GitHub's private
+        vulnerability reporting instead (see `SECURITY.md`).
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: From **Site administration → Plugins → Plugins overview** or the release tag (e.g. 0.2.0)
+      placeholder: "0.2.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: moodle-version
+    attributes:
+      label: Moodle version
+      options:
+        - "4.3.x"
+        - "4.4.x"
+        - "4.5.x"
+        - "5.0.x"
+        - "Other (describe below)"
+    validations:
+      required: true
+
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+      placeholder: "8.2"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What did you do before the problem appeared?
+      placeholder: |
+        1. Go to Site administration → Plugins → Local plugins → ChemIllusion Study Tools
+        2. Set operating mode to ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs or screenshots
+      description: PHP errors, browser console output, or screenshots (paste or drag images here)
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues before opening this report
+          required: true
+        - label: I have not included grades, student data, or signing secrets in this report
+          required: true

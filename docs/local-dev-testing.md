@@ -12,11 +12,11 @@ Docker and mounts this repo at `/var/www/html/local/chemillusion`.
 1. Clone both repos as siblings:
    ```text
    parent/
-     moodle-local-chemillusion/   <- this repo
+     moodle-local_chemillusion/   <- this repo
      Moodle-plugin-dev/           <- harness
    ```
 2. In `Moodle-plugin-dev`, start the stack (see that repo's README). It mounts
-   `../moodle-local-chemillusion -> /var/www/html/local/chemillusion`.
+   `../moodle-local_chemillusion -> /var/www/html/local/chemillusion`.
 3. Run the Moodle upgrade to install `local_chemillusion`.
 4. Visit `http://localhost:8080` and log in as the seeded admin.
 

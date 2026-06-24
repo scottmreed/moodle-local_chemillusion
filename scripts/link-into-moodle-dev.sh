@@ -2,7 +2,7 @@
 #
 # Symlink (or copy) this repo into a local Moodle so it appears at
 # local/chemillusion. Intended for use with the scottmreed/Moodle-plugin-dev
-# harness, which mounts ../moodle-local-chemillusion at
+# harness, which mounts ../moodle-local_chemillusion at
 # /var/www/html/local/chemillusion.
 #
 # Usage:

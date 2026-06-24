@@ -1,5 +1,9 @@
 # ChemIllusion Study Tools for Moodle (`local_chemillusion`)
 
+[![Moodle Plugin CI](https://github.com/scottmreed/moodle-local_chemillusion/actions/workflows/moodle-plugin-ci.yml/badge.svg)](https://github.com/scottmreed/moodle-local_chemillusion/actions/workflows/moodle-plugin-ci.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![Moodle 4.3–5.0](https://img.shields.io/badge/Moodle-4.3--5.0-orange.svg)](version.php)
+
 A privacy-aware, open-source Moodle chemistry **study** plugin: molecule lookup,
 RDKit.js-powered browser-side structure rendering, functional-group
 highlighting, student flashcards, accessible summaries, and optional
@@ -11,6 +15,7 @@ workflows.
 > accessibility, account linking, and ChemIllusion visual/AI escalation.
 
 - **Component:** `local_chemillusion`
+- **Repository:** [github.com/scottmreed/moodle-local_chemillusion](https://github.com/scottmreed/moodle-local_chemillusion)
 - **License:** GPL-3.0-or-later (see `LICENSE`)
 - **Status:** Alpha (0.2.0) — Phase 1A + Phase 1B scaffolding
 - **Moodle support:** 4.3 through 5.0.x; automated CI on 4.3 and 4.5; local dev/testing on 5.0.8
@@ -52,11 +57,18 @@ public** ChemIllusion contracts and links.
 
 ## Install (admins)
 
-1. Download a release ZIP (`dist/local_chemillusion-<version>-moodleXX.zip`).
+1. Download a release ZIP from [GitHub Releases](https://github.com/scottmreed/moodle-local_chemillusion/releases) (`local_chemillusion-<version>-moodleXX.zip`).
 2. In Moodle: **Site administration → Plugins → Install plugins** and upload the ZIP.
 3. Complete the upgrade, then visit **Site administration → Plugins → Local plugins → ChemIllusion Study Tools** to configure mode, external services, and privacy.
 
 No Composer, shell access, Conda, Python, or native packages are required.
+
+**Git clone (developers):**
+
+```bash
+git clone https://github.com/scottmreed/moodle-local_chemillusion.git chemillusion
+# Place the folder at moodle/local/chemillusion
+```
 
 ## Privacy at a glance
 
@@ -81,9 +93,16 @@ See `docs/local-dev-testing.md`. The local Moodle harness lives in the separate
 ```bash
 scripts/build-js.sh            # build AMD modules (dev)
 scripts/update-rdkit-js.sh     # fetch the RDKit.js/WASM bundle (Phase 1B)
-scripts/package-plugin.sh --version 0.1.0   # produce a release ZIP
+scripts/package-plugin.sh --version 0.2.0   # produce a release ZIP
 scripts/run-local-ci.sh        # lint + unit checks via moodle-plugin-ci (if installed)
 ```
+
+## Contributing
+
+- [Contributing guide](CONTRIBUTING.md) — coding standards, GPL boundary, PR checklist
+- [Report a bug](https://github.com/scottmreed/moodle-local_chemillusion/issues/new?template=bug_report.yml)
+- [Security policy](SECURITY.md) — private vulnerability reporting
+- [Code of conduct](CODE_OF_CONDUCT.md)
 
 ## Documentation
 
