@@ -229,6 +229,14 @@ define([
          */
         init: function(cfg) {
             config = cfg || {};
+            var smartsNode = document.getElementById('local-chemillusion-molecule-smarts');
+            if (smartsNode && smartsNode.textContent) {
+                try {
+                    config.smarts = JSON.parse(smartsNode.textContent);
+                } catch (e) {
+                    config.smarts = [];
+                }
+            }
             if (config.rdkitEnabled) {
                 require(['local_chemillusion/rdkit_loader'], function(Loader) {
                     Loader.configure({

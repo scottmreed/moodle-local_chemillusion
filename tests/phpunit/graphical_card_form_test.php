@@ -25,25 +25,6 @@
 namespace local_chemillusion\phpunit;
 
 use local_chemillusion\cards\diagram_tool_catalog;
-use local_chemillusion\form\graphical_card_form;
-
-/**
- * Exposes QuickForm for focused editor assertions.
- *
- * @package    local_chemillusion
- *
- * @coversDefaultClass \local_chemillusion\form\graphical_card_form
- */
-final class testable_graphical_card_form extends graphical_card_form {
-    /**
-     * Return the underlying QuickForm instance.
-     *
-     * @return \MoodleQuickForm
-     */
-    public function get_quickform(): \MoodleQuickForm {
-        return $this->_form;
-    }
-}
 
 /**
  * Focused graphical-card form tests.
@@ -51,6 +32,8 @@ final class testable_graphical_card_form extends graphical_card_form {
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ *
+ * @coversDefaultClass \local_chemillusion\form\graphical_card_form
  */
 final class graphical_card_form_test extends \advanced_testcase {
     /**
@@ -69,6 +52,9 @@ final class graphical_card_form_test extends \advanced_testcase {
         return $form->get_quickform();
     }
 
+    /**
+     * Test molecule form only asks for molecule inputs up front.
+     */
     public function test_molecule_form_only_asks_for_molecule_inputs_up_front(): void {
         $form = $this->build_form('molecule');
 
@@ -79,6 +65,9 @@ final class graphical_card_form_test extends \advanced_testcase {
         $this->assertFalse($form->elementExists('orbital_template'));
     }
 
+    /**
+     * Test newman form has a starting example and grouped substituents.
+     */
     public function test_newman_form_has_a_starting_example_and_grouped_substituents(): void {
         $form = $this->build_form('newman');
 
@@ -88,6 +77,9 @@ final class graphical_card_form_test extends \advanced_testcase {
         $this->assertFalse($form->elementExists('smiles'));
     }
 
+    /**
+     * Test reaction and orbital forms use curated examples.
+     */
     public function test_reaction_and_orbital_forms_use_curated_examples(): void {
         $reaction = $this->build_form('reaction');
         $orbital = $this->build_form('orbital');

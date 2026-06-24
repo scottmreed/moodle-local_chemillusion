@@ -22,7 +22,6 @@ use renderable;
 use moodle_url;
 use local_chemillusion\cards\card_type_registry;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * View model for the graphical cards browse/create page.

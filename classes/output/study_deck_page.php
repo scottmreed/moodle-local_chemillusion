@@ -22,7 +22,6 @@ use renderable;
 use moodle_url;
 use local_chemillusion\cards\deck_repository;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Study deck list view model.

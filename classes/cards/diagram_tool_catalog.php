@@ -16,7 +16,6 @@
 
 namespace local_chemillusion\cards;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Root-page diagram tools and their focused editor defaults.
@@ -68,14 +67,14 @@ final class diagram_tool_catalog {
             ],
         ];
 
-        $tools = array_map(static function(array $tool): array {
+        $tools = array_map(static function (array $tool): array {
             $tool['editorparams'] = ['tool' => $tool['id']];
             return $tool;
         }, $tools);
 
         if ($enabledonly) {
             $enabledtypes = card_type_registry::get_enabled_types();
-            $tools = array_filter($tools, static function(array $tool) use ($enabledtypes): bool {
+            $tools = array_filter($tools, static function (array $tool) use ($enabledtypes): bool {
                 return in_array($tool['cardtype'], $enabledtypes, true);
             });
         }

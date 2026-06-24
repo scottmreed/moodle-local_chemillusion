@@ -40,6 +40,9 @@ final class card_generator_test extends \advanced_testcase {
         $this->assertStringContainsString('2244', $card['answer']);
     }
 
+    /**
+     * Test from reagent.
+     */
     public function test_from_reagent(): void {
         $card = card_generator::from_reagent('PCC', [
             'name' => 'pyridinium chlorochromate', 'role' => 'oxidant',
@@ -50,6 +53,9 @@ final class card_generator_test extends \advanced_testcase {
         $this->assertStringContainsString('oxidant', $card['answer']);
     }
 
+    /**
+     * Test from functional group.
+     */
     public function test_from_functional_group(): void {
         $card = card_generator::from_functional_group('ester', [
             'label' => 'Ester', 'smarts' => '[CX3](=O)[OX2H0][#6]',
@@ -59,6 +65,9 @@ final class card_generator_test extends \advanced_testcase {
         $this->assertSame('ester', $card['molecule_payload']['group']);
     }
 
+    /**
+     * Test sanitize strips nonscalar payload.
+     */
     public function test_sanitize_strips_nonscalar_payload(): void {
         $card = card_generator::sanitize([
             'cardtype' => 'custom', 'prompt' => 'p', 'answer' => 'a',

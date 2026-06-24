@@ -56,6 +56,9 @@ final class dashboard_page_test extends \advanced_testcase {
         }
     }
 
+    /**
+     * Test gallery is hidden when graphical cards are disabled.
+     */
     public function test_gallery_is_hidden_when_graphical_cards_are_disabled(): void {
         global $PAGE;
 
@@ -71,6 +74,9 @@ final class dashboard_page_test extends \advanced_testcase {
         $this->assertSame([], $data['diagram_tools']);
     }
 
+    /**
+     * Test dashboard template renders tool gallery markup.
+     */
     public function test_dashboard_template_renders_tool_gallery_markup(): void {
         global $PAGE;
 

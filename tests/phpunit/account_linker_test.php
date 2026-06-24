@@ -44,6 +44,9 @@ final class account_linker_test extends \advanced_testcase {
         $this->assertSame('pending', $record->status);
     }
 
+    /**
+     * Test complete link links account.
+     */
     public function test_complete_link_links_account(): void {
         $this->resetAfterTest();
         set_config('enable_account_linking', 1, 'local_chemillusion');
@@ -62,6 +65,9 @@ final class account_linker_test extends \advanced_testcase {
         $this->assertSame('linked', $record->status);
     }
 
+    /**
+     * Test complete link rejects mismatched user.
+     */
     public function test_complete_link_rejects_mismatched_user(): void {
         $this->resetAfterTest();
         $user = $this->getDataGenerator()->create_user();
@@ -70,6 +76,9 @@ final class account_linker_test extends \advanced_testcase {
         $this->assertFalse(account_linker::complete_link($user->id, $token));
     }
 
+    /**
+     * Test complete link requires external account id.
+     */
     public function test_complete_link_requires_external_account_id(): void {
         $this->resetAfterTest();
         $user = $this->getDataGenerator()->create_user();
@@ -78,6 +87,9 @@ final class account_linker_test extends \advanced_testcase {
         $this->assertFalse(account_linker::is_linked($user->id));
     }
 
+    /**
+     * Test tampered token is rejected.
+     */
     public function test_tampered_token_is_rejected(): void {
         $this->resetAfterTest();
         $user = $this->getDataGenerator()->create_user();

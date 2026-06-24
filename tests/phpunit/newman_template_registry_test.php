@@ -26,7 +26,6 @@ namespace local_chemillusion\phpunit;
 
 use local_chemillusion\cards\newman_template_registry;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Newman template registry tests.
@@ -43,6 +42,9 @@ final class newman_template_registry_test extends \advanced_testcase {
         $this->assertGreaterThanOrEqual(8, count($data), 'PRD requires 8 MVP templates');
     }
 
+    /**
+     * Test each template has required fields.
+     */
     public function test_each_template_has_required_fields(): void {
         $templates = newman_template_registry::get_all();
         foreach ($templates as $t) {
@@ -56,6 +58,9 @@ final class newman_template_registry_test extends \advanced_testcase {
         }
     }
 
+    /**
+     * Test get known template.
+     */
     public function test_get_known_template(): void {
         $t = newman_template_registry::get('butane_anti');
         $this->assertNotNull($t);
@@ -63,10 +68,16 @@ final class newman_template_registry_test extends \advanced_testcase {
         $this->assertSame(180, $t['rotation_degrees']);
     }
 
+    /**
+     * Test get unknown template returns null.
+     */
     public function test_get_unknown_template_returns_null(): void {
         $this->assertNull(newman_template_registry::get('nonexistent_template'));
     }
 
+    /**
+     * Test default card data shape.
+     */
     public function test_default_card_data_shape(): void {
         $data = newman_template_registry::default_card_data('ethane_staggered');
         $this->assertNotNull($data);

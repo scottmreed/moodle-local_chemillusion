@@ -22,7 +22,6 @@ use core_external\external_single_structure;
 use core_external\external_value;
 use local_chemillusion\output\card_accessibility_summary;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * AJAX endpoint: export a graphical card as SVG or HTML snippet.

@@ -21,7 +21,6 @@ use templatable;
 use renderable;
 use local_chemillusion\api\chemillusion_client;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Molecule result card view model.

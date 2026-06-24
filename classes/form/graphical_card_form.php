@@ -19,7 +19,6 @@ namespace local_chemillusion\form;
 use moodleform;
 use local_chemillusion\cards\card_type_registry;
 
-defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/formslib.php');
 
 /**

@@ -37,6 +37,9 @@ final class pubchem_client_test extends \advanced_testcase {
         $this->assertSame('external_disabled', $result['error']);
     }
 
+    /**
+     * Test pubchem disabled blocks resolve.
+     */
     public function test_pubchem_disabled_blocks_resolve(): void {
         $this->resetAfterTest();
         set_config('disable_external', 0, 'local_chemillusion');
@@ -46,6 +49,9 @@ final class pubchem_client_test extends \advanced_testcase {
         $this->assertSame('external_disabled', $result['error']);
     }
 
+    /**
+     * Test empty input is invalid.
+     */
     public function test_empty_input_is_invalid(): void {
         $this->resetAfterTest();
         set_config('disable_external', 0, 'local_chemillusion');

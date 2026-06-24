@@ -21,7 +21,6 @@ use templatable;
 use renderable;
 use moodle_url;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * View model for a single graphical card preview (student/teacher view).
@@ -41,9 +40,11 @@ class graphical_card_preview implements renderable, templatable {
     protected $canedit;
 
     /**
-     * @param \stdClass $card       DB card row.
-     * @param bool      $canexport
-     * @param bool      $canedit
+     * Constructor.
+     *
+     * @param \stdClass $card DB card row.
+     * @param bool $canexport Whether export is allowed.
+     * @param bool $canedit Whether edit is allowed.
      */
     public function __construct(\stdClass $card, bool $canexport, bool $canedit) {
         $this->card      = $card;

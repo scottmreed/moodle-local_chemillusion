@@ -25,7 +25,6 @@ use local_chemillusion\cards\card_generator;
 use local_chemillusion\cards\deck_repository;
 use local_chemillusion\telemetry\local_event_logger;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * AJAX endpoint: create a local study deck and its cards.

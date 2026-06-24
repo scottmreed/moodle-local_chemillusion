@@ -25,7 +25,6 @@ use local_chemillusion\api\pubchem_client;
 use local_chemillusion\util\input_normalizer;
 use local_chemillusion\telemetry\local_event_logger;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * AJAX endpoint: resolve a molecule identifier via PubChem (cached).
@@ -117,13 +116,21 @@ class lookup_molecule extends external_api {
             'status'           => new external_value(PARAM_ALPHA, 'ok or error'),
             'inputtype'        => new external_value(PARAM_ALPHA, 'Detected or forced input type'),
             'error'            => new external_value(PARAM_ALPHANUMEXT, 'Error code', VALUE_OPTIONAL),
-            'error_note'       => new external_value(PARAM_TEXT, 'Human-readable error note (e.g., fallback message)', VALUE_OPTIONAL),
+            'error_note'       => new external_value(
+                PARAM_TEXT,
+                'Human-readable error note (e.g., fallback message)',
+                VALUE_OPTIONAL
+            ),
             'alt_types'        => new external_multiple_structure(
                 new external_value(PARAM_ALPHA, 'Alternative input type'),
                 'Alternative types to suggest retrying',
                 VALUE_OPTIONAL
             ),
-            'fallback'         => new external_value(PARAM_BOOL, 'True if PubChem was down and we returned parsed data', VALUE_OPTIONAL),
+            'fallback'         => new external_value(
+                PARAM_BOOL,
+                'True if PubChem was down and we returned parsed data',
+                VALUE_OPTIONAL
+            ),
             'name'             => new external_value(PARAM_TEXT, 'Preferred name', VALUE_OPTIONAL),
             'cid'              => new external_value(PARAM_INT, 'PubChem CID', VALUE_OPTIONAL),
             'formula'          => new external_value(PARAM_TEXT, 'Molecular formula', VALUE_OPTIONAL),

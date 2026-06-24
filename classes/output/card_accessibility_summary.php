@@ -16,7 +16,6 @@
 
 namespace local_chemillusion\output;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Generates deterministic accessible text summaries from graphical card JSON.

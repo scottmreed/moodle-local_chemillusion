@@ -16,7 +16,6 @@
 
 namespace local_chemillusion\cards;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Registry of graphical card types loaded from data/card_type_registry.json.

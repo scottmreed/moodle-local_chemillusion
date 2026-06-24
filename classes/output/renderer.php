@@ -16,7 +16,6 @@
 
 namespace local_chemillusion\output;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Plugin renderer for local_chemillusion.

@@ -83,11 +83,18 @@ $config = [
     'rdkitEnabled'  => $rdkitenabled,
     'rdkitJsUrl'    => (new moodle_url('/local/chemillusion/thirdparty/rdkit-js/RDKit_minimal.js'))->out(false),
     'rdkitWasmUrl'  => (new moodle_url('/local/chemillusion/thirdparty/rdkit-js/RDKit_minimal.wasm'))->out(false),
-    'smarts'        => \local_chemillusion\cards\functional_group_dictionary::smarts_registry(),
     'launchUrl'     => (new moodle_url('/local/chemillusion/launch.php'))->out(false),
     'visualEnabled' => (bool) get_config('local_chemillusion', 'enable_visual_preview'),
     'sesskey'       => sesskey(),
 ];
+echo \html_writer::tag(
+    'script',
+    json_encode(\local_chemillusion\cards\functional_group_dictionary::smarts_registry()),
+    [
+        'type' => 'application/json',
+        'id' => 'local-chemillusion-molecule-smarts',
+    ]
+);
 $PAGE->requires->js_call_amd('local_chemillusion/molecule_lookup', 'init', [$config]);
 
 echo $output->footer();

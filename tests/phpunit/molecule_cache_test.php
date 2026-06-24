@@ -34,6 +34,9 @@ final class molecule_cache_test extends \advanced_testcase {
         $this->assertSame(['a' => 1], molecule_cache::get('k1'));
     }
 
+    /**
+     * Test expired returns null and removes row.
+     */
     public function test_expired_returns_null_and_removes_row(): void {
         global $DB;
         $this->resetAfterTest();
@@ -43,6 +46,9 @@ final class molecule_cache_test extends \advanced_testcase {
         $this->assertFalse($DB->record_exists('local_chemillusion_cache', ['cachekey' => 'k2']));
     }
 
+    /**
+     * Test purge expired.
+     */
     public function test_purge_expired(): void {
         global $DB;
         $this->resetAfterTest();
@@ -55,6 +61,9 @@ final class molecule_cache_test extends \advanced_testcase {
         $this->assertFalse($DB->record_exists('local_chemillusion_cache', ['cachekey' => 'old']));
     }
 
+    /**
+     * Test make key is case insensitive.
+     */
     public function test_make_key_is_case_insensitive(): void {
         $this->assertSame(
             molecule_cache::make_key('name', 'Water'),

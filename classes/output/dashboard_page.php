@@ -24,7 +24,6 @@ use local_chemillusion\api\chemillusion_client;
 use local_chemillusion\cards\diagram_tool_catalog;
 use local_chemillusion\telemetry\local_event_logger;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Landing/dashboard view model.

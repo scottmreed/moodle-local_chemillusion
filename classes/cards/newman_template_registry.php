@@ -16,7 +16,6 @@
 
 namespace local_chemillusion\cards;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Registry of Newman projection templates from data/newman_templates.json.

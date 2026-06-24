@@ -16,7 +16,6 @@
 
 namespace local_chemillusion\cards;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Registry of reaction coordinate diagram templates from data/reaction_coordinate_templates.json.

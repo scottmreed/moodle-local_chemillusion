@@ -28,6 +28,9 @@ use local_chemillusion\cards\diagram_tool_catalog;
  * @coversDefaultClass \local_chemillusion\cards\diagram_tool_catalog
  */
 final class diagram_tool_catalog_test extends \advanced_testcase {
+    /**
+     * Catalog lists four diagram tools in display order.
+     */
     public function test_catalog_has_four_tools_in_creation_order(): void {
         $tools = diagram_tool_catalog::get_all(false);
 
@@ -45,6 +48,9 @@ final class diagram_tool_catalog_test extends \advanced_testcase {
         }
     }
 
+    /**
+     * Each tool exposes sensible editor defaults.
+     */
     public function test_each_tool_has_a_useful_default(): void {
         $this->assertSame(
             'ClCCCCBr',
@@ -64,11 +70,17 @@ final class diagram_tool_catalog_test extends \advanced_testcase {
         );
     }
 
+    /**
+     * Unknown tool ids resolve to null.
+     */
     public function test_unknown_tool_returns_null(): void {
         $this->assertNull(diagram_tool_catalog::get('unknown', false));
         $this->assertNull(diagram_tool_catalog::get_editor_defaults('unknown'));
     }
 
+    /**
+     * Defaults include enough data for immediate preview.
+     */
     public function test_defaults_are_complete_for_immediate_preview(): void {
         $reaction = diagram_tool_catalog::get_editor_defaults('reaction');
         $this->assertCount(3, json_decode($reaction['rcd_points_json'], true));
@@ -85,6 +97,9 @@ final class diagram_tool_catalog_test extends \advanced_testcase {
         ]);
     }
 
+    /**
+     * Preset options come from the existing template registries.
+     */
     public function test_preset_options_use_existing_registries(): void {
         $this->assertArrayHasKey('butane_anti', diagram_tool_catalog::get_preset_options('newman'));
         $this->assertArrayHasKey('one_step_exergonic', diagram_tool_catalog::get_preset_options('reaction'));
@@ -92,6 +107,9 @@ final class diagram_tool_catalog_test extends \advanced_testcase {
         $this->assertSame([], diagram_tool_catalog::get_preset_options('molecule'));
     }
 
+    /**
+     * Card types map back to focused diagram tools.
+     */
     public function test_card_types_map_back_to_focused_tools(): void {
         $this->assertSame('molecule', diagram_tool_catalog::get_by_cardtype('smiles_to_structure')['id']);
         $this->assertSame('newman', diagram_tool_catalog::get_by_cardtype('newman_projection')['id']);
@@ -100,6 +118,9 @@ final class diagram_tool_catalog_test extends \advanced_testcase {
         $this->assertNull(diagram_tool_catalog::get_by_cardtype('reagent_card'));
     }
 
+    /**
+     * Preview presets match renderer-ready payload shapes.
+     */
     public function test_preview_presets_have_renderer_ready_shapes(): void {
         $newman = diagram_tool_catalog::get_preview_presets('newman');
         $this->assertSame(180, $newman['butane_anti']['rotation_degrees']);

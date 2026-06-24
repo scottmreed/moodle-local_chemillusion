@@ -22,7 +22,6 @@ use core_external\external_single_structure;
 use core_external\external_value;
 use local_chemillusion\cards\graphical_card_schema;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * AJAX endpoint: save or update a graphical chemistry card.

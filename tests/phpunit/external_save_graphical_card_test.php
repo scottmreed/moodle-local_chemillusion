@@ -36,6 +36,9 @@ final class external_save_graphical_card_test extends \advanced_testcase {
         $this->resetAfterTest();
     }
 
+    /**
+     * Test create newman card succeeds as editingteacher.
+     */
     public function test_create_newman_card_succeeds_as_editingteacher(): void {
         global $DB;
         $teacher = $this->getDataGenerator()->create_user();
@@ -70,6 +73,9 @@ final class external_save_graphical_card_test extends \advanced_testcase {
         $this->assertSame('newman_projection', $rec->cardtype);
     }
 
+    /**
+     * Test invalid frontjson throws.
+     */
     public function test_invalid_frontjson_throws(): void {
         $teacher = $this->getDataGenerator()->create_user();
         $this->getDataGenerator()->role_assign(
@@ -92,6 +98,9 @@ final class external_save_graphical_card_test extends \advanced_testcase {
         );
     }
 
+    /**
+     * Test student cannot create cards.
+     */
     public function test_student_cannot_create_cards(): void {
         $student = $this->getDataGenerator()->create_user();
         $this->setUser($student);

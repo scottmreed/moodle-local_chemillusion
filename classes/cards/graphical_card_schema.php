@@ -16,7 +16,6 @@
 
 namespace local_chemillusion\cards;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Validates graphical card JSON payloads before persistence.

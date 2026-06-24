@@ -26,7 +26,6 @@ namespace local_chemillusion\phpunit;
 
 use local_chemillusion\cards\orbital_template_registry;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Orbital template registry tests.
@@ -43,6 +42,9 @@ final class orbital_template_registry_test extends \advanced_testcase {
         $this->assertGreaterThanOrEqual(9, count($data), 'PRD requires 9 curated cases');
     }
 
+    /**
+     * Test each template has required fields.
+     */
     public function test_each_template_has_required_fields(): void {
         $templates = orbital_template_registry::get_all();
         foreach ($templates as $t) {
@@ -54,6 +56,9 @@ final class orbital_template_registry_test extends \advanced_testcase {
         }
     }
 
+    /**
+     * Test get known template.
+     */
     public function test_get_known_template(): void {
         $t = orbital_template_registry::get('ethene_pi_bond');
         $this->assertNotNull($t);
@@ -61,20 +66,32 @@ final class orbital_template_registry_test extends \advanced_testcase {
         $this->assertSame('curated', $t['confidence']);
     }
 
+    /**
+     * Test get unknown returns null.
+     */
     public function test_get_unknown_returns_null(): void {
         $this->assertNull(orbital_template_registry::get('not_a_real_template'));
     }
 
+    /**
+     * Test find by smiles ethene.
+     */
     public function test_find_by_smiles_ethene(): void {
         $t = orbital_template_registry::find_by_smiles('C=C');
         $this->assertNotNull($t);
         $this->assertSame('ethene_pi_bond', $t['id']);
     }
 
+    /**
+     * Test find by smiles unknown returns null.
+     */
     public function test_find_by_smiles_unknown_returns_null(): void {
         $this->assertNull(orbital_template_registry::find_by_smiles('CCCC'));
     }
 
+    /**
+     * Test asset path for known template with existing file.
+     */
     public function test_asset_path_for_known_template_with_existing_file(): void {
         // Only checks path validity for shipped SVG assets.
         $t = orbital_template_registry::get('ethene_pi_bond');

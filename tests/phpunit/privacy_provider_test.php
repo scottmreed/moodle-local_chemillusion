@@ -37,6 +37,9 @@ final class privacy_provider_test extends \advanced_testcase {
         $this->assertNotEmpty($collection->get_collection());
     }
 
+    /**
+     * Test metadata includes events table.
+     */
     public function test_metadata_includes_events_table(): void {
         $this->resetAfterTest();
         $collection = provider::get_metadata(new collection('local_chemillusion'));
@@ -49,6 +52,9 @@ final class privacy_provider_test extends \advanced_testcase {
         );
     }
 
+    /**
+     * Test metadata includes pubchem external location.
+     */
     public function test_metadata_includes_pubchem_external_location(): void {
         $this->resetAfterTest();
         $collection = provider::get_metadata(new collection('local_chemillusion'));
@@ -61,6 +67,9 @@ final class privacy_provider_test extends \advanced_testcase {
         );
     }
 
+    /**
+     * Test events create context for userid.
+     */
     public function test_events_create_context_for_userid(): void {
         global $DB;
         $this->resetAfterTest();
@@ -86,6 +95,9 @@ final class privacy_provider_test extends \advanced_testcase {
         );
     }
 
+    /**
+     * Test contexts export and delete.
+     */
     public function test_contexts_export_and_delete(): void {
         global $DB;
         $this->resetAfterTest();
@@ -132,6 +144,9 @@ final class privacy_provider_test extends \advanced_testcase {
         );
     }
 
+    /**
+     * Test delete user does not affect other users events.
+     */
     public function test_delete_user_does_not_affect_other_users_events(): void {
         global $DB;
         $this->resetAfterTest();
@@ -161,6 +176,9 @@ final class privacy_provider_test extends \advanced_testcase {
         );
     }
 
+    /**
+     * Test delete all users clears events.
+     */
     public function test_delete_all_users_clears_events(): void {
         global $DB;
         $this->resetAfterTest();
@@ -185,6 +203,9 @@ final class privacy_provider_test extends \advanced_testcase {
         );
     }
 
+    /**
+     * Test delete data for users bulk removes event rows.
+     */
     public function test_delete_data_for_users_bulk_removes_event_rows(): void {
         global $DB;
         $this->resetAfterTest();

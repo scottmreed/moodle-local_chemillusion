@@ -26,7 +26,6 @@ namespace local_chemillusion\phpunit;
 
 use local_chemillusion\cards\reaction_coordinate_template_registry;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Reaction coordinate template registry tests.
@@ -43,6 +42,9 @@ final class reaction_coordinate_template_registry_test extends \advanced_testcas
         $this->assertGreaterThanOrEqual(10, count($data), 'PRD requires 10 MVP templates');
     }
 
+    /**
+     * Test examples json is valid.
+     */
     public function test_examples_json_is_valid(): void {
         $path = __DIR__ . '/../../data/reaction_coordinate_examples.json';
         $this->assertFileExists($path);
@@ -51,6 +53,9 @@ final class reaction_coordinate_template_registry_test extends \advanced_testcas
         $this->assertIsArray($data);
     }
 
+    /**
+     * Test each template has required fields.
+     */
     public function test_each_template_has_required_fields(): void {
         $templates = reaction_coordinate_template_registry::get_all();
         foreach ($templates as $t) {
@@ -71,6 +76,9 @@ final class reaction_coordinate_template_registry_test extends \advanced_testcas
         }
     }
 
+    /**
+     * Test get sn1 profile.
+     */
     public function test_get_sn1_profile(): void {
         $t = reaction_coordinate_template_registry::get('sn1_profile');
         $this->assertNotNull($t);
@@ -80,6 +88,9 @@ final class reaction_coordinate_template_registry_test extends \advanced_testcas
         $this->assertContains('ts1', $ids);
     }
 
+    /**
+     * Test get sn2 profile single ts.
+     */
     public function test_get_sn2_profile_single_ts(): void {
         $t = reaction_coordinate_template_registry::get('sn2_profile');
         $this->assertNotNull($t);
@@ -88,6 +99,9 @@ final class reaction_coordinate_template_registry_test extends \advanced_testcas
         $this->assertNotContains('intermediate', $ids);
     }
 
+    /**
+     * Test default card data shape.
+     */
     public function test_default_card_data_shape(): void {
         $data = reaction_coordinate_template_registry::default_card_data('sn2_profile');
         $this->assertNotNull($data);

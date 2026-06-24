@@ -25,7 +25,6 @@ use core_privacy\local\request\writer;
 use context;
 use context_system;
 
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Privacy provider for local_chemillusion.

@@ -40,6 +40,9 @@ final class deck_repository_test extends \advanced_testcase {
         $this->assertTrue(deck_repository::can_view_deck($deck, $other->id, null, true));
     }
 
+    /**
+     * Test course deck requires matching course scope.
+     */
     public function test_course_deck_requires_matching_course_scope(): void {
         $this->resetAfterTest();
         $owner = $this->getDataGenerator()->create_user();
@@ -54,6 +57,9 @@ final class deck_repository_test extends \advanced_testcase {
         $this->assertFalse(deck_repository::can_view_deck($deck, 0));
     }
 
+    /**
+     * Test list decks without course does not leak course decks.
+     */
     public function test_list_decks_without_course_does_not_leak_course_decks(): void {
         $this->resetAfterTest();
         $owner = $this->getDataGenerator()->create_user();
@@ -70,6 +76,9 @@ final class deck_repository_test extends \advanced_testcase {
         $this->assertNotContains('Course deck', $names);
     }
 
+    /**
+     * Test unknown visibility is stored as private.
+     */
     public function test_unknown_visibility_is_stored_as_private(): void {
         $this->resetAfterTest();
         $owner = $this->getDataGenerator()->create_user();
