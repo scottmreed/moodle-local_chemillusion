@@ -21,7 +21,7 @@ the **release ZIP** produced by `scripts/package-plugin.sh`.
 
 ```bash
 scripts/update-rdkit-js.sh            # uses the version pinned in VERSION.txt
-scripts/update-rdkit-js.sh 2024.09.6  # or pin a specific version
+scripts/update-rdkit-js.sh 2024.3.5-1.0.0  # or pin a specific version
 ```
 
 ## Runtime contract

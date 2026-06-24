@@ -1,7 +1,7 @@
 RDKit.js (npm package @rdkit/rdkit)
-version: 2024.09.6
+version: 2024.3.5-1.0.0
 source: https://www.npmjs.com/package/@rdkit/rdkit
-cdn: https://unpkg.com/@rdkit/rdkit@2024.09.6/dist/
+cdn: https://unpkg.com/@rdkit/rdkit@2024.3.5-1.0.0/dist/
 license: BSD-3-Clause
 files:
   - RDKit_minimal.js   (fetched; not committed)

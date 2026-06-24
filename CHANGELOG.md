@@ -25,6 +25,7 @@ versioning convention (`version.php`).
 - `lookup_molecule` AJAX endpoint: `alt_types` return schema corrected from scalar to array.
 - All top-level page scripts now use plugin-relative `require_once(__DIR__ . '/../../config.php')` instead of fragile `$_SERVER['DOCUMENT_ROOT']` bootstrap.
 - Release packaging (`scripts/package-plugin.sh`) now fails hard when RDKit assets are missing; added `--without-rdkit` flag for local-only builds.
+- RDKit.js pin updated to npm version `2024.3.5-1.0.0` (previous `2024.09.6` URL returned 404 on unpkg).
 
 ## [0.1.0] - 2026-06-13
 

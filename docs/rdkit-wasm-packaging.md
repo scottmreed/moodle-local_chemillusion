@@ -26,7 +26,7 @@ The repository-root `thirdpartylibs.xml` declares the library to Moodle.
 
 ```bash
 scripts/update-rdkit-js.sh            # uses VERSION.txt
-scripts/update-rdkit-js.sh 2024.09.6  # pin a specific version
+scripts/update-rdkit-js.sh 2024.3.5-1.0.0  # pin a specific version
 ```
 
 When changing the version, update **both** `VERSION.txt` and `thirdpartylibs.xml`.
