@@ -20,8 +20,6 @@
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\cards\graphical_card_schema
- * @covers     \local_chemillusion\cards\card_type_registry
  */
 
 namespace local_chemillusion\phpunit;
@@ -33,8 +31,13 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Graphical card schema tests.
+ *
+ * @coversDefaultClass \local_chemillusion\cards\graphical_card_schema
  */
 final class card_schema_test extends \advanced_testcase {
+    /**
+     * @covers \local_chemillusion\cards\card_type_registry
+     */
     public function test_card_type_registry_json_is_valid(): void {
         $path = __DIR__ . '/../../data/card_type_registry.json';
         $this->assertFileExists($path);

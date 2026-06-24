@@ -24,7 +24,8 @@ use local_chemillusion\cards\card_generator;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\cards\card_generator
+ *
+ * @coversDefaultClass \local_chemillusion\cards\card_generator
  */
 final class card_generator_test extends \advanced_testcase {
     public function test_from_molecule(): void {

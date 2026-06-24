@@ -25,7 +25,8 @@ use local_chemillusion\security\signed_state;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\auth\account_linker
+ *
+ * @coversDefaultClass \local_chemillusion\auth\account_linker
  */
 final class account_linker_test extends \advanced_testcase {
     public function test_start_link_creates_pending_record(): void {

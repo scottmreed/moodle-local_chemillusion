@@ -67,7 +67,9 @@ if ($data = $form->get_data()) {
         $rendered = $output->render($card);
     } else {
         $rendered = $output->notification(
-            get_string('error_' . $result['error'], 'local_chemillusion'), 'warning');
+            get_string('error_' . $result['error'], 'local_chemillusion'),
+            'warning'
+        );
     }
 }
 

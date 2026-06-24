@@ -24,7 +24,8 @@ use local_chemillusion\cache\molecule_cache;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\cache\molecule_cache
+ *
+ * @coversDefaultClass \local_chemillusion\cache\molecule_cache
  */
 final class molecule_cache_test extends \advanced_testcase {
     public function test_set_and_get(): void {

@@ -27,7 +27,8 @@ use core_privacy\local\request\writer;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\privacy\provider
+ *
+ * @coversDefaultClass \local_chemillusion\privacy\provider
  */
 final class privacy_provider_test extends \advanced_testcase {
     public function test_get_metadata_is_populated(): void {
@@ -77,9 +78,10 @@ final class privacy_provider_test extends \advanced_testcase {
         ]);
 
         $contexts = provider::get_contexts_for_userid($user->id);
+        $contextids = array_map('intval', $contexts->get_contextids());
         $this->assertContains(
-            $system->id,
-            $contexts->get_contextids(),
+            (int) $system->id,
+            $contextids,
             'An event row with a userid must create a system context entry'
         );
     }
@@ -113,7 +115,8 @@ final class privacy_provider_test extends \advanced_testcase {
         ]);
 
         $contexts = provider::get_contexts_for_userid($user->id);
-        $this->assertContains($system->id, $contexts->get_contextids());
+        $contextids = array_map('intval', $contexts->get_contextids());
+        $this->assertContains((int) $system->id, $contextids);
 
         $approved = new approved_contextlist($user, 'local_chemillusion', [$system->id]);
         provider::export_user_data($approved);
@@ -202,7 +205,10 @@ final class privacy_provider_test extends \advanced_testcase {
         }
 
         $approveduserlist = new \core_privacy\local\request\approved_userlist(
-            $system, 'local_chemillusion', [$user1->id]);
+            $system,
+            'local_chemillusion',
+            [$user1->id]
+        );
         provider::delete_data_for_users($approveduserlist);
 
         $this->assertFalse(

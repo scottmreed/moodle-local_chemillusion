@@ -24,7 +24,8 @@ use local_chemillusion\api\pubchem_client;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\api\pubchem_client
+ *
+ * @coversDefaultClass \local_chemillusion\api\pubchem_client
  */
 final class pubchem_client_test extends \advanced_testcase {
     public function test_external_disabled_blocks_resolve(): void {

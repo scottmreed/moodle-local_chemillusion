@@ -20,7 +20,6 @@
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\cards\newman_template_registry
  */
 
 namespace local_chemillusion\phpunit;
@@ -31,6 +30,8 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Newman template registry tests.
+ *
+ * @coversDefaultClass \local_chemillusion\cards\newman_template_registry
  */
 final class newman_template_registry_test extends \advanced_testcase {
     public function test_json_is_valid(): void {

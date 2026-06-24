@@ -26,8 +26,9 @@ use local_chemillusion\external\save_graphical_card;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\external\save_graphical_card
  * @runTestsInSeparateProcesses
+ *
+ * @coversDefaultClass \local_chemillusion\external\save_graphical_card
  */
 final class external_save_graphical_card_test extends \advanced_testcase {
     protected function setUp(): void {
@@ -71,12 +72,12 @@ final class external_save_graphical_card_test extends \advanced_testcase {
 
     public function test_invalid_frontjson_throws(): void {
         $teacher = $this->getDataGenerator()->create_user();
-        $this->setUser($teacher);
-        $this->assignUserCapability(
-            'local/chemillusion:createcards',
-            \context_system::instance()->id,
-            $this->getDataGenerator()->create_role()
+        $this->getDataGenerator()->role_assign(
+            $this->getDataGenerator()->create_role(['archetype' => 'editingteacher']),
+            $teacher->id,
+            \context_system::instance()->id
         );
+        $this->setUser($teacher);
 
         $this->expectException(\invalid_parameter_exception::class);
         save_graphical_card::execute(

@@ -31,6 +31,8 @@ use local_chemillusion\form\graphical_card_form;
  * Exposes QuickForm for focused editor assertions.
  *
  * @package    local_chemillusion
+ *
+ * @coversDefaultClass \local_chemillusion\form\graphical_card_form
  */
 final class testable_graphical_card_form extends graphical_card_form {
     /**
@@ -49,7 +51,6 @@ final class testable_graphical_card_form extends graphical_card_form {
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\form\graphical_card_form
  */
 final class graphical_card_form_test extends \advanced_testcase {
     /**

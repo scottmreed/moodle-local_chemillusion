@@ -24,7 +24,8 @@ use local_chemillusion\cards\diagram_tool_catalog;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\cards\diagram_tool_catalog
+ *
+ * @coversDefaultClass \local_chemillusion\cards\diagram_tool_catalog
  */
 final class diagram_tool_catalog_test extends \advanced_testcase {
     public function test_catalog_has_four_tools_in_creation_order(): void {

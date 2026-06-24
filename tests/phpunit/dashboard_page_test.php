@@ -24,7 +24,8 @@ use local_chemillusion\output\dashboard_page;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\output\dashboard_page
+ *
+ * @coversDefaultClass \local_chemillusion\output\dashboard_page
  */
 final class dashboard_page_test extends \advanced_testcase {
     public function test_admin_sees_four_direct_diagram_tools(): void {

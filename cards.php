@@ -81,12 +81,14 @@ if ($deckid) {
         $PAGE->set_context($context);
     }
     $canmanage = has_capability('local/chemillusion:managedecks', $context);
-    if (!\local_chemillusion\cards\deck_repository::can_view_deck(
-        $deck,
-        $USER->id,
-        !empty($deck->courseid) ? (int) $deck->courseid : null,
-        $canmanage
-    )) {
+    if (
+        !\local_chemillusion\cards\deck_repository::can_view_deck(
+            $deck,
+            $USER->id,
+            !empty($deck->courseid) ? (int) $deck->courseid : null,
+            $canmanage
+        )
+    ) {
         throw new \required_capability_exception($context, 'local/chemillusion:view', 'nopermissions', '');
     }
     $cards = [];

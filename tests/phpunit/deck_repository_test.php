@@ -24,7 +24,8 @@ use local_chemillusion\cards\deck_repository;
  * @package    local_chemillusion
  * @copyright  2026 MolLogic / Scott Reed
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers     \local_chemillusion\cards\deck_repository
+ *
+ * @coversDefaultClass \local_chemillusion\cards\deck_repository
  */
 final class deck_repository_test extends \advanced_testcase {
     public function test_private_deck_is_visible_to_owner_only_unless_manager(): void {
