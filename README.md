@@ -14,6 +14,14 @@ workflows.
 > Moodle already has chemistry editors. Our wedge is RDKit-powered study tooling,
 > accessibility, account linking, and ChemIllusion visual/AI escalation.
 
+> **¿Hablas español?** Documentación en español disponible:
+> [`README.es.md`](README.es.md), [`docs/INSTALL.es.md`](docs/INSTALL.es.md),
+> [`docs/PRIVACY.es.md`](docs/PRIVACY.es.md),
+> [`docs/TEACHER_QUICKSTART.es.md`](docs/TEACHER_QUICKSTART.es.md) y el
+> [glosario de química](docs/i18n/spanish-chemistry-glossary.md). El complemento
+> muestra su interfaz en español cuando el idioma de Moodle es español
+> (`lang/es/local_chemillusion.php`).
+
 - **Component:** `local_chemillusion`
 - **Repository:** [github.com/scottmreed/moodle-local_chemillusion](https://github.com/scottmreed/moodle-local_chemillusion)
 - **License:** GPL-3.0-or-later (see `LICENSE`)
@@ -111,6 +119,7 @@ scripts/run-local-ci.sh        # lint + unit checks via moodle-plugin-ci (if ins
 - `docs/privacy-and-data-flow.md` — exact data flows.
 - `docs/release-checklist.md` — release steps.
 - `docs/moodle-directory-submission.md` — Moodle Plugins Directory notes.
+- **Español:** `README.es.md`, `docs/INSTALL.es.md`, `docs/PRIVACY.es.md`, `docs/TEACHER_QUICKSTART.es.md`, `docs/i18n/spanish-chemistry-glossary.md`.
 
 ---
 
